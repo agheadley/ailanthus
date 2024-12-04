@@ -9,6 +9,15 @@
     let create=async():Promise<void>=>{
     
     }
+
+    let updateTable=(type?:string):void=>{
+        console.log('UPDATE TYPE',type);
+        if(type==='MYSET') {
+            console.log('UPDATE ',cohorts.mySets.list[cohorts.mySets.index].g);
+        } else {
+            console.log('UPDATE ',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl);
+        }
+    };
     
     </script>
     
@@ -21,21 +30,21 @@
     <section>
         <div class="row">
             <div class="col">
-                <select>
+                <select bind:value={cohorts.nc.index} onchange={()=>updateTable()}>
                     {#each cohorts.nc.list as row,index}
-                    <option>{row.nc}</option>
+                    <option value={index}>{row.nc}</option>
                     {/each}
                 </select>
-                <select>
+                <select bind:value={cohorts.subject.index} onchange={()=>updateTable()}>
                     {#each cohorts.subject.list as row,index}
-                    <option>{row.sl} ({row.sc})</option>
+                    {#if row.nc===cohorts.nc.list[cohorts.nc.index].nc}
+                    <option value={index}>{row.sl} ({row.sc})</option>
+                    {/if}
                     {/each}
                 </select>
-            </div>
-            <div class="col">
-                <select>
+                <select bind:value={cohorts.mySets.index} onchange={()=>updateTable('MYSET')}>
                     {#each cohorts.mySets.list as row,index}
-                    <option>{row.g}</option>
+                    <option value={index}>{row.g}</option>
                     {/each}
                 </select>
                 

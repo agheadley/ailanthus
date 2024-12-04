@@ -9,7 +9,7 @@ export async function POST({request}) {
     const req = await request.json();
     
 
-    console.log('INSERT req',JSON.stringify(req));
+    //console.log('INSERT req',JSON.stringify(req));
     const { error } = await supabase
     .from(req.table)
     .insert(req.data)

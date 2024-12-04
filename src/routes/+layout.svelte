@@ -17,10 +17,9 @@
 			<a href="/assessments">Assessments</a>
 			<a href="/testbed">Testbed</a>
 			
-			<a href="/about">About</a>
 			<a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a>
 		  </nav>
-		  <p>{user.sal}&nbsp;&nbsp;<a href={'#'}>{@html icon.logout()}</a></p>
+		  <p>{user.pn} {user.sn}&nbsp;&nbsp;<a href={'#'}>{@html icon.logout()}</a></p>
 	  </header>
 	
 	  	<main>

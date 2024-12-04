@@ -7,7 +7,7 @@ import {user,config,cohorts} from '$lib/state.svelte';
 const getCore=async()=>{
 	let response = await fetch('/api/read', {
 		method: 'POST',
-		body: JSON.stringify({table:"group_table"}),
+		body: JSON.stringify({table:"group_table",eq:[]}),
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
@@ -25,9 +25,22 @@ const getCore=async()=>{
 
 	config.isReady = true;
 
+	
+	response = await fetch('/api/read', {
+		method: 'POST',
+		body: JSON.stringify({table:"teacher_table",eq:['tid',user.name]}),
+		headers: {'content-type': 'application/json'}
+	});
+	res= await response.json();
+	console.log('teachers : ',res);
+
+	
 	let gps = config.groups.flatMap(el=>el.teacher.map(t=>({tid:t.tid,sal:t.sal,g:el.g,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.ss})));
 	let f=gps.filter(el=>el.tid===user.name);
 	user.sal = f[0] ? f[0].sal : '';
+	user.pn = res[0] ? res[0].pn : '';
+	user.sn = res[0] ? res[0].sn : '';
+	
 
 	cohorts.mySets.index=0;
 	cohorts.mySets.list=f[0] ? f.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
