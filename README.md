@@ -66,8 +66,3 @@ create table group_table (
   nc int not null,
   dl text not null
 );
-
-new
-6741fa52d703adf80dd106f4
-old
-6741f7e9c6e2cccd58bb8efe
