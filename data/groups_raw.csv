@@ -1,0 +1,269 @@
+yr,lv,sc,ss,sl,g,g_nc,pn,sn,fn,sal,gnd,hse,tg,pupil_nc,type,pid,tid,mid
+2027,L,L,E,English,6/E/1,6,Hettie,Mills,Hettie,Hettie Mills,F,L,TM,6,pupil,12345,,37047345
+2027,L,L,G,Geography,6/G/2,6,Hettie,Mills,Hettie,Hettie Mills,F,L,TM,6,pupil,12345,,37047345
+2027,L,L,H,History,6/H/1,6,Hettie,Mills,Hettie,Hettie Mills,F,L,TM,6,pupil,12345,,37047345
+2027,L,L,M,Mathematics,6/M/1,6,Hettie,Mills,Hettie,Hettie Mills,F,L,TM,6,pupil,12345,,37047345
+2027,L,L,E,English,6/E/1,6,Amelia,Snyder,Amelia,Amelia Snyder,F,A,TM,6,pupil,12346,,37050345
+2027,L,L,G,Geography,6/G/2,6,Amelia,Snyder,Amelia,Amelia Snyder,F,A,TM,6,pupil,12346,,37050345
+2027,L,L,H,History,6/H/1,6,Amelia,Snyder,Amelia,Amelia Snyder,F,A,TM,6,pupil,12346,,37050345
+2027,L,L,M,Mathematics,6/M/1,6,Amelia,Snyder,Amelia,Amelia Snyder,F,A,TM,6,pupil,12346,,37050345
+2027,L,L,E,English,6/E/1,6,Winifred,Mendoza,Winifred,Winifred Mendoza,F,L,TM,6,pupil,12347,,37053345
+2027,L,L,G,Geography,6/G/2,6,Winifred,Mendoza,Winifred,Winifred Mendoza,F,L,TM,6,pupil,12347,,37053345
+2027,L,L,H,History,6/H/1,6,Winifred,Mendoza,Winifred,Winifred Mendoza,F,L,TM,6,pupil,12347,,37053345
+2027,L,L,M,Mathematics,6/M/1,6,Winifred,Mendoza,Winifred,Winifred Mendoza,F,L,TM,6,pupil,12347,,37053345
+2027,L,L,E,English,6/E/1,6,Agnes,Fields,Agnes,Agnes Fields,F,A,TM,6,pupil,12348,,37056345
+2027,L,L,G,Geography,6/G/2,6,Agnes,Fields,Agnes,Agnes Fields,F,A,TM,6,pupil,12348,,37056345
+2027,L,L,H,History,6/H/1,6,Agnes,Fields,Agnes,Agnes Fields,F,A,TM,6,pupil,12348,,37056345
+2027,L,L,M,Mathematics,6/M/1,6,Agnes,Fields,Agnes,Agnes Fields,F,A,TM,6,pupil,12348,,37056345
+2027,L,L,E,English,6/E/1,6,Edith,Hopkins,Edith,Edith Hopkins,F,L,TM,6,pupil,12349,,37059345
+2027,L,L,G,Geography,6/G/2,6,Edith,Hopkins,Edith,Edith Hopkins,F,L,TM,6,pupil,12349,,37059345
+2027,L,L,H,History,6/H/1,6,Edith,Hopkins,Edith,Edith Hopkins,F,L,TM,6,pupil,12349,,37059345
+2027,L,L,M,Mathematics,6/M/1,6,Edith,Hopkins,Edith,Edith Hopkins,F,L,TM,6,pupil,12349,,37059345
+2027,L,L,E,English,6/E/1,6,Logan,Walsh,Logan,Logan Walsh,M,P,TM,6,pupil,12350,,37062345
+2027,L,L,G,Geography,6/G/2,6,Justin,Jimenez,Justin,Justin Jimenez,M,S,TM,6,pupil,12351,,37065345
+2027,L,L,H,History,6/H/1,6,Luca,Carr,Luca,Luca Carr,M,P,TM,6,pupil,12352,,37068345
+2027,L,L,M,Mathematics,6/M/1,6,Charles,Pratt,Charles,Charles Pratt,M,S,TM,6,pupil,12353,,37071345
+2027,L,L,E,English,6/E/1,6,Joseph,Sullivan,Joseph,Joseph Sullivan,M,P,TM,6,pupil,12354,,37074345
+2026,L,L,E,English,7/E/1,7,Rachel,Ward,Rachel,Rachel Ward,F,A,RH,7,pupil,12355,,37077345
+2026,L,L,G,Geography,7/G/2,7,Rachel,Ward,Rachel,Rachel Ward,F,A,RH,7,pupil,12355,,37077345
+2026,L,L,H,History,7/H/3,7,Rachel,Ward,Rachel,Rachel Ward,F,A,RH,7,pupil,12355,,37077345
+2026,L,L,M,Mathematics,7/M/1,7,Rachel,Ward,Rachel,Rachel Ward,F,A,RH,7,pupil,12355,,37077345
+2026,L,L,E,English,7/E/1,7,Claudia,Swanson,Claudia,Claudia Swanson,F,L,RH,7,pupil,12356,,37080345
+2026,L,L,G,Geography,7/G/2,7,Claudia,Swanson,Claudia,Claudia Swanson,F,L,RH,7,pupil,12356,,37080345
+2026,L,L,H,History,7/H/3,7,Claudia,Swanson,Claudia,Claudia Swanson,F,L,RH,7,pupil,12356,,37080345
+2026,L,L,M,Mathematics,7/M/1,7,Claudia,Swanson,Claudia,Claudia Swanson,F,L,RH,7,pupil,12356,,37080345
+2026,L,L,E,English,7/E/1,7,Claire,Dixon,Claire,Claire Dixon,F,A,RH,7,pupil,12357,,37083345
+2026,L,L,G,Geography,7/G/2,7,Claire,Dixon,Claire,Claire Dixon,F,A,RH,7,pupil,12357,,37083345
+2026,L,L,H,History,7/H/3,7,Claire,Dixon,Claire,Claire Dixon,F,A,RH,7,pupil,12357,,37083345
+2026,L,L,M,Mathematics,7/M/1,7,Claire,Dixon,Claire,Claire Dixon,F,A,RH,7,pupil,12357,,37083345
+2026,L,L,E,English,7/E/1,7,Leah,Campbell,Leah,Leah Campbell,F,L,RH,7,pupil,12358,,37086345
+2026,L,L,G,Geography,7/G/2,7,Leah,Campbell,Leah,Leah Campbell,F,L,RH,7,pupil,12358,,37086345
+2026,L,L,H,History,7/H/3,7,Leah,Campbell,Leah,Leah Campbell,F,L,RH,7,pupil,12358,,37086345
+2026,L,L,M,Mathematics,7/M/1,7,Leah,Campbell,Leah,Leah Campbell,F,L,RH,7,pupil,12358,,37086345
+2026,L,L,E,English,7/E/1,7,Michael,Perry,Michael,Michael Perry,M,S,RH,7,pupil,12359,,37089345
+2026,L,L,G,Geography,7/G/2,7,David,Castillo,David,David Castillo,M,P,RH,7,pupil,12360,,37092345
+2026,L,L,H,History,7/H/3,7,Paul,Becker,Paul,Paul Becker,M,S,RH,7,pupil,12361,,37095345
+2026,L,L,M,Mathematics,7/M/1,7,Harry,Pena,Harry,Harry Pena,M,P,RH,7,pupil,12362,,37098345
+2026,L,L,E,English,7/E/1,7,Alexander,Lawrence,Alexander,Alexander Lawrence,M,S,RH,7,pupil,12363,,37101345
+2025,L,L,E,English,8/E/1,8,Nora,Meyer,Nora,Nora Meyer,F,A,ES,8,pupil,12364,,37104345
+2025,L,L,G,Geography,8/G/3,8,Nora,Meyer,Nora,Nora Meyer,F,A,ES,8,pupil,12364,,37104345
+2025,L,L,H,History,8/H/4,8,Nora,Meyer,Nora,Nora Meyer,F,A,ES,8,pupil,12364,,37104345
+2025,L,L,M,Mathematics,8/M/5,8,Nora,Meyer,Nora,Nora Meyer,F,A,ES,8,pupil,12364,,37104345
+2025,L,L,E,English,8/E/1,8,Marla,Spencer,Marla,Marla Spencer,F,L,ES,8,pupil,12365,,37107345
+2025,L,L,G,Geography,8/G/3,8,Marla,Spencer,Marla,Marla Spencer,F,L,ES,8,pupil,12365,,37107345
+2025,L,L,H,History,8/H/4,8,Marla,Spencer,Marla,Marla Spencer,F,L,ES,8,pupil,12365,,37107345
+2025,L,L,M,Mathematics,8/M/5,8,Marla,Spencer,Marla,Marla Spencer,F,L,ES,8,pupil,12365,,37107345
+2025,L,L,E,English,8/E/1,8,Jasmine,Stephens,Jasmine,Jasmine Stephens,F,A,ES,8,pupil,12366,,37110345
+2025,L,L,G,Geography,8/G/3,8,Jasmine,Stephens,Jasmine,Jasmine Stephens,F,A,ES,8,pupil,12366,,37110345
+2025,L,L,H,History,8/H/4,8,Jasmine,Stephens,Jasmine,Jasmine Stephens,F,A,ES,8,pupil,12366,,37110345
+2025,L,L,M,Mathematics,8/M/5,8,Jasmine,Stephens,Jasmine,Jasmine Stephens,F,A,ES,8,pupil,12366,,37110345
+2025,L,L,E,English,8/E/1,8,Louisa,Harris,Louisa,Louisa Harris,F,L,ES,8,pupil,12367,,37113345
+2025,L,L,G,Geography,8/G/3,8,Louisa,Harris,Louisa,Louisa Harris,F,L,ES,8,pupil,12367,,37113345
+2025,L,L,H,History,8/H/4,8,Louisa,Harris,Louisa,Louisa Harris,F,L,ES,8,pupil,12367,,37113345
+2025,L,L,M,Mathematics,8/M/5,8,Louisa,Harris,Louisa,Louisa Harris,F,L,ES,8,pupil,12367,,37113345
+2025,L,L,E,English,8/E/1,8,Cyril,Ingram,Cyril,Cyril Ingram,M,P,ES,8,pupil,12368,,37116345
+2025,L,L,G,Geography,8/G/3,8,Edward,Snyder,Edward,Edward Snyder,M,S,ES,8,pupil,12369,,37119345
+2025,L,L,H,History,8/H/4,8,Charlie,Cruz,Charlie,Charlie Cruz,M,P,ES,8,pupil,12370,,37122345
+2025,L,L,M,Mathematics,8/M/5,8,Matthew,Reid,Matthew,Matthew Reid,M,S,ES,8,pupil,12371,,37125345
+2025,L,L,E,English,8/E/1,8,Seth,Cummings,Seth,Seth Cummings,M,P,ES,8,pupil,12372,,37128345
+2025,L,L,G,Geography,8/G/3,8,Alvin,Harrington,Alvin,Alvin Harrington,M,S,ES,8,pupil,12373,,37131345
+2025,L,L,H,History,8/H/4,8,Edwin,Hunter,Edwin,Edwin Hunter,M,P,ES,8,pupil,12374,,37134345
+2027,M,G,M,Mathematics,9/M/1,9,Loretta,Thomas,Loretta,Loretta Thomas,F,B,JT,9,pupil,12375,,37137345
+2027,M,G,C,Chemistry,9/C/1,9,Loretta,Thomas,Loretta,Loretta Thomas,F,B,JT,9,pupil,12375,,37137345
+2027,M,G,E,English,9/E/2,9,Loretta,Thomas,Loretta,Loretta Thomas,F,B,JT,9,pupil,12375,,37137345
+2027,M,G,M,Mathematics,9/M/1,9,Genevieve,Norris,Genevieve,Genevieve Norris,F,St,JT,9,pupil,12376,,37140345
+2027,M,G,C,Chemistry,9/C/2,9,Genevieve,Norris,Genevieve,Genevieve Norris,F,St,JT,9,pupil,12376,,37140345
+2027,M,G,E,English,9/E/2,9,Genevieve,Norris,Genevieve,Genevieve Norris,F,St,JT,9,pupil,12376,,37140345
+2027,M,G,M,Mathematics,9/M/1,9,Padma,Hardy,Padma,Padma Hardy,F,R,JT,9,pupil,12377,,37143345
+2027,M,G,C,Chemistry,9/C/1,9,Padma,Hardy,Padma,Padma Hardy,F,R,JT,9,pupil,12377,,37143345
+2027,M,G,E,English,9/E/2,9,Padma,Hardy,Padma,Padma Hardy,F,R,JT,9,pupil,12377,,37143345
+2027,M,G,M,Mathematics,9/M/3,9,Gina,Rivera,Gina,Gina Rivera,F,B,JT,9,pupil,12378,,37146345
+2027,M,G,C,Chemistry,9/C/2,9,Gina,Rivera,Gina,Gina Rivera,F,B,JT,9,pupil,12378,,37146345
+2027,M,G,E,English,9/E/2,9,Gina,Rivera,Gina,Gina Rivera,F,B,JT,9,pupil,12378,,37146345
+2027,M,G,M,Mathematics,9/M/3,9,Lois,Wallace,Lois,Lois Wallace,F,St,JT,9,pupil,12379,,37149345
+2027,M,G,C,Chemistry,9/C/1,9,Lois,Wallace,Lois,Lois Wallace,F,St,JT,9,pupil,12379,,37149345
+2027,M,G,E,English,9/E/2,9,Lois,Wallace,Lois,Lois Wallace,F,St,JT,9,pupil,12379,,37149345
+2027,M,G,M,Mathematics,9/M/3,9,Jashna,Little,Jashna,Jashna Little,F,R,JT,9,pupil,12380,,37152345
+2027,M,G,C,Chemistry,9/C/2,9,Jashna,Little,Jashna,Jashna Little,F,R,JT,9,pupil,12380,,37152345
+2027,M,G,E,English,9/E/2,9,Jashna,Little,Jashna,Jashna Little,F,R,JT,9,pupil,12380,,37152345
+2027,M,G,C,Chemistry,9/C/1,9,Willy,Garza,Willy,Willy Garza,M,C,JT,9,pupil,12381,,37155345
+2027,M,G,C,Chemistry,9/C/2,9,Adrian,Sparks,Adrian,Adrian Sparks,M,H,JT,9,pupil,12382,,37158345
+2027,M,G,E,English,9/E/2,9,Phillip,Morton,Phillip,Phillip Morton,M,W,AH,9,pupil,12383,,37161345
+2027,M,G,M,Mathematics,9/M/1,9,Anthony,Mendoza,Anthony,Anthony Mendoza,M,C,AH,9,pupil,12384,,37164345
+2027,M,G,M,Mathematics,9/M/3,9,Neil,Rose,Neil,Neil Rose,M,H,AH,9,pupil,12385,,37167345
+2027,M,G,C,Chemistry,9/C/1,9,Clayton,Watts,Clayton,Clayton Watts,M,W,AH,9,pupil,12386,,37170345
+2027,M,G,C,Chemistry,9/C/2,9,Thomas,Jackson,Thomas,Thomas Jackson,M,C,AH,9,pupil,12387,,37173345
+2027,M,G,E,English,9/E/2,9,Aaron,Cohen,Aaron,Aaron Cohen,M,H,AH,9,pupil,12388,,37176345
+2026,M,G,E,English,10/E/1,10,Tilly,Lucas,Tilly,Tilly Lucas,F,B,DB,10,pupil,12389,,37179345
+2026,M,G,E,English,10/E/1,10,Mayme,Allison,Mayme,Mayme Allison,F,St,DB,10,pupil,12390,,37182345
+2026,M,G,E,English,10/E/1,10,Virginia,Manning,Virginia,Virginia Manning,F,R,DB,10,pupil,12391,,37185345
+2026,M,G,E,English,10/E/1,10,Toni,Porter,Toni,Toni Porter,F,B,DB,10,pupil,12392,,37188345
+2026,M,G,E,English,10/E/1,10,Louise,Morales,Louise,Louise Morales,F,St,DB,10,pupil,12393,,37191345
+2026,M,G,E,English,10/E/1,10,Beth,Hogan,Beth,Beth Hogan,F,R,DB,10,pupil,12394,,37194345
+2026,M,G,E,English,10/E/1,10,Kara,Douglas,Kara,Kara Douglas,F,B,DB,10,pupil,12395,,37197345
+2026,M,G,E,English,10/E/1,10,Jess,Phillips,Jess,Jess Phillips,F,St,DB,10,pupil,12396,,37200345
+2026,M,G,E,English,10/E/1,10,Adeline,Bryant,Adeline,Adeline Bryant,F,R,DB,10,pupil,12397,,37203345
+2026,M,G,E,English,10/E/1,10,Phillipa,Warren,Phillipa,Phillipa Warren,F,B,DB,10,pupil,12398,,37206345
+2026,M,G,E,English,10/E/1,10,Lucy,Rhodes,Lucy,Lucy Rhodes,F,St,OE,10,pupil,12399,,37209345
+2026,M,G,E,English,10/E/1,10,Bess,Berry,Bess,Bess Berry,F,R,OE,10,pupil,12400,,37212345
+2026,M,G,E,English,10/E/1,10,Willa,Wade,Willa,Willa Wade,F,B,OE,10,pupil,12401,,37215345
+2026,M,G,E,English,10/E/1,10,Georgie,Kelly,Georgie,Georgie Kelly,F,St,OE,10,pupil,12402,,37218345
+2026,M,G,E,English,10/E/1,10,Ellen,Thornton,Ellen,Ellen Thornton,F,R,OE,10,pupil,12403,,37221345
+2026,M,G,E,English,10/E/1,10,Freddy,Floyd,Freddy,Freddy Floyd,M,W,OE,10,pupil,12404,,37224345
+2026,M,G,E,English,10/E/1,10,Simon,Henry,Simon,Simon Henry,M,C,OE,10,pupil,12405,,37227345
+2026,M,G,E,English,10/E/1,10,Scott,Little,Scott,Scott Little,M,H,OE,10,pupil,12406,,37230345
+2026,M,G,E,English,10/E/1,10,Matthew,Castro,Matthew,Matthew Castro,M,W,OE,10,pupil,12407,,37233345
+2026,M,G,G,Geography,10/G/1,10,Tilly,Lucas,Tilly,Tilly Lucas,F,B,DB,10,pupil,12389,,37179345
+2026,M,G,G,Geography,10/G/1,10,Mayme,Allison,Mayme,Mayme Allison,F,St,DB,10,pupil,12390,,37182345
+2026,M,G,G,Geography,10/G/2,10,Virginia,Manning,Virginia,Virginia Manning,F,R,DB,10,pupil,12391,,37185345
+2026,M,G,G,Geography,10/G/2,10,Toni,Porter,Toni,Toni Porter,F,B,DB,10,pupil,12392,,37188345
+2026,M,G,G,Geography,10/G/1,10,Louise,Morales,Louise,Louise Morales,F,St,DB,10,pupil,12393,,37191345
+2026,M,G,G,Geography,10/G/1,10,Beth,Hogan,Beth,Beth Hogan,F,R,DB,10,pupil,12394,,37194345
+2026,M,G,G,Geography,10/G/2,10,Kara,Douglas,Kara,Kara Douglas,F,B,DB,10,pupil,12395,,37197345
+2026,M,G,G,Geography,10/G/2,10,Jess,Phillips,Jess,Jess Phillips,F,St,DB,10,pupil,12396,,37200345
+2026,M,G,G,Geography,10/G/1,10,Adeline,Bryant,Adeline,Adeline Bryant,F,R,DB,10,pupil,12397,,37203345
+2026,M,G,G,Geography,10/G/1,10,Phillipa,Warren,Phillipa,Phillipa Warren,F,B,DB,10,pupil,12398,,37206345
+2026,M,G,G,Geography,10/G/2,10,Lucy,Rhodes,Lucy,Lucy Rhodes,F,St,OE,10,pupil,12399,,37209345
+2026,M,G,G,Geography,10/G/2,10,Bess,Berry,Bess,Bess Berry,F,R,OE,10,pupil,12400,,37212345
+2026,M,G,G,Geography,10/G/1,10,Willa,Wade,Willa,Willa Wade,F,B,OE,10,pupil,12401,,37215345
+2026,M,G,G,Geography,10/G/1,10,Georgie,Kelly,Georgie,Georgie Kelly,F,St,OE,10,pupil,12402,,37218345
+2026,M,G,G,Geography,10/G/2,10,Ellen,Thornton,Ellen,Ellen Thornton,F,R,OE,10,pupil,12403,,37221345
+2026,M,G,G,Geography,10/G/2,10,Freddy,Floyd,Freddy,Freddy Floyd,M,W,OE,10,pupil,12404,,37224345
+2026,M,G,G,Geography,10/G/1,10,Simon,Henry,Simon,Simon Henry,M,C,OE,10,pupil,12405,,37227345
+2026,M,G,G,Geography,10/G/1,10,Scott,Little,Scott,Scott Little,M,H,OE,10,pupil,12406,,37230345
+2026,M,G,G,Geography,10/G/2,10,Matthew,Castro,Matthew,Matthew Castro,M,W,OE,10,pupil,12407,,37233345
+2026,M,G,H,History,10/H/1,10,Tilly,Lucas,Tilly,Tilly Lucas,F,B,DB,10,pupil,12389,,37179345
+2026,M,G,H,History,10/H/2,10,Mayme,Allison,Mayme,Mayme Allison,F,St,DB,10,pupil,12390,,37182345
+2026,M,G,H,History,10/H/1,10,Virginia,Manning,Virginia,Virginia Manning,F,R,DB,10,pupil,12391,,37185345
+2026,M,G,H,History,10/H/2,10,Toni,Porter,Toni,Toni Porter,F,B,DB,10,pupil,12392,,37188345
+2026,M,G,H,History,10/H/1,10,Louise,Morales,Louise,Louise Morales,F,St,DB,10,pupil,12393,,37191345
+2026,M,G,H,History,10/H/2,10,Beth,Hogan,Beth,Beth Hogan,F,R,DB,10,pupil,12394,,37194345
+2026,M,G,H,History,10/H/1,10,Kara,Douglas,Kara,Kara Douglas,F,B,DB,10,pupil,12395,,37197345
+2026,M,G,H,History,10/H/2,10,Jess,Phillips,Jess,Jess Phillips,F,St,DB,10,pupil,12396,,37200345
+2026,M,G,H,History,10/H/1,10,Adeline,Bryant,Adeline,Adeline Bryant,F,R,DB,10,pupil,12397,,37203345
+2026,M,G,H,History,10/H/2,10,Phillipa,Warren,Phillipa,Phillipa Warren,F,B,DB,10,pupil,12398,,37206345
+2026,M,G,H,History,10/H/1,10,Lucy,Rhodes,Lucy,Lucy Rhodes,F,St,OE,10,pupil,12399,,37209345
+2026,M,G,H,History,10/H/2,10,Bess,Berry,Bess,Bess Berry,F,R,OE,10,pupil,12400,,37212345
+2026,M,G,H,History,10/H/1,10,Willa,Wade,Willa,Willa Wade,F,B,OE,10,pupil,12401,,37215345
+2026,M,G,H,History,10/H/2,10,Georgie,Kelly,Georgie,Georgie Kelly,F,St,OE,10,pupil,12402,,37218345
+2026,M,G,H,History,10/H/1,10,Ellen,Thornton,Ellen,Ellen Thornton,F,R,OE,10,pupil,12403,,37221345
+2026,M,G,H,History,10/H/2,10,Freddy,Floyd,Freddy,Freddy Floyd,M,W,OE,10,pupil,12404,,37224345
+2026,M,G,H,History,10/H/1,10,Simon,Henry,Simon,Simon Henry,M,C,OE,10,pupil,12405,,37227345
+2026,M,G,H,History,10/H/2,10,Scott,Little,Scott,Scott Little,M,H,OE,10,pupil,12406,,37230345
+2026,M,G,H,History,10/H/1,10,Matthew,Castro,Matthew,Matthew Castro,M,W,OE,10,pupil,12407,,37233345
+2025,M,G,B,Biology,11/B/1,11,Ruby,Simpson,Ruby,Ruby Simpson,F,B,IC,11,pupil,12408,,37236345
+2025,M,G,B,Biology,11/B/1,11,Roberta,Nichols,Roberta,Roberta Nichols,F,St,IC,11,pupil,12409,,37239345
+2025,M,G,B,Biology,11/B/2,11,Ola,Valdez,Ola,Ola Valdez,F,R,IC,11,pupil,12410,,37242345
+2025,M,G,B,Biology,11/B/2,11,Joseph,McBride,Joseph,Joseph McBride,M,C,IC,11,pupil,12411,,37245345
+2025,M,G,B,Biology,11/B/1,11,Mark,Alvarez,Mark,Mark Alvarez,M,H,IC,11,pupil,12412,,37248345
+2025,M,G,B,Biology,11/B/1,11,Stephen,Sutton,Stephen,Stephen Sutton,M,W,IC,11,pupil,12413,,37251345
+2025,M,G,B,Biology,11/B/2,11,Geoffrey,Huff,Geoffrey,Geoffrey Huff,M,C,IC,11,pupil,12414,,37254345
+2025,M,G,B,Biology,11/B/2,11,Peter,Romero,Peter,Peter Romero,M,H,IC,11,pupil,12415,,37257345
+2025,M,G,B,Biology,11/B/1,11,Tom,Larson,Tom,Tom Larson,M,W,IC,11,pupil,12416,,37260345
+2025,M,G,C,Chemistry,11/C/1,11,Ruby,Simpson,Ruby,Ruby Simpson,F,B,IC,11,pupil,12408,,37236345
+2025,M,G,C,Chemistry,11/C/1,11,Roberta,Nichols,Roberta,Roberta Nichols,F,St,IC,11,pupil,12409,,37239345
+2025,M,G,C,Chemistry,11/C/1,11,Ola,Valdez,Ola,Ola Valdez,F,R,IC,11,pupil,12410,,37242345
+2025,M,G,C,Chemistry,11/C/1,11,Joseph,McBride,Joseph,Joseph McBride,M,C,IC,11,pupil,12411,,37245345
+2025,M,G,C,Chemistry,11/C/1,11,Mark,Alvarez,Mark,Mark Alvarez,M,H,IC,11,pupil,12412,,37248345
+2025,M,G,C,Chemistry,11/C/1,11,Stephen,Sutton,Stephen,Stephen Sutton,M,W,IC,11,pupil,12413,,37251345
+2025,M,G,C,Chemistry,11/C/1,11,Geoffrey,Huff,Geoffrey,Geoffrey Huff,M,C,IC,11,pupil,12414,,37254345
+2025,M,G,C,Chemistry,11/C/1,11,Peter,Romero,Peter,Peter Romero,M,H,IC,11,pupil,12415,,37257345
+2025,M,G,C,Chemistry,11/C/1,11,Tom,Larson,Tom,Tom Larson,M,W,IC,11,pupil,12416,,37260345
+2025,M,G,M,Mathematics,11/M/1,11,Ruby,Simpson,Ruby,Ruby Simpson,F,B,IC,11,pupil,12408,,37236345
+2025,M,G,M,Mathematics,11/M/1,11,Roberta,Nichols,Roberta,Roberta Nichols,F,St,IC,11,pupil,12409,,37239345
+2025,M,G,M,Mathematics,11/M/1,11,Ola,Valdez,Ola,Ola Valdez,F,R,IC,11,pupil,12410,,37242345
+2025,M,G,M,Mathematics,11/M/1,11,Joseph,McBride,Joseph,Joseph McBride,M,C,IC,11,pupil,12411,,37245345
+2025,M,G,M,Mathematics,11/M/1,11,Mark,Alvarez,Mark,Mark Alvarez,M,H,IC,11,pupil,12412,,37248345
+2025,M,G,M,Mathematics,11/M/1,11,Stephen,Sutton,Stephen,Stephen Sutton,M,W,IC,11,pupil,12413,,37251345
+2025,M,G,M,Mathematics,11/M/1,11,Geoffrey,Huff,Geoffrey,Geoffrey Huff,M,C,IC,11,pupil,12414,,37254345
+2025,M,G,M,Mathematics,11/M/1,11,Peter,Romero,Peter,Peter Romero,M,H,IC,11,pupil,12415,,37257345
+2025,M,G,M,Mathematics,11/M/1,11,Tom,Larson,Tom,Tom Larson,M,W,IC,11,pupil,12416,,37260345
+2025,M,G,P,Physics,11/P/2,11,Roberta,Nichols,Roberta,Roberta Nichols,F,St,IC,11,pupil,12409,,37239345
+2025,M,G,P,Physics,11/P/2,11,Ola,Valdez,Ola,Ola Valdez,F,R,IC,11,pupil,12410,,37242345
+2025,M,G,P,Physics,11/P/2,11,Joseph,McBride,Joseph,Joseph McBride,M,C,IC,11,pupil,12411,,37245345
+2025,M,G,P,Physics,11/P/2,11,Mark,Alvarez,Mark,Mark Alvarez,M,H,IC,11,pupil,12412,,37248345
+2025,M,G,P,Physics,11/P/2,11,Stephen,Sutton,Stephen,Stephen Sutton,M,W,IC,11,pupil,12413,,37251345
+2025,M,G,P,Physics,11/P/2,11,Geoffrey,Huff,Geoffrey,Geoffrey Huff,M,C,IC,11,pupil,12414,,37254345
+2025,M,G,P,Physics,11/P/2,11,Peter,Romero,Peter,Peter Romero,M,H,IC,11,pupil,12415,,37257345
+2025,M,G,P,Physics,11/P/2,11,Tom,Larson,Tom,Tom Larson,M,W,IC,11,pupil,12416,,37260345
+2026,U,B,BM,Business Management,12/BM/A,12,Louise,Wilkins,Louise,Louise Wilkins,F,RH,HK,12,pupil,12417,,37263345
+2026,U,B,BM,Business Management,12/BM/A,12,Tina,Roberts,Tina,Tina Roberts,F,RH,HK,12,pupil,12418,,37266345
+2026,U,A,C,Chemistry,12/C/D,12,Effie,Lambert,Effie,Effie Lambert,F,RH,HK,12,pupil,12419,,37269345
+2026,U,A,C,Chemistry,12/C/D,12,Daisy,Joseph,Daisy,Daisy Joseph,F,RH,HK,12,pupil,12420,,37272345
+2026,U,A,C,Chemistry,12/C/D,12,Barry,Reyes,Barry,Barry Reyes,F,RH,HK,12,pupil,12421,,37275345
+2026,U,I,Ch,Chemistry (HL),12/Ch/D,12,Jesus,Hoffman,Jesus,Jesus Hoffman,M,SH,HK,12,pupil,12422,,37278345
+2026,U,I,Ch,Chemistry (HL),12/Ch/D,12,Clifford,Griffin,Clifford,Clifford Griffin,M,SH,HK,12,pupil,12423,,37281345
+2026,U,I,Gs,Geography (SL),12/Gs/E,12,Jesus,Hoffman,Jesus,Jesus Hoffman,M,SH,HK,12,pupil,12422,,37278345
+2026,U,I,Gs,Geography (SL),12/Gs/E,12,Clifford,Griffin,Clifford,Clifford Griffin,M,SH,HK,12,pupil,12423,,37281345
+2026,U,I,Gs,Geography (SL),12/Gs/E,12,Mamie,Wright,Mamie,Mamie Wright,F,RH,RW,13,pupil,12424,,37284345
+2026,U,A,M,Mathematics,12/M/B,12,Effie,Lambert,Effie,Effie Lambert,F,RH,HK,12,pupil,12419,,37269345
+2026,U,A,M,Mathematics,12/M/B,12,Daisy,Joseph,Daisy,Daisy Joseph,F,RH,HK,12,pupil,12420,,37272345
+2026,U,A,M,Mathematics,12/M/B,12,Barry,Reyes,Barry,Barry Reyes,F,RH,HK,12,pupil,12421,,37275345
+2026,U,A,P,Physics,12/P/A,12,Jesus,Hoffman,Jesus,Jesus Hoffman,M,SH,HK,12,pupil,12422,,37278345
+2026,U,A,P,Physics,12/P/A,12,Clifford,Griffin,Clifford,Clifford Griffin,M,SH,HK,12,pupil,12423,,37281345
+2026,U,A,P,Physics,12/P/A,12,Daisy,Joseph,Daisy,Daisy Joseph,F,RH,HK,12,pupil,12420,,37272345
+2026,U,A,M,Mathematics,12/M/B,12,Franklin,Vaughn,Franklin,Franklin Vaughn,M,SH,AC,13,pupil,12433,,37311345
+2025,U,I,Spis,Sapnish ab initio (SL),13/Spis/A,13,Mamie,Wright,Mamie,Mamie Wright,F,RH,RW,13,pupil,12424,,37284345
+2025,U,I,Spis,Sapnish ab initio (SL),13/Spis/A,13,Bethany,Medina,Bethany,Bethany Medina,F,RH,RW,13,pupil,12425,,37287345
+2025,U,I,Spis,Sapnish ab initio (SL),13/Spis/A,13,Harriett,Bass,Harriett,Harriett Bass,F,RH,RW,13,pupil,12426,,37290345
+2025,U,A,B,Biology,13/B/B,13,Sarah,Hall,Sarah,Sarah Hall,F,RH,RW,13,pupil,12427,,37293345
+2025,U,A,B,Biology,13/B/B,13,Allie,Mullins,Allie,Allie Mullins,F,RH,RW,13,pupil,12428,,37296345
+2025,U,A,Eli,English Literature,13/Eli/E,13,Larry,Francis,Larry,Larry Francis,M,SH,AC,13,pupil,12429,,37299345
+2025,U,A,B,Biology,13/B/B,13,Gary,Owen,Gary,Gary Owen,M,SH,AC,13,pupil,12430,,37302345
+2025,U,A,Eli,English Literature,13/Eli/E,13,Alexander,Norman,Alexander,Alexander Norman,M,SH,AC,13,pupil,12431,,37305345
+2025,U,A,Eli,English Literature,13/Eli/E,13,Marco,Larson,Marco,Marco Larson,M,SH,AC,13,pupil,12432,,37308345
+2025,U,A,B,Biology,13/B/B,13,Franklin,Vaughn,Franklin,Franklin Vaughn,M,SH,AC,13,pupil,12433,,37311345
+2025,U,B,SpS,Sports Science,13/SpS/B,13,Mamie,Wright,Mamie,Mamie Wright,F,RH,RW,13,pupil,12424,,37284345
+2025,U,B,SpS,Sports Science,13/SpS/B,13,Bethany,Medina,Bethany,Bethany Medina,F,RH,RW,13,pupil,12425,,37287345
+2025,U,B,SpS,Sports Science,13/SpS/B,13,Harriett,Bass,Harriett,Harriett Bass,F,RH,RW,13,pupil,12426,,37290345
+2025,U,A,F,French,13/F/E,13,Sarah,Hall,Sarah,Sarah Hall,F,RH,RW,13,pupil,12427,,37293345
+2025,U,A,L,Latin,13/L/E,13,Allie,Mullins,Allie,Allie Mullins,F,RH,RW,13,pupil,12428,,37296345
+2025,U,A,F,French,13/F/E,13,Larry,Francis,Larry,Larry Francis,M,SH,AC,13,pupil,12429,,37299345
+2025,U,A,F,French,13/F/E,13,Gary,Owen,Gary,Gary Owen,M,SH,AC,13,pupil,12430,,37302345
+2025,U,A,F,French,13/F/E,13,Alexander,Norman,Alexander,Alexander Norman,M,SH,AC,13,pupil,12431,,37305345
+2025,U,A,L,Latin,13/L/E,13,Marco,Larson,Marco,Marco Larson,M,SH,AC,13,pupil,12432,,37308345
+2025,U,A,L,Latin,13/L/E,13,Franklin,Vaughn,Franklin,Franklin Vaughn,M,SH,AC,13,pupil,12433,,37311345
+2027,L,L,E,English,6/E/1,6,Owen,Edwards,Owen,Mr Edwards,M,,,35,teacher,,OE,OEd1243785457
+2027,L,L,G,Geography,6/G/2,6,Estella,Schmidt,Estella,Mrs Schmidt,F,,,51,teacher,,ES,ESc1243785550
+2027,L,L,H,History,6/H/1,6,Angel,Holland,Angel,Mr Holland,M,,,51,teacher,,AH,AHo1243785581
+2027,L,L,M,Mathematics,6/M/1,6,Tillie,McDonald,Tillie,Miss McDonald,F,,,42,teacher,,TM,TMc1243785488
+2026,L,L,E,English,7/E/1,7,Owen,Edwards,Owen,Mr Edwards,M,,,35,teacher,,OE,OEd1243785457
+2026,L,L,G,Geography,7/G/2,7,Estella,Schmidt,Estella,Mrs Schmidt,F,,,51,teacher,,ES,ESc1243785550
+2026,L,L,H,History,7/H/3,7,Angel,Holland,Angel,Mr Holland,M,,,51,teacher,,AH,AHo1243785581
+2026,L,L,M,Mathematics,7/M/1,7,Tillie,McDonald,Tillie,Miss McDonald,F,,,42,teacher,,TM,TMc1243785488
+2025,L,L,E,English,8/E/1,8,Owen,Edwards,Owen,Mr Edwards,M,,,35,teacher,,OE,OEd1243785457
+2025,L,L,G,Geography,8/G/3,8,Estella,Schmidt,Estella,Mrs Schmidt,F,,,51,teacher,,ES,ESc1243785550
+2025,L,L,H,History,8/H/4,8,Angel,Holland,Angel,Mr Holland,M,,,51,teacher,,AH,AHo1243785581
+2025,L,L,M,Mathematics,8/M/5,8,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2027,M,G,C,Chemistry,9/C/1,9,Tillie,McDonald,Tillie,Miss McDonald,F,,,42,teacher,,TM,TMc1243785488
+2027,M,G,C,Chemistry,9/C/2,9,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2027,M,G,E,English,9/E/2,9,Daniel,Baldwin,Daniel,Dr Baldwin,M,,,44,teacher,,DB,DBa1243785519
+2027,M,G,M,Mathematics,9/M/1,9,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2027,M,G,M,Mathematics,9/M/3,9,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2026,M,G,E,English,10/E/1,10,Daniel,Baldwin,Daniel,Dr Baldwin,M,,,44,teacher,,DB,DBa1243785519
+2026,M,G,G,Geography,10/G/1,10,Ray,Hines,Ray,Mr Hines,F,,,53,teacher,,RH,RHi1243785612
+2026,M,G,G,Geography,10/G/2,10,Estella,Schmidt,Estella,Mrs Schmidt,F,,,51,teacher,,ES,ESc1243785550
+2026,M,G,H,History,10/H/1,10,Angel,Holland,Angel,Mr Holland,M,,,51,teacher,,AH,AHo1243785581
+2026,M,G,H,History,10/H/2,10,Estella,Schmidt,Estella,Mrs Schmidt,F,,,51,teacher,,ES,ESc1243785550
+2025,M,G,B,Biology,11/B/1,11,Roy,Warner,Roy,Dr Warner,M,,,60,teacher,,RW,RWa1243785736
+2025,M,G,B,Biology,11/B/2,11,Aaron,Cole,Aaron,Mr Cole,M,,,68,teacher,,AC,ACo1243785767
+2025,M,G,C,Chemistry,11/C/1,11,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2025,M,G,M,Mathematics,11/M/1,11,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2025,M,G,P,Physics,11/P/2,11,Tillie,McDonald,Tillie,Miss McDonald,F,,,42,teacher,,TM,TMc1243785488
+2026,U,B,BM,Business Management,12/BM/A,12,Estella,Schmidt,Estella,Mrs Schmidt,F,,,51,teacher,,ES,ESc1243785550
+2026,U,A,C,Chemistry,12/C/D,12,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2026,U,I,Ch,Chemistry (HL),12/Ch/D,12,Tillie,McDonald,Tillie,Miss McDonald,F,,,42,teacher,,TM,TMc1243785488
+2026,U,I,Ch,Chemistry (HL),12/Ch/D,12,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2026,U,I,Gs,Geography (SL),12/Gs/E,12,Estella,Schmidt,Estella,Mrs Schmidt,F,,,51,teacher,,ES,ESc1243785550
+2026,U,A,M,Mathematics,12/M/B,12,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2026,U,A,P,Physics,12/P/A,12,Tillie,McDonald,Tillie,Miss McDonald,F,,,42,teacher,,TM,TMc1243785488
+2025,U,A,B,Biology,13/B/B,13,Roy,Warner,Roy,Dr Warner,M,,,60,teacher,,RW,RWa1243785736
+2025,U,A,Eli,English Literature,13/Eli/E,13,Owen,Edwards,Owen,Mr Edwards,M,,,35,teacher,,OE,OEd1243785457
+2025,U,A,Eli,English Literature,13/Eli/E,13,Daniel,Baldwin,Daniel,Dr Baldwin,M,,,44,teacher,,DB,DBa1243785519
+2025,U,A,F,French,13/F/E,13,Irene,Clarke,Irene,Mrs Clarke,M,,,57,teacher,,IC,ICl1243785674
+2025,U,A,L,Latin,13/L/E,13,Daniel,Baldwin,Daniel,Dr Baldwin,M,,,44,teacher,,DB,DBa1243785519
+2025,U,I,Spis,Sapnish ab initio (SL),13/Spis/A,13,Irene,Clarke,Irene,Mrs Clarke,M,,,57,teacher,,IC,ICl1243785674
+2025,U,B,SpS,Sports Science,13/SpS/B,13,Aaron,Cole,Aaron,Mr Cole,M,,,68,teacher,,AC,ACo1243785767
+2025,U,A,B,Biology,13/B/B,13,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
+2025,U,A,B,Biology,13/B/B,13,Tillie,McDonald,Tillie,Miss McDonald,F,,,42,teacher,,TM,TMc1243785488
+2026,U,I,Ch,Chemistry (HL),12/Ch/D,12,Hettie,Keller,Hettie,Dr Keller,F,,,57,teacher,,HK,HKe1243785705
