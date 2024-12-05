@@ -11,13 +11,33 @@
     }
 
     let updateTable=(type?:string):void=>{
-        console.log('UPDATE TYPE',type);
+        
         if(type==='MYSET') {
             console.log('UPDATE ',cohorts.mySets.list[cohorts.mySets.index].g);
+
+            let i = cohorts.nc.list.findIndex(el=>el.nc===cohorts.mySets.list[cohorts.mySets.index].nc);
+            cohorts.nc.index = i > -1 ? i : 0;
+
+            i = cohorts.subject.list.findIndex(el=>el.sc===cohorts.mySets.list[cohorts.mySets.index].sc && el.ss===cohorts.mySets.list[cohorts.mySets.index].ss && el.nc===cohorts.mySets.list[cohorts.mySets.index].nc);
+            cohorts.subject.index = i > -1 ? i : 0;
+            
+
         } else {
             console.log('UPDATE ',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl);
+            let i = cohorts.subject.list.findIndex(el=>el.nc===cohorts.nc.list[cohorts.nc.index].nc);
+            cohorts.subject.index = i > -1 ? i : 0;
         }
     };
+
+    $effect(() => {
+        (async () => {
+            console.log('assessments/');
+            await updateTable('MYSET');
+		})()
+      
+    
+    });
+
     
     </script>
     
@@ -30,6 +50,7 @@
     <section>
         <div class="row">
             <div class="col">
+                &nbsp;All&nbsp;
                 <select bind:value={cohorts.nc.index} onchange={()=>updateTable()}>
                     {#each cohorts.nc.list as row,index}
                     <option value={index}>{row.nc}</option>
@@ -42,6 +63,7 @@
                     {/if}
                     {/each}
                 </select>
+                &nbsp;My sets&nbsp;
                 <select bind:value={cohorts.mySets.index} onchange={()=>updateTable('MYSET')}>
                     {#each cohorts.mySets.list as row,index}
                     <option value={index}>{row.g}</option>

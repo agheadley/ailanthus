@@ -1,4 +1,5 @@
 <script lang="ts">
+import { goto } from '$app/navigation';
 import * as icon from '$lib/icon';
 import * as util from '$lib/util';
 import {user,config,cohorts} from '$lib/state.svelte';
@@ -45,16 +46,29 @@ const getCore=async()=>{
 	cohorts.mySets.index=0;
 	cohorts.mySets.list=f[0] ? f.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
 
+
 	
 };
 
 
 $effect(() => {
   
-	getCore();
+
+	(async () => {
+           
+		await getCore();
+		if(config.isReady) {
+			goto(`/assessments`);
+		}
+	
+	
+	})()
 	
     
 });
+
+
+
 
 </script>
 
