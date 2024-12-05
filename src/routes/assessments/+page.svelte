@@ -2,12 +2,13 @@
     import * as icon from '$lib/icon';
     import * as chart from '$lib/chart';
     import {cohorts,config} from '$lib/state.svelte';
-    import * as process from './process.svelte.';
+    import * as process from './process.svelte';
 
 
 
     let data : any = $state({
-        table:[]
+        table:[],
+        std:{A:'',B:''}
     });
 
     let download=():void=>{
@@ -38,6 +39,7 @@
 
         data.table = process.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
      
+        data.std=process.getStd( cohorts.nc.list[ cohorts.nc.index].nc);
         //$state.snapshot(data.table);
 
     };
@@ -60,7 +62,7 @@
             <div class="col">
              
               
-                &nbsp;All&nbsp;
+                Cohorts&nbsp;
                 <select bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
                     {#each cohorts.nc.list as row,index}
                     <option value={index}>{row.nc}</option>
@@ -96,8 +98,8 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <th>A</th>
-                    <th>B</th>
+                    <th>{data.std.A}</th>
+                    <th>{data.std.B}</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,8 +110,8 @@
                                 <div class="w10">{row.sn} {row.pn}</div>
                             </td>
                             <td>{group.g}</td>
-                            <td>{@html chart.getIntakeBar(row.overall.A,'ALIS')}</td>
-                            <td>{@html chart.getIntakeBar(row.overall.B,'ALIS')}</td>
+                            <td>{@html chart.getIntakeBar(row.overall.A,data.std.A)}</td>
+                            <td>{@html chart.getIntakeBar(row.overall.B,data.std.B)}</td>
                         </tr>
                     {/each}
                 {/each}
@@ -129,7 +131,7 @@
         }
 
         table {
-            font-size:1rem;
+            font-size:0.8rem;
         }
 
 

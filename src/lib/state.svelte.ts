@@ -14,7 +14,8 @@ export const config = $state({
     isReady:false,
     groups:[{id:0,sc:'',ss:'',sl:'',g:'',nc:0,log:'',pupil:[{pid:0,nc:0,sn:'',pn:'',gnd:'',hse:''}],teacher:[{tid:'',sal:''}]}],
     teachers:[{id:0,mid:'',tid:'',sal:'',pn:'',sn:''}],
-    pupils:[{id:0,mid:'',pid:0,nc:0,sn:'',pn:'',gnd:'',hse:'',tg:'',overall:{A:0,B:0},base:[{type:'',A:0,B:0}],groups:[{nc:0,sc:'',ss:'',sl:'',g:'',pre:{A:0,B:0}}]}]
+    pupils:[{id:0,mid:'',pid:0,nc:0,sn:'',pn:'',gnd:'',hse:'',tg:'',overall:{A:0,B:0},base:[{type:'',A:0,B:0}],groups:[{nc:0,sc:'',ss:'',sl:'',g:'',pre:{A:0,B:0}}]}],
+    std:[{nc:6,A:'NAT',B:'IND'},{nc:7,A:'NAT',B:'IND'},{nc:8,A:'NAT',B:'IND'},{nc:9,A:'NAT',B:'IND'},{nc:10,A:'NAT',B:'IND'},{nc:11,A:'NAT',B:'IND'},{nc:12,A:'GCSE',B:'ALIS'},{nc:13,A:'GCSE',B:'ALIS'}]
 });
 
 

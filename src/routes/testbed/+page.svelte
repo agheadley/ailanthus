@@ -24,7 +24,7 @@ let files:any=$state();
 
 
 let pupil : {log:string,pid:number,mid:string,sn:string,pn:string,gnd:string,hse:string,tg:string,nc:number
-			overall:{A:number,B:number},base:{type:string,A:number,B:number}[],groups:{nc:number,lv:string,yr:number,sc:string,ss:string,g:string,pre:{A:number,B:number}}[]	}[]
+			overall:{A:number,B:number},base:{type:string,A:number,B:number}[],groups:{nc:number,sc:string,ss:string,g:string,pre:{A:number,B:number}}[]	}[]
 	= [];
 
 let group:  {	nc:number,sc:string,ss:string,sl:string,g:string,log:string,
@@ -121,14 +121,16 @@ let getPupil=async(results:any)=>{
 
 			let i=cfg.random(0,2);
 			let base = cfg.getBase(i);
+			if(row.pupil_nc>11) base = cfg.getBaseUpper(i);
 			let f=base.find(el=>el.type==='overall');
+			
 			let overall = f ? {A:f.A,B:f.B} : {A:0,B:0};
 
 
-			let gs : {nc:number,lv:string,yr:number,ss:string,sc:string,g:string,pre:{A:number,B:number}}[]=[];
+			let gs : {nc:number,ss:string,sc:string,g:string,pre:{A:number,B:number}}[]=[];
 			let g = results.filter((el: { pid: any; })=>el.pid===row.pid).map((el: {
-				g_nc: any; nc:any;lv: any; yr: any; ss: any; sc: any; g: any; 
-                })=>({nc:Number(el.g_nc),lv:el.lv,yr:Number(el.yr),ss:el.ss,sc:el.sc,g:el.g}));
+				g_nc: any; nc:any; ss: any; sc: any; g: any; 
+                })=>({nc:Number(el.g_nc),ss:el.ss,sc:el.sc,g:el.g}));
 			if(g) {
 				gs=cfg.getGroups(i,g);	
 			}

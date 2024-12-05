@@ -12,6 +12,10 @@
 	<Alert></Alert>
 	<div class="container">
 	<header>
+		<div class="row">
+			<div class="col">AILANTHUS</div>
+			<div class="col">{user.pn} {user.sn}&nbsp;&nbsp;<a href={'#'}>{@html icon.logout()}</a></div>
+		</div>
 		<nav>
 			<a href="/">Home</a>
 			<a href="/assessments">Assessments</a>
@@ -19,7 +23,6 @@
 			
 			<a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a>
 		  </nav>
-		  <p>{user.pn} {user.sn}&nbsp;&nbsp;<a href={'#'}>{@html icon.logout()}</a></p>
 	  </header>
 	
 	  	<main>

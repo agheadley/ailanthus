@@ -122,6 +122,12 @@ export const subjects = [
         {A:82,B:81}
    ];
 
+   export const baseUpper = [
+    {A:8.5,B:115},
+    {A:6.7,B:97},
+    {A:5.1,B:81}
+];
+
    export const baseName : string[] = ['overall','vocab','maths','skills'];
 
 
@@ -146,11 +152,20 @@ export const subjects = [
 	return b;
 };
 
+export const getBaseUpper=(index:number)=>{
+
+	const b:{type:string,A:number,B:number}[]=[];
+	for(const row of baseName) {
+		b.push({type:row,A:baseUpper[index].A+random(-5,5),B:baseUpper[index].B+random(-5,5)});
+	}
+	return b;
+};
+
 export const getGroups=(index:number,gps:{ss:string,sc:'L'|'G'|'A'|'I'|'B',g:string,lv:string,yr:number,nc:number}[])
-     : {nc:number,lv:string,yr:number,ss:string,sc:string,g:string,pre:{A:number,B:number}}[]=>{
+     : {nc:number,ss:string,sc:string,g:string,pre:{A:number,B:number}}[]=>{
     let out = [];
     for(const item of gps) {
-        const ii=random(-3,3);
+        const ii=random(-2,2);
         let x=0;
         let y=0;
         if(pre[index][item.sc]) {
@@ -160,10 +175,10 @@ export const getGroups=(index:number,gps:{ss:string,sc:'L'|'G'|'A'|'I'|'B',g:str
         
         
 
-        out.push({nc:item.nc,lv:item.lv,yr:Number(item.yr),sc:item.sc,ss:item.ss,g:item.g,pre:{A:x,B:y}})
+        out.push({nc:item.nc,sc:item.sc,ss:item.ss,g:item.g,pre:{A:x,B:y}})
     }
 
-    out=out.sort((a,b)=>a.yr-b.yr || a.ss.localeCompare(b.ss));
+    out=out.sort((a,b)=>b.nc-a.nc|| a.ss.localeCompare(b.ss));
 
     return out;
 
