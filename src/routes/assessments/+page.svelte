@@ -1,5 +1,6 @@
 <script lang="ts">
     import * as icon from '$lib/icon';
+    import * as chart from '$lib/chart';
     import {cohorts,config} from '$lib/state.svelte';
     import * as process from './process.svelte.';
 
@@ -36,8 +37,8 @@
         }
 
         data.table = process.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
-
-        $state.snapshot(data.table);
+     
+        //$state.snapshot(data.table);
 
     };
 
@@ -57,6 +58,8 @@
     
         <div class="row">
             <div class="col">
+             
+              
                 &nbsp;All&nbsp;
                 <select bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
                     {#each cohorts.nc.list as row,index}
@@ -76,24 +79,37 @@
                     <option value={index}>{row.g}</option>
                     {/each}
                 </select>
+       
             </div>
             <div class="col">
+             
+                
                 <a title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle()}</a>&nbsp;&nbsp;
                 <a title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download()}</a>&nbsp;&nbsp;
                 <a title="ARCHIVE" href={'javascript:void(0)'} onclick={create}>{@html icon.archive()}</a>
+       
             </div>
         </div>
     
         <table>
+            <thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <th>A</th>
+                    <th>B</th>
+                </tr>
+            </thead>
             <tbody>
                 {#each data.table as group,groupIndex}
                     {#each group.pupil as row,rowIndex}
                         <tr>
                             <td>
-                                {row.sn} {row.pn}
+                                <div class="w10">{row.sn} {row.pn}</div>
                             </td>
-                            <td>{row.overall.A}</td>
-                            <td>{row.overall.B}</td>
+                            <td>{group.g}</td>
+                            <td>{@html chart.getIntakeBar(row.overall.A,'ALIS')}</td>
+                            <td>{@html chart.getIntakeBar(row.overall.B,'ALIS')}</td>
                         </tr>
                     {/each}
                 {/each}
@@ -103,8 +119,18 @@
     
     <style>
     
+        .w10 {
+            max-width:10rem;
+            word-wrap: break-word;
+            white-space: nowrap;
+            overflow:hidden;
+          
+            
+        }
 
-
+        table {
+            font-size:1rem;
+        }
 
 
     
