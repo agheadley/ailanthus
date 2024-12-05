@@ -13,7 +13,7 @@ const getCore=async()=>{
 	});
 	let res= await response.json();
 	console.log(res);
-	config.groups=res ? res.sort((a: { nc: number; sl: { localeCompare: (arg0: any) => any; }; sc: { localeCompare: (arg0: any) => any; }; },b: { nc: number; sl: any; sc: any; })=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sc.localeCompare(b.sc) ) : [];
+	config.groups=res ? res.sort((a: { nc: number; sl: string; sc: string; g: string; },b: { nc: number; sl: any; sc: any; g: any; })=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sc.localeCompare(b.sc) || a.g.localeCompare(b.g)) : [];
 
 	//groups=res;
 
@@ -26,25 +26,33 @@ const getCore=async()=>{
 
 	config.isReady = true;
 
+
+	response = await fetch('/api/read', {
+		method: 'POST',
+		body: JSON.stringify({table:"pupil_table",eq:[]}),
+		headers: {'content-type': 'application/json'}
+	});
+	config.pupils= await response.json();
+	$state.snapshot(config.pupils);
 	
 	response = await fetch('/api/read', {
 		method: 'POST',
-		body: JSON.stringify({table:"teacher_table",eq:['tid',user.name]}),
+		body: JSON.stringify({table:"teacher_table",eq:[]}),
 		headers: {'content-type': 'application/json'}
 	});
-	res= await response.json();
-	console.log('teachers : ',res);
+	config.teachers= await response.json();
+	$state.snapshot(config.teachers);
 
 	
+	let f= config.teachers.find(el=>el.tid===user.name);
+	user.pn = f ? f.pn : '';
+	user.sn = f ? f.sn: '';
+	user.sal = f ? f.sal : '';
+
 	let gps = config.groups.flatMap(el=>el.teacher.map(t=>({tid:t.tid,sal:t.sal,g:el.g,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.ss})));
-	let f=gps.filter(el=>el.tid===user.name);
-	user.sal = f[0] ? f[0].sal : '';
-	user.pn = res[0] ? res[0].pn : '';
-	user.sn = res[0] ? res[0].sn : '';
-	
-
+	let g = gps.filter(el=>el.tid===user.name);
 	cohorts.mySets.index=0;
-	cohorts.mySets.list=f[0] ? f.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
+	cohorts.mySets.list=g[0] ? g.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
 
 
 	

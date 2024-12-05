@@ -1,7 +1,14 @@
 <script lang="ts">
     import * as icon from '$lib/icon';
     import {cohorts,config} from '$lib/state.svelte';
-    
+    import * as process from './process.svelte.';
+
+
+
+    let data : any = $state({
+        table:[]
+    });
+
     let download=():void=>{
     
     }
@@ -22,21 +29,21 @@
             cohorts.subject.index = i > -1 ? i : 0;
             
 
-        } else {
+        } else if(type==='NC') {
             console.log('UPDATE ',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl);
             let i = cohorts.subject.list.findIndex(el=>el.nc===cohorts.nc.list[cohorts.nc.index].nc);
             cohorts.subject.index = i > -1 ? i : 0;
         }
+
+        data.table = process.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
+
+        $state.snapshot(data.table);
+
     };
 
-    $effect(() => {
-        (async () => {
-            console.log('assessments/');
-            await updateTable('MYSET');
-		})()
-      
-    
-    });
+    // first load
+    updateTable('MYSET');
+   
 
     
     </script>
@@ -47,11 +54,11 @@
     </svelte:head>
     
     
-    <section>
+    
         <div class="row">
             <div class="col">
                 &nbsp;All&nbsp;
-                <select bind:value={cohorts.nc.index} onchange={()=>updateTable()}>
+                <select bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
                     {#each cohorts.nc.list as row,index}
                     <option value={index}>{row.nc}</option>
                     {/each}
@@ -69,25 +76,37 @@
                     <option value={index}>{row.g}</option>
                     {/each}
                 </select>
-                
             </div>
             <div class="col">
                 <a title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle()}</a>&nbsp;&nbsp;
                 <a title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download()}</a>&nbsp;&nbsp;
                 <a title="ARCHIVE" href={'javascript:void(0)'} onclick={create}>{@html icon.archive()}</a>
-            
-            
             </div>
-    
-    
         </div>
-    </section>
     
-
+        <table>
+            <tbody>
+                {#each data.table as group,groupIndex}
+                    {#each group.pupil as row,rowIndex}
+                        <tr>
+                            <td>
+                                {row.sn} {row.pn}
+                            </td>
+                            <td>{row.overall.A}</td>
+                            <td>{row.overall.B}</td>
+                        </tr>
+                    {/each}
+                {/each}
+            </tbody>
+        </table>
     
     
     <style>
     
+
+
+
+
     
     </style>
     
