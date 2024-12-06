@@ -18,3 +18,4 @@ export let getIntakeBar=(scr:number,std:string):string=>{
     
     return txt;
 };
+

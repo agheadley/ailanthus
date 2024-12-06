@@ -24,6 +24,7 @@
   --preformatted: #444;
   --marked: #ffdd33;
   --disabled: #efefef;
+  --error:rgb(178,34,34);
 }
 
 /* Dark theme */
@@ -552,6 +553,10 @@ input[type="color"] {
 /* do not show border around file selector button */
 input[type="file"] {
   border: 0;
+}
+
+input.error {
+  border:1px solid var(--error);
 }
 
 /* Misc .container elements */

@@ -1,13 +1,12 @@
-<script>
+<script lang="ts">
 
 
     import {fade} from 'svelte/transition';
     import * as icon from '$lib/icon';
     
-    export let open = false;
+    let { open = $bindable(),title,children } = $props();
 
-    export let title;
-
+   
    
 </script>
 
@@ -17,15 +16,13 @@
     <div role="cell" tabindex=0 class="background" onkeydown={()=>open=false} onclick={()=>open=false}></div>
     <div class="modal">
         <div class="row">
-            <div class="col">
-                <h4>{title}</h4>
-            </div>
+            <div class="col"><b>{title}</b></div>
             <div class="col">
                 <a href = {'javascript:void(0);'} onclick={()=>open=false}>{@html icon.xCircle()}</a>
             </div>
         </div>
         <div>
-            <slot></slot>
+            {@render children?.()}
         </div>
     </div>
 </div>

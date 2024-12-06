@@ -10,12 +10,13 @@ export async function POST({request}) {
     
 
     //console.log('INSERT req',JSON.stringify(req));
-    const { error } = await supabase
+    const { data,error } = await supabase
     .from(req.table)
     .insert(req.data)
+    .select()
 
     //console.log(error);
-    return json(error ?? {});
+    return json({data:data,error:error});
    
    
   

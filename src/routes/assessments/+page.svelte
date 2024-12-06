@@ -3,12 +3,15 @@
     import * as chart from '$lib/chart';
     import {cohorts,config} from '$lib/state.svelte';
     import * as process from './process.svelte';
-
-
+    import Modal from '$lib/_Modal.svelte';
+    import Create from './Create.svelte';
 
     let data : any = $state({
         table:[],
-        std:{A:'',B:''}
+        std:{A:'',B:''},
+        subject:{sc:'',ss:'',sl:'',nc:0},
+        isCreate:false
+
     });
 
     let download=():void=>{
@@ -16,11 +19,12 @@
     }
     
     let create=async():Promise<void>=>{
-    
+        data.isCreate=true;
     }
 
     let updateTable=(type?:string):void=>{
         
+       
         if(type==='MYSET') {
             console.log('UPDATE ',cohorts.mySets.list[cohorts.mySets.index].g);
 
@@ -42,6 +46,11 @@
         data.std=process.getStd( cohorts.nc.list[ cohorts.nc.index].nc);
         //$state.snapshot(data.table);
 
+        data.subject.nc=cohorts.nc.list[cohorts.nc.index].nc;
+        data.subject.sc=cohorts.subject.list[cohorts.subject.index].sc;
+        data.subject.ss=cohorts.subject.list[cohorts.subject.index].ss;
+        data.subject.sl=cohorts.subject.list[cohorts.subject.index].sl;
+
     };
 
     // first load
@@ -57,7 +66,15 @@
     </svelte:head>
     
     
-    
+    {#if data.isCreate}
+    <Modal bind:open={data.isCreate} title={'Create Assessment'}>
+        {#snippet children()}
+		<Create bind:data={data}></Create> 
+	{/snippet}
+    </Modal>
+    {/if}
+
+
         <div class="row">
             <div class="col">
              
@@ -96,8 +113,8 @@
         <table>
             <thead>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <th></th>
+                    <th></th>
                     <th>{data.std.A}</th>
                     <th>{data.std.B}</th>
                 </tr>
