@@ -6,7 +6,7 @@
     
     let { open = $bindable(),title,children } = $props();
 
-   
+    
    
 </script>
 

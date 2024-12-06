@@ -15,7 +15,225 @@ export const config = $state({
     groups:[{id:0,sc:'',ss:'',sl:'',g:'',nc:0,log:'',pupil:[{pid:0,nc:0,sn:'',pn:'',gnd:'',hse:''}],teacher:[{tid:'',sal:''}]}],
     teachers:[{id:0,mid:'',tid:'',sal:'',pn:'',sn:''}],
     pupils:[{id:0,mid:'',pid:0,nc:0,sn:'',pn:'',gnd:'',hse:'',tg:'',overall:{A:0,B:0},base:[{type:'',A:0,B:0}],groups:[{nc:0,sc:'',ss:'',sl:'',g:'',pre:{A:0,B:0}}]}],
-    std:[{nc:6,A:'NAT',B:'IND'},{nc:7,A:'NAT',B:'IND'},{nc:8,A:'NAT',B:'IND'},{nc:9,A:'NAT',B:'IND'},{nc:10,A:'NAT',B:'IND'},{nc:11,A:'NAT',B:'IND'},{nc:12,A:'GCSE',B:'ALIS'},{nc:13,A:'GCSE',B:'ALIS'}]
+    std:[{nc:6,A:'NAT',B:'IND'},{nc:7,A:'NAT',B:'IND'},{nc:8,A:'NAT',B:'IND'},{nc:9,A:'NAT',B:'IND'},{nc:10,A:'NAT',B:'IND'},{nc:11,A:'NAT',B:'IND'},{nc:12,A:'GCSE',B:'ALIS'},{nc:13,A:'GCSE',B:'ALIS'}],
+    grade:[
+        {
+          "sc": "A",
+          "gd": "A*",
+          "pc": 90,
+          "pre": 140
+        },
+        {
+          "sc": "A",
+          "gd": "A",
+          "pc": 80,
+          "pre": 120
+        },
+        {
+          "sc": "A",
+          "gd": "B",
+          "pc": 70,
+          "pre": 100
+        },
+        {
+          "sc": "A",
+          "gd": "C",
+          "pc": 60,
+          "pre": 80
+        },
+        {
+          "sc": "A",
+          "gd": "D",
+          "pc": 50,
+          "pre": 60
+        },
+        {
+          "sc": "A",
+          "gd": "E",
+          "pc": 40,
+          "pre": 40
+        },
+        {
+          "sc": "A",
+          "gd": "U",
+          "pc": 0,
+          "pre": 0
+        },
+        {
+          "sc": "B",
+          "gd": "D*",
+          "pc": 101,
+          "pre": 140
+        },
+        {
+          "sc": "B",
+          "gd": "D",
+          "pc": 80,
+          "pre": 120
+        },
+        {
+          "sc": "B",
+          "gd": "M",
+          "pc": 60,
+          "pre": 80
+        },
+        {
+          "sc": "B",
+          "gd": "P",
+          "pc": 30,
+          "pre": 40
+        },
+        {
+          "sc": "B",
+          "gd": "NP",
+          "pc": 20,
+          "pre": 20
+        },
+        {
+          "sc": "B",
+          "gd": "U",
+          "pc": 0,
+          "pre": 0
+        },
+        {
+          "sc": "G",
+          "gd": "9",
+          "pc": 90,
+          "pre": 9
+        },
+        {
+          "sc": "G",
+          "gd": "8",
+          "pc": 80,
+          "pre": 8
+        },
+        {
+          "sc": "G",
+          "gd": "7",
+          "pc": 70,
+          "pre": 7
+        },
+        {
+          "sc": "G",
+          "gd": "6",
+          "pc": 60,
+          "pre": 6
+        },
+        {
+          "sc": "G",
+          "gd": "5",
+          "pc": 50,
+          "pre": 5
+        },
+        {
+          "sc": "G",
+          "gd": "4",
+          "pc": 40,
+          "pre": 4
+        },
+        {
+          "sc": "G",
+          "gd": "3",
+          "pc": 30,
+          "pre": 3
+        },
+        {
+          "sc": "G",
+          "gd": "2",
+          "pc": 20,
+          "pre": 2
+        },
+        {
+          "sc": "G",
+          "gd": "1",
+          "pc": 10,
+          "pre": 1
+        },
+        {
+          "sc": "G",
+          "gd": "U",
+          "pc": 0,
+          "pre": 0
+        },
+        {
+          "sc": "I",
+          "gd": "7",
+          "pc": 75,
+          "pre": 7
+        },
+        {
+          "sc": "I",
+          "gd": "6",
+          "pc": 65,
+          "pre": 6
+        },
+        {
+          "sc": "I",
+          "gd": "5",
+          "pc": 55,
+          "pre": 5
+        },
+        {
+          "sc": "I",
+          "gd": "4",
+          "pc": 45,
+          "pre": 4
+        },
+        {
+          "sc": "I",
+          "gd": "3",
+          "pc": 35,
+          "pre": 3
+        },
+        {
+          "sc": "I",
+          "gd": "2",
+          "pc": 25,
+          "pre": 2
+        },
+        {
+          "sc": "I",
+          "gd": "1",
+          "pc": 15,
+          "pre": 1
+        },
+        {
+          "sc": "I",
+          "gd": "U",
+          "pc": 0,
+          "pre": 0
+        },
+        {
+          "sc": "L",
+          "gd": "M",
+          "pc": 80,
+          "pre": 8.5
+        },
+        {
+          "sc": "L",
+          "gd": "S",
+          "pc": 65,
+          "pre": 6.5
+        },
+        {
+          "sc": "L",
+          "gd": "D",
+          "pc": 50,
+          "pre": 4.5
+        },
+        {
+          "sc": "L",
+          "gd": "E",
+          "pc": 30,
+          "pre": 2
+        },
+        {
+          "sc": "L",
+          "gd": "U",
+          "pc": 0,
+          "pre": 0
+        }
+       ]
 });
 
 

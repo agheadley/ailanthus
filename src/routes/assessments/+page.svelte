@@ -78,7 +78,6 @@
         <div class="row">
             <div class="col">
              
-              
                 Cohorts&nbsp;
                 <select bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
                     {#each cohorts.nc.list as row,index}
@@ -92,21 +91,20 @@
                     {/if}
                     {/each}
                 </select>
-                &nbsp;My sets&nbsp;
+                &nbsp;MySets&nbsp;
                 <select bind:value={cohorts.mySets.index} onchange={()=>updateTable('MYSET')}>
                     {#each cohorts.mySets.list as row,index}
                     <option value={index}>{row.g}</option>
                     {/each}
                 </select>
-       
-            </div>
+        </div>
+           
+            <div class="col"></div>
             <div class="col">
-             
-                
                 <a title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle()}</a>&nbsp;&nbsp;
                 <a title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download()}</a>&nbsp;&nbsp;
                 <a title="ARCHIVE" href={'javascript:void(0)'} onclick={create}>{@html icon.archive()}</a>
-       
+         
             </div>
         </div>
     

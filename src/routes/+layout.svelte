@@ -13,7 +13,7 @@
 	<div class="container">
 	<header>
 		<div class="row">
-			<div class="col">AILANTHUS</div>
+			<div class="col"><span class="brand">Ailanthus</span></div>
 			<div class="col">{user.pn} {user.sn}&nbsp;&nbsp;<a href={'#'}>{@html icon.logout()}</a></div>
 		</div>
 		<nav>
@@ -41,4 +41,8 @@
 
 <style>
 
+.brand {
+	font-variant: small-caps;
+	font-weight:bold;
+}
 </style>
