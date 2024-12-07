@@ -27,8 +27,8 @@
 
     {#if alert.msg}
         <div role="alert" class="alert-page" >
-            <div class="alert-box">
-                <div class={alert.type==='error' ? 'alert-msg error' : 'alert-msg'}>{alert.msg}</div>
+            <div class={alert.type==='error' ? `alert-box error` : `alert-box`}>
+                <div class={'alert-msg'}>{alert.msg}</div>
                 <div class="alert-msg"><a href={'#'} style="color:white;" onclick={()=>alert.msg=''}>{@html xCircle()}</a></div>
         
             </div>
