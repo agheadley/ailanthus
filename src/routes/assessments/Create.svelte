@@ -2,6 +2,7 @@
 import { user,config } from '$lib/state.svelte';
 import {alert} from '$lib/state.svelte';
 import * as util from '$lib/util';
+import * as assessment from '$lib/assessment.svelte';
 
 let { data = $bindable() } = $props();
 
@@ -25,7 +26,16 @@ let create=async():Promise<void>=>{
     data.isCreate=false;
     alert.msg = 'Creating Assessment ...'
 
+    const res = await assessment.createAssessment(data.subject.nc,data.subject.sc,data.subject.ss,status.n,status.dl,false,false);
+    console.log(res);
+    if(res.isOK===false) alert.type='error';
+    alert.msg=res.msg;
+
+    /*
+
     let gradeArr=config.grade.filter(el=>el.sc===data.subject.sc).sort((a,b)=>b.pc-a.pc);
+
+  
 
     let assessmentObj= {
       log:`${user.name}|${util.getDateTime()}`,
@@ -46,13 +56,16 @@ let create=async():Promise<void>=>{
 
     };
 
+   
     let response = await fetch('/api/insert', {
 		method: 'POST',
 		body: JSON.stringify({table:"assessment_table",data:[assessmentObj]}),
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
-	
+	*/
+
+    /*
     let resultArr=[];
     if(res.data[0] && res.data[0]?.id>0) {
         for(let group of data.table) {
@@ -96,7 +109,7 @@ let create=async():Promise<void>=>{
         alert.msg='ERROR CREATING ASSESSMENT';
     }
    
-
+    */
 
 };
 

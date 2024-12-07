@@ -730,12 +730,55 @@ sub {
   margin: 2rem 0;
 }
 
+/* extra css */
 
 .row {
 	display:flex;
 	justify-content: space-between;
+  align-items: center;
 }
 
 .col {
 	padding:1rem;
 }
+
+.tag {
+  display: inline-block;
+  border: 1px solid var(--preformatted);
+  text-transform: uppercase;
+  color: var(--preformatted);
+  padding: 0.5rem;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  font-size:1rem;
+}
+
+table.small {
+    font-size:0.8rem;
+
+}
+
+[data-title]:hover:after {
+  opacity: 1;
+  transition: all 0.1s ease 0.5s;
+  visibility: visible;
+}
+[data-title]:after {
+  content: attr(data-title);
+  background-color: var(--text);
+  color: var(--accent-bg);
+  position: absolute;
+  padding: 0.5rem;
+  bottom: -1.6em;
+  left:0;
+  white-space: nowrap;
+  opacity: 0;
+  border-radius:var(--standard-border-radius);
+  z-index: 99999;
+  visibility: hidden;
+}
+[data-title] {
+  position: relative;
+}
+
+

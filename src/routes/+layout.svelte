@@ -13,14 +13,15 @@
 	<div class="container">
 	<header>
 		<div class="row">
-			<div class="col"><span class="brand">Ailanthus</span></div>
-			<div class="col">{user.pn} {user.sn}&nbsp;&nbsp;<a href={'#'}>{@html icon.logout()}</a></div>
+			<div class="col"><a class="brand" href="/">Ailanthus</a></div>
+			<div class="col"><span class="tag">{user.name}  {#if user.isAdmin}admin{:else if user.isTeacher}teacher{:else}pupil{/if}</span>
+				&nbsp;&nbsp;<a data-title="LOGOUT" href={'#'}>{@html icon.logout(24)}</a>
+			</div>
 		</div>
 		<nav>
-			<a href="/">Home</a>
 			<a href="/assessments">Assessments</a>
+			<a href="/admin">Admin</a>
 			<a href="/testbed">Testbed</a>
-			
 			<a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a>
 		  </nav>
 	  </header>
@@ -41,8 +42,12 @@
 
 <style>
 
-.brand {
-	font-variant: small-caps;
+.brand  {
+	color:#0d47a1;
+	font-size:2rem;
 	font-weight:bold;
-}
+	text-decoration: none;
+} 
+
+
 </style>

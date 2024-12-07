@@ -75,6 +75,7 @@
         .alert-msg {
             padding:2rem;
             border:0px solid #fff;
+            text-transform: uppercase;
            
         }
 

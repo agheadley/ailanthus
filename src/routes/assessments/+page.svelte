@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
     import * as icon from '$lib/icon';
     import * as chart from '$lib/chart';
     import {cohorts,config} from '$lib/state.svelte';
@@ -10,7 +11,8 @@
         table:[],
         std:{A:'',B:''},
         subject:{sc:'',ss:'',sl:'',nc:0},
-        isCreate:false
+        isCreate:false,
+        isFirstLoad:true
 
     });
 
@@ -53,9 +55,16 @@
 
     };
 
-    // first load
-    updateTable('MYSET');
+  
+ 
    
+    $effect(() => {
+            if(config.isReady===false) goto(`/`);
+            if(data.isFirstLoad) {
+                updateTable('MYSET');
+                data.isFirstLoad=false;
+            }
+	});
 
     
     </script>
@@ -101,14 +110,14 @@
            
             <div class="col"></div>
             <div class="col">
-                <a title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle()}</a>&nbsp;&nbsp;
-                <a title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download()}</a>&nbsp;&nbsp;
-                <a title="ARCHIVE" href={'javascript:void(0)'} onclick={create}>{@html icon.archive()}</a>
+                <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>&nbsp;&nbsp;
+                 <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>&nbsp;&nbsp;
+                <a data-title="ARCHIVE" href={'javascript:void(0)'} onclick={create}>{@html icon.archive(24)}</a>
          
             </div>
         </div>
     
-        <table>
+        <table class="small">
             <thead>
                 <tr>
                     <th></th>
@@ -145,9 +154,7 @@
             
         }
 
-        table {
-            font-size:0.8rem;
-        }
+     
 
 
     
