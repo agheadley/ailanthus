@@ -8,11 +8,11 @@ import {user,config,cohorts} from '$lib/state.svelte';
 const getCore=async()=>{
 	let response = await fetch('/api/read', {
 		method: 'POST',
-		body: JSON.stringify({table:"group_table",eq:[]}),
+		body: JSON.stringify({table:"group_table",eq:[],select:"*"}),
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
-	console.log(res);
+	//console.log(res);
 	config.groups=res ? res.sort((a: { nc: number; sl: string; sc: string; g: string; },b: { nc: number; sl: any; sc: any; g: any; })=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sc.localeCompare(b.sc) || a.g.localeCompare(b.g)) : [];
 
 	//groups=res;
@@ -29,7 +29,7 @@ const getCore=async()=>{
 
 	response = await fetch('/api/read', {
 		method: 'POST',
-		body: JSON.stringify({table:"pupil_table",eq:[]}),
+		body: JSON.stringify({table:"pupil_table",eq:[],select:"*"}),
 		headers: {'content-type': 'application/json'}
 	});
 	config.pupils= await response.json();
@@ -37,7 +37,7 @@ const getCore=async()=>{
 	
 	response = await fetch('/api/read', {
 		method: 'POST',
-		body: JSON.stringify({table:"teacher_table",eq:[]}),
+		body: JSON.stringify({table:"teacher_table",eq:[],select:"*"}),
 		headers: {'content-type': 'application/json'}
 	});
 	config.teachers= await response.json();

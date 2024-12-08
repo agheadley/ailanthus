@@ -3,7 +3,7 @@
     import * as icon from '$lib/icon';
     import * as chart from '$lib/chart';
     import {cohorts,config} from '$lib/state.svelte';
-    import * as process from './process.svelte';
+    import * as assessment from '$lib/assessment.svelte';
     import Modal from '$lib/_Modal.svelte';
     import Create from './Create.svelte';
 
@@ -28,7 +28,7 @@
         
        
         if(type==='MYSET') {
-            console.log('UPDATE ',cohorts.mySets.list[cohorts.mySets.index].g);
+            //console.log('UPDATE ',cohorts.mySets.list[cohorts.mySets.index].g);
 
             let i = cohorts.nc.list.findIndex(el=>el.nc===cohorts.mySets.list[cohorts.mySets.index].nc);
             cohorts.nc.index = i > -1 ? i : 0;
@@ -38,14 +38,14 @@
             
 
         } else if(type==='NC') {
-            console.log('UPDATE ',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl);
+            //console.log('UPDATE ',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl);
             let i = cohorts.subject.list.findIndex(el=>el.nc===cohorts.nc.list[cohorts.nc.index].nc);
             cohorts.subject.index = i > -1 ? i : 0;
         }
 
-        data.table = process.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
+        data.table = assessment.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
      
-        data.std=process.getStd( cohorts.nc.list[ cohorts.nc.index].nc);
+        data.std=assessment.getStd( cohorts.nc.list[ cohorts.nc.index].nc);
         //$state.snapshot(data.table);
 
         data.subject.nc=cohorts.nc.list[cohorts.nc.index].nc;

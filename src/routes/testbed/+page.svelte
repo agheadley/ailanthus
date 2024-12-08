@@ -57,6 +57,18 @@ let insertPupil=async()=>{
 	console.log('INSERT',res);
 };
 
+let upsert = async()=>{
+	let response = await fetch('/api/upsert', {
+		method: 'POST',
+		body: JSON.stringify({table:"test_table",data:[{id:5,name:"larry"},{name:"olive"}]}),
+		headers: {'content-type': 'application/json'}
+	});
+	let res= await response.json();
+	console.log('UPSERT',res);
+
+
+};
+
 let getGroup=(results:any)=>{
 
 
@@ -234,6 +246,10 @@ $effect(() => {
 </svelte:head>
 
 
+<article>
+	<h4>Upsert</h4>
+	<p><button onclick={upsert}>Upsert</button></p>
+</article>
 
 <article>
     <h4>Supabase Storage Buckets</h4>

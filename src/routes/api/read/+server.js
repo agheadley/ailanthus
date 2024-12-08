@@ -17,12 +17,13 @@ export async function POST({request}) {
         eq2=req.eq[1];
     }
 
-    console.log("eq:",eq1,eq2);
+
+    //console.log("eq:",eq1,eq2);
     
     //const { data } = await supabase.from(req.table).select();
     const { data, error } = await supabase
         .from(req.table)
-        .select()
+        .select(req.select)
         .eq(eq1,eq2)
 
     console.log(error);
