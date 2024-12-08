@@ -1,4 +1,4 @@
-export let getIntakeBar=(scr:number,std:string):string=>{
+export const getIntakeBar=(scr:number,std:string):string=>{
     let txt=`<svg width="2.5rem" height="1.25rem"xmlns="http://www.w3.org/2000/svg">`;
     txt+=`<g>`;
     txt+=` <rect x="0" y="12" width="50" height="8" fill='#ddd'></rect>`;
@@ -13,8 +13,8 @@ export let getIntakeBar=(scr:number,std:string):string=>{
         }
     }
     
-    txt+`</g>`;
-    txt+`</svg>`;
+    txt+=`</g>`;
+    txt+=`</svg>`;
     
     return txt;
 };
