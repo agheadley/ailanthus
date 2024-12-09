@@ -49,15 +49,6 @@ let create=async():Promise<void>=>{
 
 
 
-let test=async()=>{
-    let response = await fetch('/api/read', {
-		method: 'POST',
-		body: JSON.stringify({table:"result_table",eq:[],select:"pn,sn,pid,gd, assessment_table(*)"}),
-		headers: {'content-type': 'application/json'}
-	});
-	let res= await response.json();
-    console.log(res);
-};
 
 
 
@@ -76,10 +67,7 @@ $effect(() => {
 
 
 
-<article>
-    <h4>Select Trials</h4>
-    <p><button onclick={test}>Select</button></p>
-</article>
+
 <article>
     <notice>Create Core Assessment for Yeargroup</notice>
     <p>
