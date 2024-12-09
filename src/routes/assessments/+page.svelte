@@ -24,7 +24,7 @@
         data.isCreate=true;
     }
 
-    let updateTable=(type?:string):void=>{
+    let updateTable=async(type?:string):Promise<void>=>{
         
        
         if(type==='MYSET') {
@@ -36,6 +36,7 @@
             i = cohorts.subject.list.findIndex(el=>el.sc===cohorts.mySets.list[cohorts.mySets.index].sc && el.ss===cohorts.mySets.list[cohorts.mySets.index].ss && el.nc===cohorts.mySets.list[cohorts.mySets.index].nc);
             cohorts.subject.index = i > -1 ? i : 0;
             
+            data.isFirstLoad=false;
 
         } else if(type==='NC') {
             //console.log('UPDATE ',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl);
@@ -43,7 +44,7 @@
             cohorts.subject.index = i > -1 ? i : 0;
         }
 
-        data.table = assessment.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
+        data.table = await assessment.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
      
         data.std=assessment.getStd( cohorts.nc.list[ cohorts.nc.index].nc);
         //$state.snapshot(data.table);
@@ -62,7 +63,6 @@
             if(config.isReady===false) goto(`/`);
             if(data.isFirstLoad) {
                 updateTable('MYSET');
-                data.isFirstLoad=false;
             }
 	});
 

@@ -79,23 +79,41 @@ interface TableRow {
     ss:string,
     sl:string,
     g:string,
-    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number}}[]
+    assessments:{nc:number,sc:string,ss:string,sl:string,n:string,dt:number,ds:string,isEdit:boolean}[],
+    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number},results:{gd:string}[]}[]
 
 };
 
-export const getTable=(nc:number,sc:string,ss:string) : TableRow[]=>{
+export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]>=>{
     const table:TableRow[]=config.groups.filter(el=>el.nc===nc && el.sc===sc && el.ss===ss)
         .map(el=>(
-            {nc:nc,sc:sc,ss:ss,sl:el.sl,g:el.g,pupil:el.pupil.map(p=>(
+            {nc:nc,sc:sc,ss:ss,sl:el.sl,g:el.g,assessments:[],pupil:el.pupil.map(p=>(
                 {pid:p.pid,sn:p.sn,pn:p.pn,
-                    overall:{A:0,B:0}
+                    overall:{A:0,B:0},results:[]
 
                 }))
         
         
     }));
 
+    let response = await fetch('/api/readAssessment', {
+		method: 'POST',
+		body: JSON.stringify({type:'subject',nc:nc,sc:sc,ss:ss,isArchive:false}),
+		headers: {'content-type': 'application/json'}
+	});
+	let res= await response.json();
+
+    console.log(user.name,user.isAdmin,user.isTeacher);
+    let gps = config.groups.filter(el=>el.nc===nc && el.sc===sc && el.ss===ss);
+    let tch=gps.flatMap(el=>el.teacher.map(t=>t.tid));
+    if(user.isAdmin) tch.push(user.name);
+    if(!(user.isAdmin || user.isTeacher)) tch=[];
+
+
+    console.log(tch);
+   
     for(const g of table) {
+        g.assessments=res.map((el: { nc: any; sc: any; ss: any; sl: any; n: any; dt: any; isLock: any; })=>({nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:'',isEdit:tch.includes(user.name) && !el.isLock}));
         for(const p of g.pupil) {
             const f=config.pupils.find(el=>el.pid===p.pid);
             p.overall.A = f ? f.overall.A : 0;
@@ -104,6 +122,8 @@ export const getTable=(nc:number,sc:string,ss:string) : TableRow[]=>{
         }
     }
 
+    console.log(table);
+    
     return table;
 };
 
