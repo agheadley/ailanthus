@@ -23,3 +23,8 @@ export const random=(min:number, max:number) : number=> {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+export const getShortDate=(d:string):string=>{
+  return d?.length===10 ? d[5]+d[6]+"/" +d[2]+d[3]: '00/00';
+        
+}
+
