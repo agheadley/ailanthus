@@ -1,6 +1,6 @@
 <script lang="ts">
 
-import * as cfg from '$lib/test-cfg';
+
 import * as util from '$lib/util';
 import * as file from '$lib/file';
 import {alert} from '$lib/state.svelte';
@@ -131,23 +131,23 @@ let getPupil=async(results:any)=>{
 	for (let row of results.filter((el: { type: string; })=>el.type==='pupil')) {
 		if(!pupil.find(el=>el.pid===Number(row.pid))) {
 
-			let x = cfg.random(70,135);
+			let x = util.random(70,135);
 
 			let base = [
-				{type:'overall',A:x+cfg.random(-5,5),B:x+cfg.random(-10,5)},
-				{type:'math',A:x+cfg.random(-10,10),B:x+cfg.random(-10,5)},
-				{type:'vocab',A:x+cfg.random(-5,5),B:x+cfg.random(-10,5)},
-				{type:'nonVerbal',A:x+cfg.random(-5,5),B:x+cfg.random(-10,5)}
+				{type:'overall',A:x+util.random(-5,5),B:x+util.random(-10,5)},
+				{type:'math',A:x+util.random(-10,10),B:x+util.random(-10,5)},
+				{type:'vocab',A:x+util.random(-5,5),B:x+util.random(-10,5)},
+				{type:'nonVerbal',A:x+util.random(-5,5),B:x+util.random(-10,5)}
 			];
 
 			if(row.pupil_nc>11) {
-				let x=cfg.random(4,8)+cfg.random(0,10)/10;
+				let x=util.random(4,8)+util.random(0,10)/10;
 				let y=x*16;
 				base = [
-					{type:'overall',A:x,B:y+cfg.random(-10,5)},
-					{type:'math',A:0,B:y+cfg.random(-10,5)},
-					{type:'vocab',A:0,B:y+cfg.random(-10,5)},
-					{type:'nonVerbal',A:0,B:y+cfg.random(-10,5)}
+					{type:'overall',A:x,B:y+util.random(-10,5)},
+					{type:'math',A:0,B:y+util.random(-10,5)},
+					{type:'vocab',A:0,B:y+util.random(-10,5)},
+					{type:'nonVerbal',A:0,B:y+util.random(-10,5)}
 				];
 
 			}
@@ -159,23 +159,7 @@ let getPupil=async(results:any)=>{
 
 
 
-			/*
-			let i=cfg.random(0,2);
-			let base = cfg.getBase(i);
-			if(row.pupil_nc>11) base = cfg.getBaseUpper(i);
-			let f=base.find(el=>el.type==='overall');
 			
-			let overall = f ? {A:f.A,B:f.B} : {A:0,B:0};
-
-
-			let gs : {nc:number,ss:string,sc:string,g:string,pre:{A:number,B:number}}[]=[];
-			let g = results.filter((el: { pid: any; })=>el.pid===row.pid).map((el: {
-				g_nc: any; nc:any; ss: any; sc: any; g: any; 
-                })=>({nc:Number(el.g_nc),ss:el.ss,sc:el.sc,g:el.g}));
-			if(g) {
-				gs=cfg.getGroups(i,g);	
-			}
-			*/
 			
 			let g = results.filter((el: { pid: any; })=>el.pid===row.pid).map((el: {
 				g_nc: any; nc:any; ss: any; sc: any; g: any; 
@@ -187,14 +171,14 @@ let getPupil=async(results:any)=>{
 
 			for(let gp of g) {
 				if(row.pupil_nc<12) {
-					gs.push({nc:gp.nc,sc:gp.sc,ss:gp.ss,g:gp.g,pre:{A:overall.A/16+cfg.random(-5,5)/10,B:overall.B/16+cfg.random(-5,5)/10}});
+					gs.push({nc:gp.nc,sc:gp.sc,ss:gp.ss,g:gp.g,pre:{A:overall.A/16+util.random(-5,5)/10,B:overall.B/16+util.random(-5,5)/10}});
 				} else {
 					if(gp.sc==='I') {
-						let a=cfg.random(0,5)/10 + 7*overall.A/9;
-						let b=cfg.random(0,5)/10 + 7*overall.B/(9*16);
+						let a=util.random(0,5)/10 + 7*overall.A/9;
+						let b=util.random(0,5)/10 + 7*overall.B/(9*16);
 						gs.push({nc:gp.nc,sc:gp.sc,ss:gp.ss,g:gp.g,pre:{A:a,B:b}});
 					} else {
-						gs.push({nc:gp.nc,sc:gp.sc,ss:gp.ss,g:gp.g,pre:{A:overall.A*16+cfg.random(-5,5)/10,B:overall.B+cfg.random(-5,5)/10}});
+						gs.push({nc:gp.nc,sc:gp.sc,ss:gp.ss,g:gp.g,pre:{A:overall.A*16+util.random(-5,5)/10,B:overall.B+util.random(-5,5)/10}});
 					}
 				}
 			}
