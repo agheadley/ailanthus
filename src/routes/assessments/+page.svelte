@@ -121,6 +121,9 @@
         <table class="small">
             <thead>
                 <tr>
+                    <td>Add edit, view , group averages and locked</td>
+                </tr>
+                <tr>
                     <th></th>
                     <th></th>
                     <th>{data.std.A}</th>
