@@ -117,7 +117,7 @@
             </div>
         </div>
     
-
+        <figure>
         <table class="small">
             <thead>
                 <tr>
@@ -151,6 +151,7 @@
                 {/each}
             </tbody>
         </table>
+    </figure>
     
     
     <style>
