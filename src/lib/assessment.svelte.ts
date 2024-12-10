@@ -130,7 +130,7 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
             p.overall.B = f ? f.overall.B : 0;
             // add pupil results
             for(const col of res) {
-                console.log(col);
+                //console.log(col);
                 const f=col.result_table.find((el: { pid: number; })=>el.pid===p.pid);
                 p.results.push(f?{gd:f.gd,r:0}:{gd:'X',r:0});
                 
@@ -143,7 +143,7 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
         }
     }
 
-    console.log(table);
+    console.log('ASSESSMENT TABLE',table);
 
     return table;
 };

@@ -1,7 +1,7 @@
 import {config} from '$lib/state.svelte';
 
 export const getIntakeBar=(scr:number,std:string):string=>{
-    let txt=`<svg width="2.5rem" height="1.25rem"xmlns="http://www.w3.org/2000/svg">`;
+    let txt=`<svg width="2.5rem" height="1.25rem" viewbox="0 0 50 25" xmlns="http://www.w3.org/2000/svg">`;
     txt+=`<g>`;
     txt+=` <rect x="0" y="12" width="50" height="8" fill='#ddd'></rect>`;
     txt+=`<text x="0" y="10" font-size="10" font-weight="600" fill='#333'>${std==='GCSE'?String(Math.round(10*scr)/10):String(Math.round(scr))}</text>`;
