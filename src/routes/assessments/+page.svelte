@@ -117,6 +117,7 @@
             </div>
         </div>
     
+
         <table class="small">
             <thead>
                 <tr>
@@ -124,6 +125,9 @@
                     <th></th>
                     <th>{data.std.A}</th>
                     <th>{data.std.B}</th>
+                    {#each data.table?.[0]?.assessments as col,colIndex}
+                        <th>{@html chart.getAssessmentTitle(col.n,col.ds)}</th>
+                    {/each}
                 </tr>
             </thead>
             <tbody>
@@ -136,6 +140,9 @@
                             <td>{group.g}</td>
                             <td>{@html chart.getIntakeBar(row.overall.A,data.std.A)}</td>
                             <td>{@html chart.getIntakeBar(row.overall.B,data.std.B)}</td>
+                            {#each row.results as col,colIndex}
+                            <td>{@html chart.getGrade(colIndex===0 ? false : true,col.gd,col.r)}</td>
+                            {/each}
                         </tr>
                     {/each}
                 {/each}

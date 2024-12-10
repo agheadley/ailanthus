@@ -12,6 +12,7 @@ export const user = $state({name:'DB',isAdmin:true,isTeacher:true,isPupil:false,
 
 export const config = $state({
     isReady:false,
+    rag:{red:0,green:0},
     groups:[{id:0,sc:'',ss:'',sl:'',g:'',nc:0,log:'',pupil:[{pid:0,nc:0,sn:'',pn:'',gnd:'',hse:''}],teacher:[{tid:'',sal:''}]}],
     teachers:[{id:0,mid:'',tid:'',sal:'',pn:'',sn:''}],
     pupils:[{id:0,mid:'',pid:0,nc:0,sn:'',pn:'',gnd:'',hse:'',tg:'',overall:{A:0,B:0},base:[{type:'',A:0,B:0}],groups:[{nc:0,sc:'',ss:'',sl:'',g:'',pre:{A:0,B:0}}]}],

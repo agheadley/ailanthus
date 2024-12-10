@@ -1,6 +1,16 @@
 import {config,user} from '$lib/state.svelte';
 import * as util from '$lib/util';
 
+
+
+export const findGradeResidual=(sc:string,baseGrade:string,grade:string)=>{
+    const grades=config.grade.filter(el=>el.sc===sc).sort((a,b)=>b.pc-a.pc);
+    const s1=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===baseGrade);
+    const s2=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===grade);  
+    return (s1===-1 || s2===-1) ? 0 : (s1-s2);
+    
+}
+
 export const createAssessment=async(nc:number,sc:string,ss:string,n:string,dl:string,isGrade:boolean,isCore:boolean):Promise<{isOK:boolean,msg:string}>=>{
 
 
@@ -80,7 +90,7 @@ interface TableRow {
     sl:string,
     g:string,
     assessments:{id:number,nc:number,sc:string,ss:string,sl:string,n:string,dt:number,ds:string,isEdit:boolean}[],
-    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number},results:{gd:string}[]}[]
+    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number},results:{gd:string,r:number}[]}[]
 
 };
 
@@ -119,7 +129,16 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
             p.overall.A = f ? f.overall.A : 0;
             p.overall.B = f ? f.overall.B : 0;
             // add pupil results
+            for(const col of res) {
+                console.log(col);
+                const f=col.result_table.find((el: { pid: number; })=>el.pid===p.pid);
+                p.results.push(f?{gd:f.gd,r:0}:{gd:'X',r:0});
+                
+            }
+            for(let i=0;i<p.results.length;i++) 
+                p.results[i].r=findGradeResidual(sc,p.results[0].gd,p.results[i].gd);
             
+
             
         }
     }
