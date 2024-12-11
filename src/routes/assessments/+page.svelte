@@ -119,6 +119,45 @@
     
         <figure>
         <table class="small">
+
+            <tbody>
+                {#each data.table as group,groupIndex}
+                <tr>
+                    <th></th>
+                    <th>{data.std.A}</th>
+                    <th>{data.std.B}</th>
+                    {#each group.assessments as col,colIndex}
+                        <th>{@html chart.getAssessmentTitle(col.n,col.ds)}</th>
+                    {/each}
+                </tr>
+                <tr>
+                    <th>{group.g}</th>
+                    <th>{@html chart.getIntakeBar(group.overall.A,data.std.A)}</th>
+                    <th>{@html chart.getIntakeBar(group.overall.B,data.std.B)}</th>
+                    {#each group.assessments as col,colIndex}
+                        <th>{@html chart.getGrade(colIndex===0 ? false : true,col.gd,col.r)}</th>
+                    {/each}
+                </tr>
+
+                {#each group.pupil as row,rowIndex}
+                <tr>
+                    <td>
+                        <div class="w10">{row.sn} {row.pn}</div>
+                    </td>
+
+                    <td>{@html chart.getIntakeBar(row.overall.A,data.std.A)}</td>
+                    <td>{@html chart.getIntakeBar(row.overall.B,data.std.B)}</td>
+                    {#each row.results as col,colIndex}
+                    <td>{@html chart.getGrade(colIndex===0 ? false : true,col.gd,col.r)}</td>
+                    {/each}
+                </tr>
+                {/each}
+
+
+
+                {/each}
+            </tbody>
+            <!--
             <thead>
                 <tr>
                     <td>Add edit, view , group averages and locked</td>
@@ -150,6 +189,7 @@
                     {/each}
                 {/each}
             </tbody>
+            -->
         </table>
     </figure>
     

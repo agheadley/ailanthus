@@ -1,15 +1,38 @@
 import {config,user} from '$lib/state.svelte';
 import * as util from '$lib/util';
 
+export const getStd=(nc:number):{A:string,B:string}=>{
+    const f=config.std.find(el=>el.nc===nc);
+    return f ? {A:f.A,B:f.B} : {A:'',B:''};
+}
 
-
-export const findGradeResidual=(sc:string,baseGrade:string,grade:string)=>{
+export const findGradeResidual=(sc:string,baseGrade:string,grade:string):number=>{
     const grades=config.grade.filter(el=>el.sc===sc).sort((a,b)=>b.pc-a.pc);
     const s1=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===baseGrade);
     const s2=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===grade);  
     return (s1===-1 || s2===-1) ? 0 : (s1-s2);
     
 }
+
+export const findAverageGrade=(sc:string,gradeArr:string[]):string=>{
+    const grades=config.grade.filter(el=>el.sc===sc).sort((a,b)=>b.pc-a.pc);
+    let indexArr:number[]=[];
+    for(let gd of gradeArr) {
+        const s=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===gd);
+        if(s>-1) indexArr.push(s);
+    }
+    //console.log(indexArr);
+    let gd='X';
+    if(indexArr.length) {
+        let mean = Math.round(indexArr.reduce((a,b) => a+b) / indexArr.length);
+        if(grades?.[mean]) gd=grades[mean].gd;
+    }
+    return gd;
+
+
+
+    
+};
 
 export const createAssessment=async(nc:number,sc:string,ss:string,n:string,dl:string,isGrade:boolean,isCore:boolean):Promise<{isOK:boolean,msg:string}>=>{
 
@@ -89,8 +112,9 @@ interface TableRow {
     ss:string,
     sl:string,
     g:string,
-    assessments:{id:number,nc:number,sc:string,ss:string,sl:string,n:string,dt:number,ds:string,isEdit:boolean}[],
-    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number},results:{gd:string,r:number}[]}[]
+    assessments:{id:number,nc:number,sc:string,ss:string,sl:string,n:string,dt:number,ds:string,isEdit:boolean,gd:string,r:number}[],
+    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number},results:{gd:string,r:number}[]}[],
+    overall:{A:number,B:number}
 
 };
 
@@ -98,7 +122,7 @@ interface TableRow {
 export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]>=>{
     const table:TableRow[]=config.groups.filter(el=>el.nc===nc && el.sc===sc && el.ss===ss)
         .map(el=>(
-            {nc:nc,sc:sc,ss:ss,sl:el.sl,g:el.g,assessments:[],pupil:el.pupil.map(p=>(
+            {nc:nc,sc:sc,ss:ss,sl:el.sl,g:el.g,overall:{A:0,B:0},assessments:[],pupil:el.pupil.map(p=>(
                 {pid:p.pid,sn:p.sn,pn:p.pn,
                     overall:{A:0,B:0},results:[]
 
@@ -123,7 +147,8 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
     //console.log(tch);
    
     for(const g of table) {
-        g.assessments=res.map((el: { id:number,nc: number; sc: string; ss: string; sl: string; n: string; dt: number;dl:string, isLock: boolean; })=>({id:el.id,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:util.getShortDate(el.dl),isEdit:tch.includes(user.name) && !el.isLock}));
+        g.assessments=res.map((el: { id:number,nc: number; sc: string; ss: string; sl: string; n: string; dt: number;dl:string, isLock: boolean; })=>({id:el.id,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:util.getShortDate(el.dl),isEdit:tch.includes(user.name) && !el.isLock,gd:'',r:0}));
+        // add pupil grades, intake data
         for(const p of g.pupil) {
             const f=config.pupils.find(el=>el.pid===p.pid);
             p.overall.A = f ? f.overall.A : 0;
@@ -141,6 +166,22 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
 
             
         }
+        // calculate group average grades
+        for(let i=0;i<g.assessments.length;i++) 
+            g.assessments[i].gd=findAverageGrade(sc,g.pupil.map(el=>el.results[i].gd));
+        // add residuals
+        for(let i=0;i<g.assessments.length;i++) 
+            g.assessments[i].r=findGradeResidual(sc, g.assessments[0].gd, g.assessments[i].gd);
+        
+        // intake overall averages
+        let A = g.pupil.filter(el=>el.overall.A>0).map(el=>el.overall.A);
+        let B = g.pupil.filter(el=>el.overall.B>0).map(el=>el.overall.B);
+        if(A.length) g.overall.A = A.reduce((a,b) => a+b) / A.length;
+        if(B.length) g.overall.B = B.reduce((a,b) => a+b) / B.length;
+        
+        
+
+
     }
 
     console.log('ASSESSMENT TABLE',table);
@@ -148,7 +189,3 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
     return table;
 };
 
-export const getStd=(nc:number):{A:string,B:string}=>{
-    const f=config.std.find(el=>el.nc===nc);
-    return f ? {A:f.A,B:f.B} : {A:'',B:''};
-}
