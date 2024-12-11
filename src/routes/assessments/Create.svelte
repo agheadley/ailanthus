@@ -2,7 +2,7 @@
 import { user,config } from '$lib/state.svelte';
 import {alert} from '$lib/state.svelte';
 import * as util from '$lib/util';
-import * as assessment from '$lib/assessment.svelte';
+import * as assessment from './assessment.svelte';
 
 let { data = $bindable() } = $props();
 

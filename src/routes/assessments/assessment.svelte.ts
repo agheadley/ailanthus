@@ -1,38 +1,5 @@
-import {config,user,cohorts} from '$lib/state.svelte';
+import {config,cohorts,user} from '$lib/state.svelte';
 import * as util from '$lib/util';
-
-export const getStd=(nc:number):{A:string,B:string}=>{
-    const f=config.std.find(el=>el.nc===nc);
-    return f ? {A:f.A,B:f.B} : {A:'',B:''};
-}
-
-export const findGradeResidual=(sc:string,baseGrade:string,grade:string):number=>{
-    const grades=config.grade.filter(el=>el.sc===sc).sort((a,b)=>b.pc-a.pc);
-    const s1=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===baseGrade);
-    const s2=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===grade);  
-    return (s1===-1 || s2===-1) ? 0 : (s1-s2);
-    
-}
-
-export const findAverageGrade=(sc:string,gradeArr:string[]):string=>{
-    const grades=config.grade.filter(el=>el.sc===sc).sort((a,b)=>b.pc-a.pc);
-    const indexArr:number[]=[];
-    for(const gd of gradeArr) {
-        const s=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===gd);
-        if(s>-1) indexArr.push(s);
-    }
-    //console.log(indexArr);
-    let gd='X';
-    if(indexArr.length) {
-        const mean = Math.round(indexArr.reduce((a,b) => a+b) / indexArr.length);
-        if(grades?.[mean]) gd=grades[mean].gd;
-    }
-    return gd;
-
-
-
-    
-};
 
 export const createAssessment=async(nc:number,sc:string,ss:string,n:string,dl:string,isGrade:boolean,isCore:boolean):Promise<{isOK:boolean,msg:string}>=>{
 
@@ -161,17 +128,17 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
                 
             }
             for(let i=0;i<p.results.length;i++) 
-                p.results[i].r=findGradeResidual(sc,p.results[0].gd,p.results[i].gd);
+                p.results[i].r=util.findGradeResidual(sc,p.results[0].gd,p.results[i].gd);
             
 
             
         }
         // calculate group average grades
         for(let i=0;i<g.assessments.length;i++) 
-            g.assessments[i].gd=findAverageGrade(sc,g.pupil.map(el=>el.results[i].gd));
+            g.assessments[i].gd=util.findAverageGrade(sc,g.pupil.map(el=>el.results[i].gd));
         // add residuals
         for(let i=0;i<g.assessments.length;i++) 
-            g.assessments[i].r=findGradeResidual(sc, g.assessments[0].gd, g.assessments[i].gd);
+            g.assessments[i].r=util.findGradeResidual(sc, g.assessments[0].gd, g.assessments[i].gd);
         
         // intake overall averages
         const A = g.pupil.filter(el=>el.overall.A>0).map(el=>el.overall.A);
@@ -190,8 +157,12 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
 };
 
 
+interface EditTable  {
+    assessment:{id:number,n:string,isLock:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
+    results:{id:number,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[]
+}
 
-export const getEditTable=async()=>{
+export const getEditTable=async():Promise<EditTable>=>{
     const response = await fetch('/api/readAssessment', {
         method: 'POST',
         body: JSON.stringify({type:'id',id:cohorts.edit.id}),
@@ -203,33 +174,35 @@ export const getEditTable=async()=>{
     
     console.log(gps);
 
-    let table=[];
-    for(let g of gps) {
-        for(let p of g.pupil) {
-            table.push({
+    
+
+    if(!res[0] || !gps[0]) return {assessment:{id:0,n:'',isLock:true,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},results:[]};
+
+    const a = {id:res[0].id,n:res[0].n,isLock:res[0].isLock,gd:res[0].gd,t:res[0].t};
+
+    
+    const r=[];
+    for(const g of gps) {
+        for(const p of g.pupil) {
+            const f=res[0].result_table.find((el: { pid: number; })=>el.pid===p.pid);
+            if(f) console.log('found result for ',p.pid);
+            const t=a.t.map((el: number, i:  number)=>f?.t?.[i] ? f.t[i] : 0);
+
+            r.push({
+                id:0,    // get from res[0]
                 g:g.g,
                 pid:p.pid,
                 sn:p.sn,
                 pn:p.pn,
-                t:[0],
-                gd:'X',
-                pc:0,
+                t:t,
+                gd:f?f.gd : 'X',
+                pc:f?f.pc:0,
                 fb:''
             });
         }
     }
 
-    return table;
-    /*
-    if(!res?.[0]?.result_table.length) return [];
-
-    let table=[];
-    for(const p of res[0].result_table) {
-        console.log(p.pid);
-        table.push({pid:p.pid,sn:p.sn,pn:p.pn,t:p.t,})
-
-    }
-        */
-
+    return {assessment:a,results:r};
+    
 
 };

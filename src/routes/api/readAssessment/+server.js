@@ -46,7 +46,7 @@ export async function POST({request}) {
 
         const { data, error } = await supabase
         .from('assessment_table')
-        .select('id,nc,n,dl,dt,sc,ss,sl,log,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)')
+        .select('id,nc,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)')
         .eq('id',req.id)
        
         console.log(error);

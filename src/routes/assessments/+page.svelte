@@ -3,7 +3,8 @@
     import * as icon from '$lib/icon';
     import * as chart from '$lib/chart';
     import {cohorts,config,user,alert} from '$lib/state.svelte';
-    import * as assessment from '$lib/assessment.svelte';
+    import * as assessment from './assessment.svelte';
+    import * as util from '$lib/util';
     import Modal from '$lib/_Modal.svelte';
     import Create from './Create.svelte';
 
@@ -45,7 +46,7 @@
 
         data.table = await assessment.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
      
-        data.std=assessment.getStd( cohorts.nc.list[ cohorts.nc.index].nc);
+        data.std=util.getStd( cohorts.nc.list[ cohorts.nc.index].nc);
         //$state.snapshot(data.table);
 
         data.subject.nc=cohorts.nc.list[cohorts.nc.index].nc;
@@ -75,7 +76,6 @@
     };
 
     const openEdit=(groupIndex:number,colIndex:number)=>{
-        console.log(data.table);
         cohorts.edit = {
             id:data.table[groupIndex].assessments[colIndex].id,
             nc:data.table[groupIndex].assessments[colIndex].nc,
@@ -98,15 +98,8 @@
             //$inspect(data.isUpdateRequired);
             (async () => {
                 if(config.isReady===false) goto(`/`);
-                if(data.isFirstLoad) {
-                    //console.log('data.isFirstLoad');
-                    //await updateTable('MYSET');
-                }
                 
                 if(data.isUpdateRequired===true) {
-                    //console.log('data.isUpdateRequired');
-                    //$inspect(data.isUpdateRequired);
-            
                     await updateTable();
                     data.isUpdateRequired=false;
                 }
