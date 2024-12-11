@@ -12,7 +12,8 @@
         std:{A:'',B:''},
         subject:{sc:'',ss:'',sl:'',nc:0},
         isCreate:false,
-        isFirstLoad:true
+        isFirstLoad:true,
+        isUpdateRequired:false
 
     });
 
@@ -72,13 +73,26 @@
 
 
     };
+
+    const openEdit=async(groupIndex:number,colIndex:number)=>{
+        console.log(data.table);
+    };
  
    
     $effect(() => {
-            if(config.isReady===false) goto(`/`);
-            if(data.isFirstLoad) {
-                updateTable('MYSET');
-            }
+            $inspect(data.isUpdateRequired);
+            (async () => {
+                if(config.isReady===false) goto(`/`);
+                if(data.isFirstLoad) {
+                    await updateTable('MYSET');
+                }
+                if(data.isupdateRequired===true) {
+                    await updateTable();
+                    data.isUpdateRequired=false;
+                }
+
+
+		    })()
 	});
 
     
@@ -154,7 +168,7 @@
                     <th>{data.std.B}</th>
                     {#each group.assessments as col,colIndex}
                         <th>
-                            <a data-title={col.isEdit ? 'EDIT' : 'VIEW'} href={'javascript:void(0)'}>{@html col.isEdit ? icon.edit() : icon.view()}</a>
+                            <a data-title={col.isEdit ? 'EDIT' : 'VIEW'} href={'javascript:void(0)'} onclick={()=>openEdit(groupIndex,colIndex)}>{@html col.isEdit ? icon.edit() : icon.view()}</a>
                             {@html chart.getAssessmentTitle(col.n,col.ds)}
                         </th>
                     {/each}

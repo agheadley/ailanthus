@@ -39,7 +39,7 @@ export const getGrade=(isRag:boolean,gd:string,residual:number):string=>{
 export const getAssessmentTitle=(title:string,subTitle:string):string=>{
 
 
-    return `<div style="position:relative;font-size:0.8rem;width:2rem;height:5rem">
+    return `<div style="position:relative;font-size:0.8rem;width:2rem;height:6rem">
         <div style="border:0px solid black;position:absolute;bottom:0;line-height:1rem;writing-mode:vertical-rl;overflow:hidden;transform:rotate(-180deg);">
              <div style=" font-weight:bold;">${title}</div>
              <div style="font-weight:normal;">${subTitle}</div>

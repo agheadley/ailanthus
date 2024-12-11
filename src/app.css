@@ -769,7 +769,7 @@ table.small {
   color: var(--accent-bg);
   position: absolute;
   padding: 0.5rem;
-  bottom: -1.6em;
+  bottom: -2.5em;
   left:0;
   white-space: nowrap;
   opacity: 0;
