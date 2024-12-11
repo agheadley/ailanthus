@@ -10,7 +10,7 @@ export async function POST({request}) {
     const req = await request.json();
     
  
-    console.log(req);
+    //console.log(req);
 
     const { data, error } = await supabase
         .from(req.table)

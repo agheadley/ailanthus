@@ -12,8 +12,7 @@
         std:{A:'',B:''},
         subject:{sc:'',ss:'',sl:'',nc:0},
         isCreate:false,
-        isFirstLoad:true,
-        isUpdateRequired:false
+        isUpdateRequired:true
 
     });
 
@@ -37,8 +36,7 @@
             i = cohorts.subject.list.findIndex(el=>el.sc===cohorts.mySets.list[cohorts.mySets.index].sc && el.ss===cohorts.mySets.list[cohorts.mySets.index].ss && el.nc===cohorts.mySets.list[cohorts.mySets.index].nc);
             cohorts.subject.index = i > -1 ? i : 0;
             
-            data.isFirstLoad=false;
-
+           
         } else if(type==='NC') {
             //console.log('UPDATE ',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl);
             let i = cohorts.subject.list.findIndex(el=>el.nc===cohorts.nc.list[cohorts.nc.index].nc);
@@ -54,6 +52,8 @@
         data.subject.sc=cohorts.subject.list[cohorts.subject.index].sc;
         data.subject.ss=cohorts.subject.list[cohorts.subject.index].ss;
         data.subject.sl=cohorts.subject.list[cohorts.subject.index].sl;
+
+        data.isUpdateRequired=false;
 
     };
 
@@ -74,22 +74,43 @@
 
     };
 
-    const openEdit=async(groupIndex:number,colIndex:number)=>{
+    const openEdit=(groupIndex:number,colIndex:number)=>{
         console.log(data.table);
+        cohorts.edit = {
+            id:data.table[groupIndex].assessments[colIndex].id,
+            nc:data.table[groupIndex].assessments[colIndex].nc,
+            sc:data.table[groupIndex].assessments[colIndex].sc,
+            ss:data.table[groupIndex].assessments[colIndex].ss,
+            sl:data.table[groupIndex].assessments[colIndex].sl,
+            g:data.table[groupIndex].g,
+            n:data.table[groupIndex].assessments[colIndex].n,
+            dt:data.table[groupIndex].assessments[colIndex].dt,
+            ds:data.table[groupIndex].assessments[colIndex].ds,
+            isEdit:data.table[groupIndex].assessments[colIndex].isEdit
+        };
+        goto('/assessments/edit');
+        
     };
  
    
     $effect(() => {
-            $inspect(data.isUpdateRequired);
+            console.log('data update');
+            //$inspect(data.isUpdateRequired);
             (async () => {
                 if(config.isReady===false) goto(`/`);
                 if(data.isFirstLoad) {
-                    await updateTable('MYSET');
+                    //console.log('data.isFirstLoad');
+                    //await updateTable('MYSET');
                 }
-                if(data.isupdateRequired===true) {
+                
+                if(data.isUpdateRequired===true) {
+                    //console.log('data.isUpdateRequired');
+                    //$inspect(data.isUpdateRequired);
+            
                     await updateTable();
                     data.isUpdateRequired=false;
                 }
+                
 
 
 		    })()

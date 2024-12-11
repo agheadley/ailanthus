@@ -1,4 +1,4 @@
-import {config,user} from '$lib/state.svelte';
+import {config,user,cohorts} from '$lib/state.svelte';
 import * as util from '$lib/util';
 
 export const getStd=(nc:number):{A:string,B:string}=>{
@@ -16,15 +16,15 @@ export const findGradeResidual=(sc:string,baseGrade:string,grade:string):number=
 
 export const findAverageGrade=(sc:string,gradeArr:string[]):string=>{
     const grades=config.grade.filter(el=>el.sc===sc).sort((a,b)=>b.pc-a.pc);
-    let indexArr:number[]=[];
-    for(let gd of gradeArr) {
+    const indexArr:number[]=[];
+    for(const gd of gradeArr) {
         const s=grades.findIndex((/** @type {{ gd: string; }} */ el)=>el.gd===gd);
         if(s>-1) indexArr.push(s);
     }
     //console.log(indexArr);
     let gd='X';
     if(indexArr.length) {
-        let mean = Math.round(indexArr.reduce((a,b) => a+b) / indexArr.length);
+        const mean = Math.round(indexArr.reduce((a,b) => a+b) / indexArr.length);
         if(grades?.[mean]) gd=grades[mean].gd;
     }
     return gd;
@@ -174,8 +174,8 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
             g.assessments[i].r=findGradeResidual(sc, g.assessments[0].gd, g.assessments[i].gd);
         
         // intake overall averages
-        let A = g.pupil.filter(el=>el.overall.A>0).map(el=>el.overall.A);
-        let B = g.pupil.filter(el=>el.overall.B>0).map(el=>el.overall.B);
+        const A = g.pupil.filter(el=>el.overall.A>0).map(el=>el.overall.A);
+        const B = g.pupil.filter(el=>el.overall.B>0).map(el=>el.overall.B);
         if(A.length) g.overall.A = A.reduce((a,b) => a+b) / A.length;
         if(B.length) g.overall.B = B.reduce((a,b) => a+b) / B.length;
         
@@ -189,3 +189,47 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
     return table;
 };
 
+
+
+export const getEditTable=async()=>{
+    const response = await fetch('/api/readAssessment', {
+        method: 'POST',
+        body: JSON.stringify({type:'id',id:cohorts.edit.id}),
+        headers: {'content-type': 'application/json'}
+    });
+    const res= await response.json();
+
+    const gps = config.groups.filter(el=>el.nc===cohorts.edit.nc && el.sc===cohorts.edit.sc && el.ss===cohorts.edit.ss);
+    
+    console.log(gps);
+
+    let table=[];
+    for(let g of gps) {
+        for(let p of g.pupil) {
+            table.push({
+                g:g.g,
+                pid:p.pid,
+                sn:p.sn,
+                pn:p.pn,
+                t:[0],
+                gd:'X',
+                pc:0,
+                fb:''
+            });
+        }
+    }
+
+    return table;
+    /*
+    if(!res?.[0]?.result_table.length) return [];
+
+    let table=[];
+    for(const p of res[0].result_table) {
+        console.log(p.pid);
+        table.push({pid:p.pid,sn:p.sn,pn:p.pn,t:p.t,})
+
+    }
+        */
+
+
+};
