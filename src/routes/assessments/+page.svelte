@@ -2,7 +2,7 @@
     import { goto } from '$app/navigation';
     import * as icon from '$lib/icon';
     import * as chart from '$lib/chart';
-    import {cohorts,config} from '$lib/state.svelte';
+    import {cohorts,config,user,alert} from '$lib/state.svelte';
     import * as assessment from '$lib/assessment.svelte';
     import Modal from '$lib/_Modal.svelte';
     import Create from './Create.svelte';
@@ -57,6 +57,21 @@
     };
 
   
+    const toggleLock=async (index:number)=>{
+        //console.log(data.table[0].assessments[index]);
+        let id =data.table[0].assessments[index].id;
+        let isLock=data.table[0].assessments[index].isEdit ? true : false;
+        const response = await fetch('/api/update', {
+            method: 'POST',
+            body: JSON.stringify({table:"assessment_table",id:id,update:{isLock:isLock}}),
+            headers: {'content-type': 'application/json'}
+        });
+        const res= await response.json();
+        alert.msg=`ASSESSMENT ${data.table[0].assessments[index].n} ${res?.[0]?.isLock ? 'LOCKED' : 'OPEN'}`;
+        data.table[0].assessments[index].isEdit = !res?.[0]?.isLock;
+
+
+    };
  
    
     $effect(() => {
@@ -121,13 +136,27 @@
         <table class="small">
 
             <tbody>
+              
+                {#if user.isAdmin && data.table?.[0]}
+                    <tr>
+                        <th>ADMIN</th>
+                        <th></th>
+                        <th></th>
+                        {#each data.table[0].assessments as col,colIndex}
+                            <th><a data-title={col.isEdit ? 'LOCK' : 'UNLOCK'} href={'javascript:void(0)'} onclick={()=>toggleLock(colIndex)}>{@html col.isEdit ? icon.unlock() : icon.lock()}</a></th>
+                        {/each}
+                    </tr>
+                {/if}
                 {#each data.table as group,groupIndex}
                 <tr>
                     <th></th>
                     <th>{data.std.A}</th>
                     <th>{data.std.B}</th>
                     {#each group.assessments as col,colIndex}
-                        <th>{@html chart.getAssessmentTitle(col.n,col.ds)}</th>
+                        <th>
+                            <a data-title={col.isEdit ? 'EDIT' : 'VIEW'} href={'javascript:void(0)'}>{@html col.isEdit ? icon.edit() : icon.view()}</a>
+                            {@html chart.getAssessmentTitle(col.n,col.ds)}
+                        </th>
                     {/each}
                 </tr>
                 <tr>
@@ -157,39 +186,7 @@
 
                 {/each}
             </tbody>
-            <!--
-            <thead>
-                <tr>
-                    <td>Add edit, view , group averages and locked</td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>{data.std.A}</th>
-                    <th>{data.std.B}</th>
-                    {#each data.table?.[0]?.assessments as col,colIndex}
-                        <th>{@html chart.getAssessmentTitle(col.n,col.ds)}</th>
-                    {/each}
-                </tr>
-            </thead>
-            <tbody>
-                {#each data.table as group,groupIndex}
-                    {#each group.pupil as row,rowIndex}
-                        <tr>
-                            <td>
-                                <div class="w10">{row.sn} {row.pn}</div>
-                            </td>
-                            <td>{group.g}</td>
-                            <td>{@html chart.getIntakeBar(row.overall.A,data.std.A)}</td>
-                            <td>{@html chart.getIntakeBar(row.overall.B,data.std.B)}</td>
-                            {#each row.results as col,colIndex}
-                            <td>{@html chart.getGrade(colIndex===0 ? false : true,col.gd,col.r)}</td>
-                            {/each}
-                        </tr>
-                    {/each}
-                {/each}
-            </tbody>
-            -->
+           
         </table>
     </figure>
     
