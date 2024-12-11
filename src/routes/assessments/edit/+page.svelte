@@ -6,12 +6,12 @@ import * as assessment from './../assessment.svelte';
 
 
 interface Data  {
-    assessment:{id:number,n:string,isLock:boolean,gd:{gd:string,pc:string,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
-    results:{id:number,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[]
+    assessment:{id:number,n:string,isLock:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
+    results:{id:number|null,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[]
 }
 
 const data : Data = {
-    assessment:{},
+    assessment:{id:0,n:'',isLock:true,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},
     results:[]
 };
 

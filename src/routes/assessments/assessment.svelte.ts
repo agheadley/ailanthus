@@ -159,7 +159,7 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
 
 interface EditTable  {
     assessment:{id:number,n:string,isLock:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
-    results:{id:number,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[]
+    results:{id:number|null,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[]
 }
 
 export const getEditTable=async():Promise<EditTable>=>{
@@ -189,7 +189,7 @@ export const getEditTable=async():Promise<EditTable>=>{
             const t=a.t.map((el: number, i:  number)=>f?.t?.[i] ? f.t[i] : 0);
 
             r.push({
-                id:0,    // get from res[0]
+                id:f?f.id:null,    // get from res[0]
                 g:g.g,
                 pid:p.pid,
                 sn:p.sn,
