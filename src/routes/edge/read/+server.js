@@ -12,12 +12,15 @@ let headers= {
     'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
 };
 
-let url =`https://xhuyamsoabffrqjbhwsx.supabase.co/rest/v1/assessment_table?id=eq.1&select=*`;
-url  =`https://xhuyamsoabffrqjbhwsx.supabase.co/rest/v1/assessment_table?select=*`;
+const select=`id,nc,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
 
-export async function GET() {
+//let url =`https://xhuyamsoabffrqjbhwsx.supabase.co/rest/v1/assessment_table?id=eq.1&select=*`;
+//url  =`https://xhuyamsoabffrqjbhwsx.supabase.co/rest/v1/assessment_table?select=${select}`;
 
-   
+export async function POST({request}) {
+    const req = await request.json();
+
+    const url  =`https://xhuyamsoabffrqjbhwsx.supabase.co/rest/v1/assessment_table?id=eq.${req.id}&select=${select}`;
     let response = await fetch(url,{method: 'GET',headers: headers});
     let res=await response.json();
    

@@ -34,8 +34,8 @@ let group:  {	nc:number,sc:string,ss:string,sl:string,g:string,log:string,
 
 let edgeTest=async()=>{
 	let response = await fetch('/edge/read', {
-		method: 'GET',
-		//body: JSON.stringify({table:"group_table",data:group}),
+		method: 'POST',
+		body: JSON.stringify({id:55}),
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
