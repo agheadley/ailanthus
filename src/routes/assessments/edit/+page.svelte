@@ -22,15 +22,24 @@ const validateScore=(rowIndex:number,colIndex:number):void=>{
     if(data.results[rowIndex].t[colIndex]<0 || data.results[rowIndex].t[colIndex]===null) data.results[rowIndex].t[colIndex]=0;
     data.results[rowIndex].t[colIndex] = Math.round(data.results[rowIndex].t[colIndex]);
     if(data.results[rowIndex].t[colIndex]>data.assessment.t[colIndex].t) data.results[rowIndex].t[colIndex] =0;
-    //data.results[rowIndex].t[colIndex]=data.results[rowIndex].t[colIndex];
 };
 
 const focusScore=(rowIndex:number,colIndex:number):void=>{
-    console.log('focus',rowIndex,colIndex);
+    //console.log('focus',rowIndex,colIndex);
 };
 
 const blurScore=async(rowIndex:number,colIndex:number):Promise<void>=>{
     console.log('blur',rowIndex,colIndex);
+};
+
+const validateGrade=(rowIndex:number):void=>{
+
+};
+const focusGrade=(rowIndex:number):void=>{
+
+};
+const blurGrade=(rowIndex:number):void=>{
+
 };
 
 const calculate=(rowIndex:number)=>{
@@ -44,9 +53,7 @@ $effect(() => {
             const res=await assessment.getEditTable();
             console.log(res);
             data.assessment=res.assessment;
-            data.results=res.results;
-            
-            
+            data.results=res.results; 
         })()
 });
 
@@ -120,6 +127,7 @@ let handleKeydown=(event:any)=>{
         <tr>
             <th></th>
             <th></th>
+            {#if !data.assessment.isGrade}
             {#each data.assessment.t as col,colIndex}
                 <th>{col.p}/{col.t}</th>
             {/each}
@@ -127,23 +135,30 @@ let handleKeydown=(event:any)=>{
             <th>GRD</th>
             <th>Abs?</th>
             <th>Feedback</th>
+            {:else}
+            <th>GRD</th>
+            {/if}
         </tr>
         {#each data.results as row,rowIndex}
             {#if (data.view==='group' && row.g===cohorts.edit.g ) ||  data.view==='all'}
             <tr>
                 <td class="w10">{row.sn} {row.pn}</td>
                 <td>{row.g}</td>
+                {#if !data.assessment.isGrade}
                 {#each row.t as col,colIndex}
                     <td>
-                        <input class="score" id={`R${rowIndex}C${colIndex}`} tabindex={(colIndex+1)*data.results.length+rowIndex+1} disabled='{!cohorts.edit.isEdit || row.x}' min=0 step=1 type=number bind:value={row.t[colIndex]} oninput={()=>validateScore(rowIndex,colIndex)} onfocus={()=>focusScore(rowIndex,colIndex)} onblur={()=>blurScore(rowIndex,colIndex)}/>
-                           
+                        <input class="score" id={`R${rowIndex}C${colIndex}`} tabindex={(colIndex+1)*data.results.length+rowIndex+1} disabled='{!cohorts.edit.isEdit || row.x}' min=0 step=1 type=number bind:value={row.t[colIndex]} oninput={()=>validateScore(rowIndex,colIndex)} onfocus={()=>focusScore(rowIndex,colIndex)} onblur={()=>blurScore(rowIndex,colIndex)}/>           
                     </td>
                 {/each}
                 <td>{row.pc}</td>
                 <th>{row.gd}</th>
                 <td><input type=checkbox bind:checked={row.x} onchange={()=>calculate(rowIndex)}/></td>
                 <td><textarea id={`textarea-fb-${rowIndex}`} class="fb" value={row.fb} onblur={()=>calculate(rowIndex)}></textarea></td>
-          
+                {:else}
+                    <td>
+                        <input class="score" id={`R${rowIndex}C${0}`} tabindex={(1)*data.results.length+rowIndex+1} disabled='{!cohorts.edit.isEdit || row.x}' type=text bind:value={row.gd} oninput={()=>validateGrade(rowIndex)} onfocus={()=>focusGrade(rowIndex)} onblur={()=>blurGrade(rowIndex)}/>           
+                    </td>
+                {/if}
             </tr>
             {/if}
         {/each}
