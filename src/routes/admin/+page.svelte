@@ -2,7 +2,7 @@
 import {goto} from '$app/navigation';
 import {config,user,cohorts} from '$lib/state.svelte';
 import {alert} from '$lib/state.svelte';
-import * as assessment from '$lib/assessment.svelte';
+import * as assessment from '../assessments/assessment.svelte';
 import * as util from '$lib/util';
 
 let status = $state({
