@@ -161,20 +161,14 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
 
 
 interface EditTable  {
-    assessment:{id:number,n:string,isLock:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
-    results:{id:number|null,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[]
+    assessment:{id:number,n:string,isLock:boolean,isGrade:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
+    results:{id:number|null,x:boolean,g:string,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[]
 }
 
 export const getEditTable=async():Promise<EditTable>=>{
     const select=`select=id,nc,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
     const filter=`id=eq.${cohorts.edit.id}`;
-    /*
-    const response = await fetch('/api/readAssessment', {
-        method: 'POST',
-        body: JSON.stringify({type:'id',id:cohorts.edit.id}),
-        headers: {'content-type': 'application/json'}
-    });
-    */
+    
     const response = await fetch('/edge/read', {
         method: 'POST',
         body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
@@ -189,9 +183,9 @@ export const getEditTable=async():Promise<EditTable>=>{
 
     
 
-    if(!res[0] || !gps[0]) return {assessment:{id:0,n:'',isLock:true,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},results:[]};
+    if(!res[0] || !gps[0]) return {assessment:{id:0,n:'',isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},results:[]};
 
-    const a = {id:res[0].id,n:res[0].n,isLock:res[0].isLock,gd:res[0].gd,t:res[0].t};
+    const a = {id:res[0].id,n:res[0].n,isLock:res[0].isLock,isGrade:res[0].isGrade,gd:res[0].gd,t:res[0].t};
 
     
     const r=[];
@@ -201,7 +195,7 @@ export const getEditTable=async():Promise<EditTable>=>{
             if(f) console.log('FOUND RESULT ROW',p.pid);
             else console.log('MISSING ROW',p.pid);
             const t=a.t.map((el: number, i:  number)=>f?.t?.[i] ? f.t[i] : 0);
-
+            const gd=f?f.gd : 'X';
             r.push({
                 id:f?f.id:null,    // get from res[0]
                 g:g.g,
@@ -209,9 +203,10 @@ export const getEditTable=async():Promise<EditTable>=>{
                 sn:p.sn,
                 pn:p.pn,
                 t:t,
-                gd:f?f.gd : 'X',
+                gd:gd,
                 pc:f?f.pc:0,
-                fb:''
+                fb:'',
+                x:gd==='X' ? true : false
             });
         }
     }

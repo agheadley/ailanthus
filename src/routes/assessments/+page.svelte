@@ -207,6 +207,7 @@
                     {#each row.results as col,colIndex}
                     <td>{@html chart.getGrade(colIndex===0 ? false : true,col.gd,col.r)}</td>
                     {/each}
+                    
                 </tr>
                 {/each}
 
