@@ -32,6 +32,16 @@ let group:  {	nc:number,sc:string,ss:string,sl:string,g:string,log:string,
 			=[];
 
 
+let edgeTest=async()=>{
+	let response = await fetch('/edge/read', {
+		method: 'GET',
+		//body: JSON.stringify({table:"group_table",data:group}),
+		headers: {'content-type': 'application/json'}
+	});
+	let res= await response.json();
+	console.log('edgeRead',res);
+};
+
 
 
 let insertGroup=async()=>{
@@ -277,6 +287,12 @@ $effect(() => {
     <title>Testbed</title>
     <meta name="description" content="ailanthus" />
 </svelte:head>
+
+<article>
+	<h4>Edge Read</h4>
+	<p><button onclick={edgeTest}>Read</button></p>
+</article>
+
 
 
 <article>
