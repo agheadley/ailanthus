@@ -1,6 +1,9 @@
 import { json } from '@sveltejs/kit';
 import { SUPABASE_ANON_KEY} from '$env/static/private'
 
+export const config = {
+    runtime: 'edge', // this is a pre-requisite
+  };
 
 let headers= {
     'Access-Control-Request-Headers': '*',
