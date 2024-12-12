@@ -24,7 +24,8 @@ let validate=():void=>{
 
 let create=async():Promise<void>=>{
    
-    alert.msg = 'Creating Assessment ...'
+    alert.ms=0;
+    alert.msg = 'Creating Assessment ...';
    
     const res = await assessment.createAssessment(data.subject.nc,data.subject.sc,data.subject.ss,status.n,status.dl,false,false);
     //console.log(res);
@@ -32,6 +33,7 @@ let create=async():Promise<void>=>{
     alert.msg=res.msg;
     data.isUpdateRequired=true;
     data.isCreate=false;
+    alert.ms=3000;
   
   
 

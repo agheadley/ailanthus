@@ -99,12 +99,15 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
     }));
 
     // get assessments and result
-    const response = await fetch('/api/readAssessment', {
-		method: 'POST',
-		body: JSON.stringify({type:'subject',nc:nc,sc:sc,ss:ss,isArchive:false}),
-		headers: {'content-type': 'application/json'}
-	});
-	const res= await response.json();
+    const select=`select=id,nc,n,dl,dt,sc,ss,sl,log,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
+    const filter=`nc=eq.${nc}&sc=eq.${sc}&ss=eq.${ss}&isArchive=eq.false`;
+    const order=`order=dt.asc`;
+    const response = await fetch('/edge/read', {
+        method: 'POST',
+        body: JSON.stringify({table:'assessment_table',select:select,filter:filter,order:order}),
+        headers: {'content-type': 'application/json'}
+    });
+    const res= await response.json();
 
     // assess edit status isLock:false && tch of nc/subject or admin required.
     const gps = config.groups.filter(el=>el.nc===nc && el.sc===sc && el.ss===ss);
@@ -163,16 +166,26 @@ interface EditTable  {
 }
 
 export const getEditTable=async():Promise<EditTable>=>{
+    const select=`select=id,nc,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
+    const filter=`id=eq.${cohorts.edit.id}`;
+    /*
     const response = await fetch('/api/readAssessment', {
         method: 'POST',
         body: JSON.stringify({type:'id',id:cohorts.edit.id}),
         headers: {'content-type': 'application/json'}
     });
+    */
+    const response = await fetch('/edge/read', {
+        method: 'POST',
+        body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
+        headers: {'content-type': 'application/json'}
+    });
     const res= await response.json();
+    //console.log(res);
 
     const gps = config.groups.filter(el=>el.nc===cohorts.edit.nc && el.sc===cohorts.edit.sc && el.ss===cohorts.edit.ss);
     
-    console.log(gps);
+    //console.log(gps);
 
     
 
@@ -185,7 +198,8 @@ export const getEditTable=async():Promise<EditTable>=>{
     for(const g of gps) {
         for(const p of g.pupil) {
             const f=res[0].result_table.find((el: { pid: number; })=>el.pid===p.pid);
-            if(f) console.log('found result for ',p.pid);
+            if(f) console.log('FOUND RESULT ROW',p.pid);
+            else console.log('MISSING ROW',p.pid);
             const t=a.t.map((el: number, i:  number)=>f?.t?.[i] ? f.t[i] : 0);
 
             r.push({

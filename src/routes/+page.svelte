@@ -7,9 +7,9 @@ import {user,config,cohorts} from '$lib/state.svelte';
 
 const getCore=async()=>{
 	// get all groups
-	let response = await fetch('/api/read', {
+	let response = await fetch('/edge/read', {
 		method: 'POST',
-		body: JSON.stringify({table:"group_table",eq:[],select:"*"}),
+		body: JSON.stringify({table:"group_table",select:"*"}),
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
@@ -28,17 +28,17 @@ const getCore=async()=>{
 	
 
 
-	response = await fetch('/api/read', {
+	response = await fetch('/edge/read', {
 		method: 'POST',
-		body: JSON.stringify({table:"pupil_table",eq:[],select:"*"}),
+		body: JSON.stringify({table:"pupil_table",select:"*"}),
 		headers: {'content-type': 'application/json'}
 	});
 	config.pupils= await response.json();
 	//$state.snapshot(config.pupils);
 	
-	response = await fetch('/api/read', {
+	response = await fetch('/edge/read', {
 		method: 'POST',
-		body: JSON.stringify({table:"teacher_table",eq:[],select:"*"}),
+		body: JSON.stringify({table:"teacher_table",select:"*"}),
 		headers: {'content-type': 'application/json'}
 	});
 	config.teachers= await response.json();

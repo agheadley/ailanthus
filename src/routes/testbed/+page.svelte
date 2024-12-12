@@ -32,15 +32,20 @@ let group:  {	nc:number,sc:string,ss:string,sl:string,g:string,log:string,
 			=[];
 
 
-let edgeTest=async()=>{
+let edgeRead=async()=>{
+	const select=`select=id,nc,n,dl,dt,sc,ss,sl,log,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
+	const filter=`isArchive=eq.false&nc=eq.13&ss=eq.Eli&sc=eq.A`;
+	const order=`order=dt.asc`;
+
 	let response = await fetch('/edge/read', {
 		method: 'POST',
-		body: JSON.stringify({id:55}),
+		body: JSON.stringify({table:'assessment_table',filter:filter,select:select,order:order}),
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
 	console.log('edgeRead',res);
 };
+
 
 
 
@@ -269,6 +274,10 @@ let read=async()=>{
 		
 };
 
+let openAlert=()=>{
+	alert.msg='Hello World!';
+};
+
 
 
 $effect(() => {
@@ -290,7 +299,8 @@ $effect(() => {
 
 <article>
 	<h4>Edge Read</h4>
-	<p><button onclick={edgeTest}>Read</button></p>
+	<p><button onclick={edgeRead}>Read</button></p>
+	
 </article>
 
 
@@ -351,8 +361,8 @@ $effect(() => {
 <article>
     <h2>Alert & Modal</h2>
     <div>
-        <p><button onclick={()=>alert.msg='Hello World!'}>Alert</button></p>
-    </div>
+        <p><button onclick={openAlert}>Alert</button></p>
+	</div>
     <div>
         <p><button onclick={()=>modalOpen=true}>Modal</button></p>
     </div>

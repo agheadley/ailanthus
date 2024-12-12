@@ -25,6 +25,7 @@ let validate=():void=>{
 
 let create=async():Promise<void>=>{
    
+    alert.ms=0;
     let arr= util.unique(config.groups.filter(el=>el.nc===cohorts.nc.list[status.ncIndex].nc).map(el=>({nc:el.nc,sc:el.sc,ss:el.ss})),['nc','sc','ss']);
     console.log(arr);
     if(arr[0]) {
@@ -44,6 +45,7 @@ let create=async():Promise<void>=>{
         alert.type='error';
         alert.msg='no groups found';
     }
+    alert.ms=3000;
 
 };
 
