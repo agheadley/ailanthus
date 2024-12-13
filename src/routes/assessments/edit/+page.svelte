@@ -194,19 +194,22 @@ let handleKeydown=(event:any)=>{
 {#if data.isIntake}
 <Modal bind:open={data.isIntake} title={`${data.results[data.rowIndex].sn} ${data.results[data.rowIndex].pn}`}>
     {#snippet children()}
-    <table>
+    <table class="small">
         <tbody>
             <tr>
+                <th></th>
                 <th>{data.std.A}</th>
                 <th>{data.std.B}</th>
             </tr>
             <tr>
+                <th>OVERALL</th>
                 <td>{@html chart.getIntakeBar(data.results[data.rowIndex].overall.A,data.std.A)}</td>
                 <td>{@html chart.getIntakeBar(data.results[data.rowIndex].overall.B,data.std.B)}</td>
             </tr>
             <tr>
-                <td>{data.results[data.rowIndex].pre.A}</td>
-                <td>{data.results[data.rowIndex].pre.B}</td>
+                <th>CHANCES</th>
+                <td>{@html chart.getChance(cohorts.edit.sc,data.results[data.rowIndex].pre.A)}</td>
+                <td>{@html chart.getChance(cohorts.edit.sc,data.results[data.rowIndex].pre.B)}</td>
             </tr>
         </tbody>
     </table>

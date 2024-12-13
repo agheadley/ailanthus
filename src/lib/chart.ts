@@ -46,13 +46,64 @@ export const getAssessmentTitle=(title:string,subTitle:string):string=>{
         </div>
     </div>
     `;
-    /*
-    return `<div style=" font-size:0.8rem;position:relative;width:2rem;height:8rem;border:0px solid #333;overflow:hidden;">
-        <div style=" position:absolute;top:6rem;width:10rem;height:4rem;border:0;overflow:hidden;transform: translate(-2rem,-3rem) rotate(-80deg);line-height:0.8rem;">
-            <div style=" font-weight:bold;">${title}</div>
-            <div style=" font-weight:bold;">${subTitle}</div>
-        </div>
-    </div>`;
-    */
+  
+};
+
+
+export const getChance=(sc:string,pre:number):string=>{
+
+    const grade=config.grade.filter(el=>el.sc===sc);
+    const w=100;
+    const startY=15;
+    const maxH=50;
+
+    let txt=``;
+
+    const s=grade[0] ? grade[0].pre/5 : 0;
+    const points=grade.map((/** @type {{ gd: any; pre: any; }} */ el)=>({gd:el.gd,pre:el.pre,h:0,p:0,residual:0,w:0,x:0,y:0})).sort((/** @type {{ pre: number; }} */ a,/** @type {{ pre: number; }} */ b)=> a.pre-b.pre);
+
+   
+    
+    //console.log(points);
+    
+    const itemW= points[0] ? w/points.length : 0;   
+    const datum= pre>0 ? pre : 0;
+    if(datum>0) {
+        for(const item of points) {
+            item['residual']=datum>0 ? Math.abs(item.pre-datum) : 0 ;
+            const h=s>0 ? Math.exp(-(item['residual']*item['residual'])/(2*s*s))*1/(2*Math.PI*s) : 0;
+            item['p']=h;
+        }
+        const total=points.map((/** @type {{ [x: string]: any; }} */ el)=>el['p']).reduce((/** @type {any} */ partialSum, /** @type {any} */ a) => partialSum + a, 0);
+        for(let i=0;i<points.length;i++) {
+            const item=points[i];
+            item['p']=Math.floor(100*item['p']/total);
+            item['y']=startY+maxH-item['h'];
+            item['x']=i*itemW+itemW/10;
+            item['w']=0.8*itemW;
+        }
+        const max=Math.max(...points.map((/** @type {{ [x: string]: any; }} */ el)=>el['p']));
+        for(const item of points) {
+            item['h'] = maxH*item['p']/max;
+            item['y']=startY+maxH-item['h'];
+        }
+
+
+    }
+
+    txt+=`<svg width="6rem" height="4.8rem" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">`;
+    txt+=`<g>`;
+    for(const p of points) {
+        txt+=`<rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" fill="rgba(0,128,255,0.5)"></rect>`;
+        if(p.p>15) {
+            txt+=`<text x="${p.x}" y="${p.y-2}" font-size="10" fill="#333">${p.gd}</text>`;
+        }
+    }
+    txt+=`</g>`;
+    txt+=`<svg>`;
+
+    //console.log(points);
+
+    return txt;
 };
 
