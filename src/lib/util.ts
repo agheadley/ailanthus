@@ -64,3 +64,5 @@ export const findAverageGrade=(sc:string,gradeArr:string[]):string=>{
     
 };
 
+
+

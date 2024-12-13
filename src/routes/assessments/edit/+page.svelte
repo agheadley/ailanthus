@@ -30,6 +30,26 @@ const focusScore=(rowIndex:number,colIndex:number):void=>{
 
 const blurScore=async(rowIndex:number,colIndex:number):Promise<void>=>{
     console.log('blur',rowIndex,colIndex);
+    // update results if others are entering data, and db row exists (has an id)
+    if(data.results[rowIndex].id) {
+        const select=`select=id,t`;
+        const filter=`id=eq.${data.results[rowIndex].id}`;
+        
+        let response = await fetch('/edge/read', {
+            method: 'POST',
+            body: JSON.stringify({table:'result_table',filter:filter,select:select}),
+            headers: {'content-type': 'application/json'}
+        });
+        let res= await response.json();
+        // populate other columns with data just read, leave active column!
+        $state.snapshot(data.results[rowIndex].t);
+
+        if(res?.[0].t?.[0]) data.results[rowIndex].t=data.results[rowIndex].t.map((el,i)=>i!==colIndex ? res[0].t[i] : el);
+        
+    }
+
+    await calculate(rowIndex);
+
 };
 
 const validateGrade=(rowIndex:number):void=>{
@@ -42,8 +62,18 @@ const blurGrade=(rowIndex:number):void=>{
 
 };
 
-const calculate=(rowIndex:number)=>{
-
+const calculate=async(rowIndex:number):Promise<void>=>{
+    console.log(data.results[rowIndex].t);
+    console.log(data.assessment);
+    console.log('here!');
+    $state.snapshot(data.results[rowIndex].t);
+    $state.snapshot(data.assessment.gd);
+    $state.snapshot(data.assessment.t);
+    
+    
+    let pc=assessment.getPercentage(data.results[rowIndex].t, data.assessment.t);
+    let gd=assessment.getGrade(pc,data.assessment.gd);
+    console.log(pc,gd);
 };
 
 $effect(() => {

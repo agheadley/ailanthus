@@ -1,6 +1,25 @@
 import {config,cohorts,user} from '$lib/state.svelte';
 import * as util from '$lib/util';
 
+
+
+export const getGrade=(pc:number,gdArr:{gd:string,pc:number,sc:string,pre:number}[]):string=>{
+    let result=gdArr[0] ? gdArr[0].gd : 'U';
+    for(const item of gdArr.sort((a,b)=>a.pc-b.pc)) if(pc>=item.pc)  result=item.gd;
+    return result;
+};
+
+
+export const getPercentage=(scoreArr:number[],tArr:{t:number,w:number,p:string}[]):number=>{
+    
+    const tw=tArr.filter(el=>el.t>0).map((/** @type {{ w: any; }} */ el)=>el.w).reduce((/** @type {any} */ a,/** @type {any} */ v)=>a+v);
+    let pc=0;
+    scoreArr.forEach((v,i)=>pc+=tArr[i].t>0 && tw>0 ? (v/tArr[i].t)*(tArr[i].w/tw) : 0);
+    return Math.round(100*100*pc)/100;
+};
+
+
+
 export const createAssessment=async(nc:number,sc:string,ss:string,n:string,dl:string,isGrade:boolean,isCore:boolean):Promise<{isOK:boolean,msg:string}>=>{
 
 

@@ -75,7 +75,7 @@ let insertPupil=async()=>{
 let upsert = async()=>{
 	let response = await fetch('/api/upsert', {
 		method: 'POST',
-		body: JSON.stringify({table:"test_table",data:[{id:5,name:"larry"},{name:"olive"}]}),
+		body: JSON.stringify({table:"test_table",data:[{id:1,age:15},{age:25}]}),
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
