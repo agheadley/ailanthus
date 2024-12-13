@@ -1,20 +1,33 @@
 <script lang="ts">
 import { goto } from '$app/navigation';
-    
-import {cohorts,config} from '$lib/state.svelte';
+import {user,cohorts,config,alert} from '$lib/state.svelte';
 import * as assessment from './../assessment.svelte';
-
+import * as util from '$lib/util';
+import Modal from '$lib/_Modal.svelte';
+import * as chart from '$lib/chart';
 
 interface Data  {
     assessment:{id:number,n:string,isLock:boolean,isGrade:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
-    results:{id:number|null,x:boolean,g:string,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[],
-    view:'group'|'all'
+    results:{id:number|null,x:boolean,g:string,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string,overall:{A:number,B:number},pre:{A:number,B:number}}[],
+    std:{A:string,B:string}
+    view:'group'|'all',
+    isIntake:boolean,
+    isDownload:boolean,
+    isManage:boolean,
+    isLock:boolean,
+    rowIndex:number
 }
 
 const data : Data = $state({
     assessment:{id:0,n:'',isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},
     results:[],
-    view:'group'
+    std:{A:'',B:''},
+    view:'group',
+    isIntake:false,
+    isDownload:false,
+    isManage:false,
+    isLock:false,
+    rowIndex:0
 });
 
 const validateScore=(rowIndex:number,colIndex:number):void=>{
@@ -53,37 +66,77 @@ const blurScore=async(rowIndex:number,colIndex:number):Promise<void>=>{
 };
 
 const validateGrade=(rowIndex:number):void=>{
-
+    let gdArr=data.assessment.gd.map(el=>el.gd);
+    console.log(gdArr,data.results[rowIndex].gd);
+    if(!gdArr.includes(data.results[rowIndex].gd)) data.results[rowIndex].gd='';
+   
+    
 };
 const focusGrade=(rowIndex:number):void=>{
 
 };
-const blurGrade=(rowIndex:number):void=>{
-
+const blurGrade=async(rowIndex:number):Promise<void>=>{
+    if( data.results[rowIndex].gd==='')  data.results[rowIndex].gd='X';
+    await calculate(rowIndex);
 };
 
 const calculate=async(rowIndex:number):Promise<void>=>{
-    console.log(data.results[rowIndex].t);
-    console.log(data.assessment);
-    console.log('here!');
-    $state.snapshot(data.results[rowIndex].t);
-    $state.snapshot(data.assessment.gd);
-    $state.snapshot(data.assessment.t);
+    alert.ms=1000;
+
+    if(data.assessment.isGrade===false) {
+        if( data.results[rowIndex].x) {
+            data.results[rowIndex].gd='X';
+            data.results[rowIndex].pc=0;
+            
+        } else {
+            data.results[rowIndex].pc=assessment.getPercentage(data.results[rowIndex].t, data.assessment.t);
+            data.results[rowIndex].gd=assessment.getGrade(data.results[rowIndex].pc,data.assessment.gd);
+        }
+    } else {
+        data.results[rowIndex].pc=0;
+    }
     
     
-    let pc=assessment.getPercentage(data.results[rowIndex].t, data.assessment.t);
-    let gd=assessment.getGrade(pc,data.assessment.gd);
-    console.log(pc,gd);
+
+    let d : {id?:number,aid?:number,t:number[],gd:string,pc:number,g:string,fb:string,log:string,sn?:string,pn?:string,pid?:number}
+    if(data.results[rowIndex].id!==null) 
+        d={id:data.results[rowIndex].id,t:data.results[rowIndex].t,pc:data.results[rowIndex].pc,gd:data.results[rowIndex].gd,log:`${user.name}|${util.getDateTime()}`,g:data.results[rowIndex].g,fb:data.results[rowIndex].fb}
+    else 
+        d= {sn:data.results[rowIndex].sn,pn:data.results[rowIndex].pn,pid:data.results[rowIndex].pid,aid:data.assessment.id,t:data.results[rowIndex].t,pc:data.results[rowIndex].pc,gd:data.results[rowIndex].gd,log:`${user.name}|${util.getDateTime()}`,g:data.results[rowIndex].g,fb:data.results[rowIndex].fb};
+   
+    let response = await fetch('/api/upsert', {
+		method: 'POST',
+		body: JSON.stringify({table:"result_table",data:d}),
+		headers: {'content-type': 'application/json'}
+	});
+	let res= await response.json();
+	//console.log('UPSERT',res);
+    if(data.results[rowIndex].id===null && res?.[0]?.id)  data.results[rowIndex].id=res[0].id;
+
+    if(res?.[0]?.id) {
+        alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} updated`;
+    } else {
+        alert.type='error';
+        alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} error`;
+    }
+    
+};
+
+const openIntake=(rowIndex:number):void=>{
+    data.rowIndex=rowIndex;
+    data.isIntake=true;
 };
 
 $effect(() => {
         (async () => {
             if(config.isReady===false) goto(`/`);
-            $inspect(cohorts.edit);
+            
             const res=await assessment.getEditTable();
             console.log(res);
             data.assessment=res.assessment;
             data.results=res.results; 
+            data.std=res.std;
+            $state.snapshot(data);
         })()
 });
 
@@ -138,9 +191,29 @@ let handleKeydown=(event:any)=>{
 </svelte:head>
 
 
-<p>
-    {JSON.stringify(cohorts.edit)};
-</p>
+{#if data.isIntake}
+<Modal bind:open={data.isIntake} title={`${data.results[data.rowIndex].sn} ${data.results[data.rowIndex].pn}`}>
+    {#snippet children()}
+    <table>
+        <tbody>
+            <tr>
+                <th>{data.std.A}</th>
+                <th>{data.std.B}</th>
+            </tr>
+            <tr>
+                <td>{@html chart.getIntakeBar(data.results[data.rowIndex].overall.A,data.std.A)}</td>
+                <td>{@html chart.getIntakeBar(data.results[data.rowIndex].overall.B,data.std.B)}</td>
+            </tr>
+            <tr>
+                <td>{data.results[data.rowIndex].pre.A}</td>
+                <td>{data.results[data.rowIndex].pre.B}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+{/snippet}
+</Modal>
+{/if}
 
 <div class="row">
     <div class="col">
@@ -172,7 +245,7 @@ let handleKeydown=(event:any)=>{
         {#each data.results as row,rowIndex}
             {#if (data.view==='group' && row.g===cohorts.edit.g ) ||  data.view==='all'}
             <tr>
-                <td class="w10">{row.sn} {row.pn}</td>
+                <td class="w10"><a href={'javascript:void(0)'} onclick={()=>openIntake(rowIndex)}>{row.sn} {row.pn}</a></td>
                 <td>{row.g}</td>
                 {#if !data.assessment.isGrade}
                 {#each row.t as col,colIndex}
@@ -183,10 +256,11 @@ let handleKeydown=(event:any)=>{
                 <td>{row.pc}</td>
                 <th>{row.gd}</th>
                 <td><input type=checkbox bind:checked={row.x} onchange={()=>calculate(rowIndex)}/></td>
-                <td><textarea id={`textarea-fb-${rowIndex}`} class="fb" value={row.fb} onblur={()=>calculate(rowIndex)}></textarea></td>
+                <td><textarea id={`textarea-fb-${rowIndex}`} class="fb" bind:value={row.fb} onblur={()=>calculate(rowIndex)}></textarea></td>
+                
                 {:else}
                     <td>
-                        <input class="score" id={`R${rowIndex}C${0}`} tabindex={(1)*data.results.length+rowIndex+1} disabled='{!cohorts.edit.isEdit || row.x}' type=text bind:value={row.gd} oninput={()=>validateGrade(rowIndex)} onfocus={()=>focusGrade(rowIndex)} onblur={()=>blurGrade(rowIndex)}/>           
+                        <input class="score" id={`R${rowIndex}C${0}`} tabindex={(1)*data.results.length+rowIndex+1} disabled='{!cohorts.edit.isEdit}' type=text bind:value={row.gd} oninput={()=>validateGrade(rowIndex)} onfocus={()=>focusGrade(rowIndex)} onblur={()=>blurGrade(rowIndex)}/>           
                     </td>
                 {/if}
             </tr>

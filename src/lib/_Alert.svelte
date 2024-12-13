@@ -16,6 +16,7 @@
 
 
     $effect(() => {
+        if(alert.type==='error') alert.ms=0;
         review(alert.msg);
     });
 

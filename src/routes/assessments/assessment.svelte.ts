@@ -181,7 +181,8 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
 
 interface EditTable  {
     assessment:{id:number,n:string,isLock:boolean,isGrade:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
-    results:{id:number|null,x:boolean,g:string,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string}[]
+    results:{id:number|null,x:boolean,g:string,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string,pre:{A:number,B:number},overall:{A:number,B:number}}[],
+    std:{A:string,B:string}
 }
 
 export const getEditTable=async():Promise<EditTable>=>{
@@ -202,7 +203,7 @@ export const getEditTable=async():Promise<EditTable>=>{
 
     
 
-    if(!res[0] || !gps[0]) return {assessment:{id:0,n:'',isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},results:[]};
+    if(!res[0] || !gps[0]) return {std:{A:'',B:''},assessment:{id:0,n:'',isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},results:[]};
 
     const a = {id:res[0].id,n:res[0].n,isLock:res[0].isLock,isGrade:res[0].isGrade,gd:res[0].gd,t:res[0].t};
 
@@ -215,6 +216,13 @@ export const getEditTable=async():Promise<EditTable>=>{
             else console.log('MISSING ROW',p.pid);
             const t=a.t.map((el: number, i:  number)=>f?.t?.[i] ? f.t[i] : 0);
             const gd=f?f.gd : 'X';
+            const fPupil = config.pupils.find(el=>el.pid===p.pid);
+            const overall = fPupil ? {A:fPupil.overall.A,B:fPupil.overall.B} : {A:0,B:0};
+            let pre = {A:0,B:0};
+            if(fPupil) {
+                const fPre=fPupil.groups.find(el=>el.nc===cohorts.edit.nc && el.sc===cohorts.edit.sc && el.ss===cohorts.edit.ss);
+                if(fPre) pre = {A:fPre.pre.A,B:fPre.pre.B};
+            }
             r.push({
                 id:f?f.id:null,    // get from res[0]
                 g:g.g,
@@ -224,13 +232,15 @@ export const getEditTable=async():Promise<EditTable>=>{
                 t:t,
                 gd:gd,
                 pc:f?f.pc:0,
-                fb:'',
-                x:gd==='X' ? true : false
+                fb:f?f.fb:'',
+                x:gd==='X' ? true : false,
+                overall:overall,
+                pre:pre
             });
         }
     }
 
-    return {assessment:a,results:r};
+    return {assessment:a,results:r,std:util.getStd(cohorts.edit.nc)};
     
 
 };

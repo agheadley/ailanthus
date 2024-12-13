@@ -14,8 +14,7 @@ export async function POST({request}) {
         .from(req.table)
         .upsert(req.data, { onConflict: 'id',ignoreDuplicates:false,defaultToNull:false})
         .select()
-        //.eq('id', req.id);
-
+      
 
 
     console.log(error);
