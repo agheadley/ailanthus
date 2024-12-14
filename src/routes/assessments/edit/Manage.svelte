@@ -5,40 +5,59 @@ import { cohorts } from '$lib/state.svelte';
 let { data = $bindable() } = $props();
 
 
-let status:{n:string,max:number,gd:boolean[]}=$state({
-    n:'',
-    max:12,
-    gd:[]
-});
-let validateName=()=>{
-    status.n=status.n.replace(/ /g,"_");
-    status.n=status.n.replace(/[^A-Za-z0-9._-]/g,"");
-    status.n = status.n.length && status.n.length>status.max ? status.n.slice(0,(status.max-1)) : status.n;
-    status.n = status.n==='' ? data.assessment.n : status.n; 
 
 
-};
 
 let removeSection=(rowIndex:number):void=>{
+    data.assessment.t.pop();
+};
 
+let addSection=():void=>{
+    let x=data.assessment?.t?.length ? data.assessment.t.length+1 : 0;
+    data.assessment.t.push({p:x>0?`P${x}`:'Px',t:100,w:100});
+};
+
+let validateTotal=(rowIndex:number):void=>{
+        data.assessment.t[rowIndex].p = data.assessment.t[rowIndex].p.replace(/\W+/g, " ");
+        data.assessment.t[rowIndex].p = data.assessment.t[rowIndex].p.length && data.assessment.t[rowIndex].p.length>data.manage.max ? data.assessment.t[rowIndex].p.slice(0,(data.manage.max-1)) : data.assessment.t[rowIndex].p;
+        data.assessment.t[rowIndex].p = data.assessment.t[rowIndex].p==='' ?  data.assessment?.t?.length ? `P${rowIndex+1}`: 'Px' : data.assessment.t[rowIndex].p;
+
+        let x=data.assessment.t[rowIndex].t>=0 ? data.assessment.t[rowIndex].t : 0;
+        data.assessment.t[rowIndex].t=Math.round(x);
+        x=data.assessment.t[rowIndex].w>=0 ? data.assessment.t[rowIndex].w : 0;
+        data.assessment.t[rowIndex].w=Math.round(x);
 };
 
 let validateGrade=(rowIndex:number):void=>{
 
+    data.manage.isValid=true;
+
+    let x=data.assessment.gd[rowIndex].pc>=0 ? data.assessment.gd[rowIndex].pc : 0;
+    x = x>100 ? 100 : x;
+    data.assessment.gd[rowIndex].pc=Math.round(100*x)/100;
+
+       
+    for(let item of data.manage.gd) item=true;
+
+    let currentValue=100;
+    for(let i=0;i<data.assessment.gd.length;i++) {
+        if(i>0) {
+            if(data.assessment.gd[i].pc >= currentValue) data.manage.gd[i]=false;
+        } else  {
+            if(data.assessment.gd[i].pc > currentValue) data.manage.gd[i]=false;
+        }
+        currentValue= data.assessment.gd[i].pc;
+
+    }
 };
 
 $effect(()=>{
-    status.n=data.assessment.n;
-    status.gd=data.assessment.gd.map((el: any)=>true);
+    data.manage.n=data.assessment.n;
+    data.manage.gd=data.assessment.gd.map((el: any)=>true);
 });
 
 </script>
 
-<p>
-    <label for="name">Assessment Name</label>
-    <input id="name" type=text bind:value={status.n} oninput={validateName}/>
-</p>
-<hr/>
 
     <div class="row top">
         <div class="col">
@@ -47,16 +66,17 @@ $effect(()=>{
                     <tr><th></th><th>Section</th><th>Total</th><th>Weighting</th></tr>
                     {#each data.assessment.t as row,rowIndex}
                         <tr>
-                            <td>{#if rowIndex>0}<a href={'javascript:void(0)'} onclick={()=>removeSection(rowIndex)}>{@html icon.xCircle()}</a>{/if}</td>
-                            
-                            <td>{row.p}</td>
-                            <td>{row.t}</td>
-                            <td>{row.w}</td>
+                            <td>{#if rowIndex>0 && cohorts.edit.isEdit}<a href={'javascript:void(0)'} onclick={()=>removeSection(rowIndex)}>{@html icon.xCircle()}</a>{/if}</td>
+
+                            <td><input disabled={!cohorts.edit.isEdit}  type=text bind:value={row.p}  oninput={()=>validateTotal(rowIndex)}/></td>
+                            <td><input disabled={!cohorts.edit.isEdit}  type=number min=0 step=1 bind:value={row.t} oninput={()=>validateTotal(rowIndex)}/></td>
+                            <td><input disabled={!cohorts.edit.isEdit}   type=number min=0 step=1 bind:value={row.w}  oninput={()=>validateTotal(rowIndex)}/></td>
+                           
                         </tr>
                     {/each}
                 </tbody>
             </table>
-            
+            <p>{#if cohorts.edit.isEdit}<a href={'javascript:void(0)'} onclick={addSection}>{@html icon.plusCircle()}</a>{/if}</p>
         </div>
         <div class="col">
             <table class="small">
@@ -65,7 +85,7 @@ $effect(()=>{
                     {#each data.assessment.gd as row,rowIndex}
                         <tr>
                             <td>{row.gd}</td>
-                            <td><input disabled={!cohorts.edit.isEdit} type=number max=100 min=0 step=1 bind:value={row.pc} class={status.gd[rowIndex] ?'' : 'error'}  oninput={()=>validateGrade(rowIndex)}/></td>
+                            <td><input disabled={!cohorts.edit.isEdit} type=number max=100 min=0 step=1 bind:value={row.pc} class={data.manage.gd[rowIndex] ?'' : 'error'}  oninput={()=>validateGrade(rowIndex)}/></td>
                         </tr>
                     {/each}
                 </tbody>
@@ -75,5 +95,6 @@ $effect(()=>{
 
 
 <style>
+
 
 </style>

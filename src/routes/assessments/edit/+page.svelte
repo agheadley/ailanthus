@@ -17,7 +17,8 @@ interface Data  {
     isDownload:boolean,
     isManage:boolean,
     isLock:boolean,
-    rowIndex:number
+    rowIndex:number,
+    manage:{n:string,max:number,gd:boolean[],isValid:boolean}
 }
 
 let data : Data = $state({
@@ -29,55 +30,67 @@ let data : Data = $state({
     isDownload:false,
     isManage:false,
     isLock:false,
-    rowIndex:0
+    rowIndex:0,
+    manage:{n:'',max:12,gd:[],isValid:true}
 });
 
+let validateName=()=>{
+    data.manage.n=data.manage.n.replace(/ /g,"_");
+    data.manage.n=data.manage.n.replace(/[^A-Za-z0-9._-]/g,"");
+    data.manage.n = data.manage.n.length && data.manage.n.length>data.manage.max ? data.manage.n.slice(0,(data.manage.max-1)) : data.manage.n;
+    data.manage.n = data.manage.n==='' ? data.assessment.n : data.manage.n;
+};
 
 
 let updateAssessment=async():Promise<void>=>{
 
-    let dArr=[];
-    for(const item of data.results) {
-        //build the totals to match assessment changes
-        item.t=data.assessment.t.map((el,i)=>item?.t?.[i] ? item.t[i] : 0);
-        item.pc=assessment.getPercentage(item.t, data.assessment.t);
-        item.gd=assessment.getGrade(item.pc,data.assessment.gd);
-       
-        let d : {id?:number,aid?:number,t:number[],gd:string,pc:number,g:string,fb:string,log:string,sn?:string,pn?:string,pid?:number}
-        if(item.id!==null) 
-            d={id:item.id,t:item.t,pc:item.pc,gd:item.gd,log:`${user.name}|${util.getDateTime()}`,g:item.g,fb:item.fb}
-        else 
-            d= {sn:item.sn,pn:item.pn,pid:item.pid,aid:data.assessment.id,t:item.t,pc:item.pc,gd:item.gd,log:`${user.name}|${util.getDateTime()}`,g:item.g,fb:item.fb};
-    
-        dArr.push(d);
- 
+
+    data.manage.isValid=true;
+    for(let x of data.manage.gd) {
+        console.log(x);
+        data.manage.isValid = x ? data.manage.isValid : false;
     }
 
-
-    console.log(dArr);
-
-    /*
-    let response = await fetch('/api/upsert', {
-		method: 'POST',
-		body: JSON.stringify({table:"result_table",data:d}),
-		headers: {'content-type': 'application/json'}
-	});
-	let res= await response.json();
-	//console.log('UPSERT',res);
-    if(data.results[rowIndex].id===null && res?.[0]?.id)  data.results[rowIndex].id=res[0].id;
-
-    if(res?.[0]?.id) {
-        alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} updated`;
-    } else {
-        alert.type='error';
-        alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} error`;
-    }
-    */
-
-    // update assessment too , name, t, gd
-
-
+    if(data.manage.isValid) {
+        let dArr=[];
+        for(const item of data.results) {
+            //build the totals to match assessment changes
+            item.t=data.assessment.t.map((el,i)=>item?.t?.[i] ? item.t[i] : 0);
+            item.pc=assessment.getPercentage(item.t, data.assessment.t);
+            item.gd=assessment.getGrade(item.pc,data.assessment.gd);
+        
+            let d : {id?:number,aid?:number,t:number[],gd:string,pc:number,g:string,fb:string,log:string,sn?:string,pn?:string,pid?:number}
+            if(item.id!==null) 
+                d={id:item.id,t:item.t,pc:item.pc,gd:item.gd,log:`${user.name}|${util.getDateTime()}`,g:item.g,fb:item.fb}
+            else 
+                d= {sn:item.sn,pn:item.pn,pid:item.pid,aid:data.assessment.id,t:item.t,pc:item.pc,gd:item.gd,log:`${user.name}|${util.getDateTime()}`,g:item.g,fb:item.fb};
+        
+            dArr.push(d);
     
+        }
+        console.log(dArr);
+
+            /*
+        let response = await fetch('/api/upsert', {
+            method: 'POST',
+            body: JSON.stringify({table:"result_table",data:d}),
+            headers: {'content-type': 'application/json'}
+        });
+        let res= await response.json();
+        //console.log('UPSERT',res);
+        if(data.results[rowIndex].id===null && res?.[0]?.id)  data.results[rowIndex].id=res[0].id;
+
+        if(res?.[0]?.id) {
+            alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} updated`;
+        } else {
+            alert.type='error';
+            alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} error`;
+        }
+        */
+
+        // update assessment too , name, t, gd
+
+    }  
 };
 
 
@@ -268,8 +281,18 @@ let handleKeydown=(event:any)=>{
 {#if data.isManage}
 <Modal bind:open={data.isManage} title={'Update Totals,Boundaries & Name'}>
     {#snippet children()}
+    <div class="row top">
+        <div class="col">
+            <label for="name">Assessment Name</label>
+            <input id="name" type=text bind:value={data.manage.n} oninput={validateName}/>
+        </div>
+        <div class="col">
+            <button onclick={updateAssessment}>Update Grades</button>
+        </div>
+    </div>
+    {#if !data.manage.isValid}<p class="notice">You have errors in grade boundaries - boundary % must reduce for successive grades</p>{/if}
     <Manage bind:data={data}></Manage>
-    <p><button onclick={updateAssessment}>Save Changes</button></p>
+    
     {/snippet}
 </Modal>
 
