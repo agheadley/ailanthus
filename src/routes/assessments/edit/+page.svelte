@@ -6,6 +6,7 @@ import * as util from '$lib/util';
 import Modal from '$lib/_Modal.svelte';
 import * as chart from '$lib/chart';
 import * as icon from '$lib/icon';
+import Manage from './Manage.svelte';
 
 interface Data  {
     assessment:{id:number,n:string,isCore:boolean,isLock:boolean,isGrade:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
@@ -19,7 +20,7 @@ interface Data  {
     rowIndex:number
 }
 
-const data : Data = $state({
+let data : Data = $state({
     assessment:{id:0,n:'',isCore:false,isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},
     results:[],
     std:{A:'',B:''},
@@ -30,6 +31,54 @@ const data : Data = $state({
     isLock:false,
     rowIndex:0
 });
+
+
+
+let updateAssessment=async():Promise<void>=>{
+
+    let dArr=[];
+    for(const item of data.results) {
+        //build the totals to match assessment changes
+        item.t=data.assessment.t.map((el,i)=>item?.t?.[i] ? item.t[i] : 0);
+        item.pc=assessment.getPercentage(item.t, data.assessment.t);
+        item.gd=assessment.getGrade(item.pc,data.assessment.gd);
+       
+        let d : {id?:number,aid?:number,t:number[],gd:string,pc:number,g:string,fb:string,log:string,sn?:string,pn?:string,pid?:number}
+        if(item.id!==null) 
+            d={id:item.id,t:item.t,pc:item.pc,gd:item.gd,log:`${user.name}|${util.getDateTime()}`,g:item.g,fb:item.fb}
+        else 
+            d= {sn:item.sn,pn:item.pn,pid:item.pid,aid:data.assessment.id,t:item.t,pc:item.pc,gd:item.gd,log:`${user.name}|${util.getDateTime()}`,g:item.g,fb:item.fb};
+    
+        dArr.push(d);
+ 
+    }
+
+
+    console.log(dArr);
+
+    /*
+    let response = await fetch('/api/upsert', {
+		method: 'POST',
+		body: JSON.stringify({table:"result_table",data:d}),
+		headers: {'content-type': 'application/json'}
+	});
+	let res= await response.json();
+	//console.log('UPSERT',res);
+    if(data.results[rowIndex].id===null && res?.[0]?.id)  data.results[rowIndex].id=res[0].id;
+
+    if(res?.[0]?.id) {
+        alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} updated`;
+    } else {
+        alert.type='error';
+        alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} error`;
+    }
+    */
+
+    // update assessment too , name, t, gd
+
+
+    
+};
 
 
 let lockAssessment=async():Promise<void>=>{
@@ -216,6 +265,15 @@ let handleKeydown=(event:any)=>{
     <meta name="description" content="ailanthus" />
 </svelte:head>
 
+{#if data.isManage}
+<Modal bind:open={data.isManage} title={'Update Totals,Boundaries & Name'}>
+    {#snippet children()}
+    <Manage bind:data={data}></Manage>
+    <p><button onclick={updateAssessment}>Save Changes</button></p>
+    {/snippet}
+</Modal>
+
+{/if}
 
 {#if data.isLock}
 <Modal bind:open={data.isLock} title={'Lock and Make Live ?'}>
@@ -262,7 +320,7 @@ let handleKeydown=(event:any)=>{
         <label for="radio-all">All</label>
     </div>
     <div class="col">
-        <button disabled={data.assessment.isGrade || !cohorts.edit.isEdit} onclick={()=>data.isManage=true}>Boundary/Total</button>&nbsp;&nbsp;
+        <button disabled={data.assessment.isGrade} onclick={()=>data.isManage=true}>Boundary/Total</button>&nbsp;&nbsp;
         <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={()=>data.isDownload=true}>{@html icon.download(24)}</a>&nbsp;&nbsp;
         <button disabled={data.assessment.isLock || data.assessment.isCore} onclick={()=>data.isLock=true}>Send Live</button>
         

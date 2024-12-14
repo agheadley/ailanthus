@@ -738,6 +738,10 @@ sub {
   align-items: center;
 }
 
+.row.top {
+  align-items:start;
+}
+
 .col {
 	padding:1rem;
 }
