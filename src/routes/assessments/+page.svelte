@@ -59,7 +59,7 @@
     };
 
   
-    const toggleLock=async (index:number)=>{
+    const toggleLock=async (index:number):Promise<void>=>{
         //console.log(data.table[0].assessments[index]);
         let id =data.table[0].assessments[index].id;
         let isLock=data.table[0].assessments[index].isEdit ? true : false;

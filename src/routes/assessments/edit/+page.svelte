@@ -5,9 +5,10 @@ import * as assessment from './../assessment.svelte';
 import * as util from '$lib/util';
 import Modal from '$lib/_Modal.svelte';
 import * as chart from '$lib/chart';
+import * as icon from '$lib/icon';
 
 interface Data  {
-    assessment:{id:number,n:string,isLock:boolean,isGrade:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
+    assessment:{id:number,n:string,isCore:boolean,isLock:boolean,isGrade:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
     results:{id:number|null,x:boolean,g:string,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string,overall:{A:number,B:number},pre:{A:number,B:number}}[],
     std:{A:string,B:string}
     view:'group'|'all',
@@ -19,7 +20,7 @@ interface Data  {
 }
 
 const data : Data = $state({
-    assessment:{id:0,n:'',isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},
+    assessment:{id:0,n:'',isCore:false,isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},
     results:[],
     std:{A:'',B:''},
     view:'group',
@@ -29,6 +30,30 @@ const data : Data = $state({
     isLock:false,
     rowIndex:0
 });
+
+
+let lockAssessment=async():Promise<void>=>{
+
+    const response = await fetch('/api/update', {
+        method: 'POST',
+        body: JSON.stringify({table:"assessment_table",id:data.assessment.id,update:{isLock:true}}),
+        headers: {'content-type': 'application/json'}
+    });
+    const res= await response.json();
+    if(res?.[0]?.isLock) {
+        alert.msg=`ASSESSMENT ${data.assessment.n} locked`;
+        cohorts.edit.isEdit=false;
+        data.assessment.isLock=true;
+        data.isLock=false;
+    }
+    else {
+        alert.type='error';
+        alert.msg='error locking assessment'
+    }
+
+    
+
+};
 
 const validateScore=(rowIndex:number,colIndex:number):void=>{
     console.log('validate',rowIndex,colIndex);
@@ -136,7 +161,8 @@ $effect(() => {
             data.assessment=res.assessment;
             data.results=res.results; 
             data.std=res.std;
-            $state.snapshot(data);
+            $state.snapshot(data);            
+
         })()
 });
 
@@ -191,6 +217,16 @@ let handleKeydown=(event:any)=>{
 </svelte:head>
 
 
+{#if data.isLock}
+<Modal bind:open={data.isLock} title={'Lock and Make Live ?'}>
+    {#snippet children()}
+    <p class="notice">Locking the assessment will make it live for pupils / overview. Only the administrator can unlock to allow futher grade changes after locking.</p>
+    <p><button onclick={lockAssessment}>Lock & Send Live</button></p>
+    {/snippet}
+</Modal>
+{/if}
+
+
 {#if data.isIntake}
 <Modal bind:open={data.isIntake} title={`${data.results[data.rowIndex].sn} ${data.results[data.rowIndex].pn}`}>
     {#snippet children()}
@@ -225,8 +261,12 @@ let handleKeydown=(event:any)=>{
         <input id="radio-all" type="radio" bind:group={data.view} name='data-view' value={'all'} />
         <label for="radio-all">All</label>
     </div>
-    <div class="col">{data.view}</div>
-    <div class="col"></div>
+    <div class="col">
+        <button disabled={data.assessment.isGrade || !cohorts.edit.isEdit} onclick={()=>data.isManage=true}>Boundary/Total</button>&nbsp;&nbsp;
+        <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={()=>data.isDownload=true}>{@html icon.download(24)}</a>&nbsp;&nbsp;
+        <button disabled={data.assessment.isLock || data.assessment.isCore} onclick={()=>data.isLock=true}>Send Live</button>
+        
+    </div>
 </div>
 <table class="small">
     <tbody>

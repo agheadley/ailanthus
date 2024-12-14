@@ -180,7 +180,7 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
 
 
 interface EditTable  {
-    assessment:{id:number,n:string,isLock:boolean,isGrade:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
+    assessment:{id:number,n:string,isCore:boolean,isLock:boolean,isGrade:boolean,gd:{gd:string,pc:number,sc:string,pre:number}[],t:{t:number,w:number,p:string}[]},
     results:{id:number|null,x:boolean,g:string,pid:number,pn:string,sn:string,t:number[],gd:string,pc:number,fb:string,pre:{A:number,B:number},overall:{A:number,B:number}}[],
     std:{A:string,B:string}
 }
@@ -203,9 +203,9 @@ export const getEditTable=async():Promise<EditTable>=>{
 
     
 
-    if(!res[0] || !gps[0]) return {std:{A:'',B:''},assessment:{id:0,n:'',isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},results:[]};
+    if(!res[0] || !gps[0]) return {std:{A:'',B:''},assessment:{id:0,n:'',isCore:false,isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},results:[]};
 
-    const a = {id:res[0].id,n:res[0].n,isLock:res[0].isLock,isGrade:res[0].isGrade,gd:res[0].gd,t:res[0].t};
+    const a = {id:res[0].id,n:res[0].n,isCore:res[0].isCore,isLock:res[0].isLock,isGrade:res[0].isGrade,gd:res[0].gd,t:res[0].t};
 
     
     const r=[];
