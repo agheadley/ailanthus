@@ -730,6 +730,12 @@ sub {
   margin: 2rem 0;
 }
 
+.notice.error {
+  /*color: var(--accent-bg);*/
+  background:rgba(178,34,34,0.3);
+  
+
+}
 /* extra css */
 
 .row {

@@ -30,14 +30,13 @@ let validateTotal=(rowIndex:number):void=>{
 
 let validateGrade=(rowIndex:number):void=>{
 
-    data.manage.isValid=true;
-
     let x=data.assessment.gd[rowIndex].pc>=0 ? data.assessment.gd[rowIndex].pc : 0;
     x = x>100 ? 100 : x;
     data.assessment.gd[rowIndex].pc=Math.round(100*x)/100;
 
        
-    for(let item of data.manage.gd) item=true;
+    data.manage.gd = data.manage.gd.map((el: any)=>true);
+    data.manage.isValid=true;
 
     let currentValue=100;
     for(let i=0;i<data.assessment.gd.length;i++) {
@@ -49,6 +48,8 @@ let validateGrade=(rowIndex:number):void=>{
         currentValue= data.assessment.gd[i].pc;
 
     }
+
+    data.manage.isValid = data.manage.gd.includes(false) ? false : true;
 };
 
 $effect(()=>{
@@ -69,8 +70,8 @@ $effect(()=>{
                             <td>{#if rowIndex>0 && cohorts.edit.isEdit}<a href={'javascript:void(0)'} onclick={()=>removeSection(rowIndex)}>{@html icon.xCircle()}</a>{/if}</td>
 
                             <td><input disabled={!cohorts.edit.isEdit}  type=text bind:value={row.p}  oninput={()=>validateTotal(rowIndex)}/></td>
-                            <td><input disabled={!cohorts.edit.isEdit}  type=number min=0 step=1 bind:value={row.t} oninput={()=>validateTotal(rowIndex)}/></td>
-                            <td><input disabled={!cohorts.edit.isEdit}   type=number min=0 step=1 bind:value={row.w}  oninput={()=>validateTotal(rowIndex)}/></td>
+                            <td><input  class="score"  disabled={!cohorts.edit.isEdit}  type=number min=0 step=1 bind:value={row.t} oninput={()=>validateTotal(rowIndex)}/></td>
+                            <td><input  class="score"  disabled={!cohorts.edit.isEdit}   type=number min=0 step=1 bind:value={row.w}  oninput={()=>validateTotal(rowIndex)}/></td>
                            
                         </tr>
                     {/each}
@@ -85,7 +86,7 @@ $effect(()=>{
                     {#each data.assessment.gd as row,rowIndex}
                         <tr>
                             <td>{row.gd}</td>
-                            <td><input disabled={!cohorts.edit.isEdit} type=number max=100 min=0 step=1 bind:value={row.pc} class={data.manage.gd[rowIndex] ?'' : 'error'}  oninput={()=>validateGrade(rowIndex)}/></td>
+                            <td><input disabled={!cohorts.edit.isEdit} type=number max=100 min=0 step=1 bind:value={row.pc} class={data.manage.gd[rowIndex] ?'score' : 'score error'}  oninput={()=>validateGrade(rowIndex)}/></td>
                         </tr>
                     {/each}
                 </tbody>
@@ -95,6 +96,14 @@ $effect(()=>{
 
 
 <style>
+
+.score {
+    width:4rem;
+    max-width:4rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    
+}
 
 
 </style>

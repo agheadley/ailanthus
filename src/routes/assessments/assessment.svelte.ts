@@ -205,7 +205,7 @@ export const getEditTable=async():Promise<EditTable>=>{
 
     if(!res[0] || !gps[0]) return {std:{A:'',B:''},assessment:{id:0,n:'',isCore:false,isLock:true,isGrade:false,gd:[{sc:'',gd:'',pc:0,pre:0}],t:[{t:0,w:0,p:''}]},results:[]};
 
-    const a = {id:res[0].id,n:res[0].n,isCore:res[0].isCore,isLock:res[0].isLock,isGrade:res[0].isGrade,gd:res[0].gd,t:res[0].t};
+    const a = {id:res[0].id,n:res[0].n,isCore:res[0].isCore,isLock:res[0].isLock,isGrade:res[0].isGrade,gd:res[0].gd.sort((a: { pre: number; },b: { pre: number; })=>b.pre-a.pre),t:res[0].t};
 
     
     const r=[];

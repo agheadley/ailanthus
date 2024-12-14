@@ -44,14 +44,18 @@ let validateName=()=>{
 
 let updateAssessment=async():Promise<void>=>{
 
+    data.isManage=false;
 
+    data.assessment.n=data.manage.n;
+    
     data.manage.isValid=true;
     for(let x of data.manage.gd) {
-        console.log(x);
+        //console.log(x);
         data.manage.isValid = x ? data.manage.isValid : false;
     }
 
     if(data.manage.isValid) {
+
         let dArr=[];
         for(const item of data.results) {
             //build the totals to match assessment changes
@@ -70,25 +74,35 @@ let updateAssessment=async():Promise<void>=>{
         }
         console.log(dArr);
 
-            /*
+        data.assessment.gd=data.assessment.gd.sort((a,b)=>b.pre-a.pre);
+
+        
         let response = await fetch('/api/upsert', {
             method: 'POST',
-            body: JSON.stringify({table:"result_table",data:d}),
+            body: JSON.stringify({table:"assessment_table",data:{id:data.assessment.id,n:data.assessment.n,gd:data.assessment.gd,t:data.assessment.t}}),
             headers: {'content-type': 'application/json'}
         });
         let res= await response.json();
-        //console.log('UPSERT',res);
-        if(data.results[rowIndex].id===null && res?.[0]?.id)  data.results[rowIndex].id=res[0].id;
-
-        if(res?.[0]?.id) {
-            alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} updated`;
-        } else {
+        let msg='';
+        if(res?.[0]?.id) msg+='assessment updated. ';
+        else {
+            msg=`error updating assessment`;
             alert.type='error';
-            alert.msg=`${data.results[rowIndex].sn} ${data.results[rowIndex].pn} error`;
         }
-        */
+        response = await fetch('/api/upsert', {
+            method: 'POST',
+            body: JSON.stringify({table:"result_table",data:dArr}),
+            headers: {'content-type': 'application/json'}
+        });
+        res= await response.json();
+        if(res?.[0]?.id) msg+='results updated. ';
+        else {
+            msg+='error updating results';
+            alert.type='error';
+        }
 
-        // update assessment too , name, t, gd
+        alert.msg=msg;
+        
 
     }  
 };
@@ -287,10 +301,20 @@ let handleKeydown=(event:any)=>{
             <input id="name" type=text bind:value={data.manage.n} oninput={validateName}/>
         </div>
         <div class="col">
-            <button onclick={updateAssessment}>Update Grades</button>
+        </div>
+        <div class="col">
+            <button disabled={!cohorts.edit.isEdit || !data.manage.isValid} onclick={updateAssessment}>Save & Recalculate</button>
         </div>
     </div>
-    {#if !data.manage.isValid}<p class="notice">You have errors in grade boundaries - boundary % must reduce for successive grades</p>{/if}
+
+    {#if data.manage.isValid}
+        <p class="notice">'Save & Recalculate' to update.</p>
+    {:else}
+        <div class="notice error">Boundary % must reduce for successive grades.</div>
+    
+    {/if}
+       
+    
     <Manage bind:data={data}></Manage>
     
     {/snippet}
