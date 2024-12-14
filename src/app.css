@@ -769,6 +769,7 @@ table.small {
 }
 
 [data-title]:hover:after {
+  font-size:small;
   opacity: 1;
   transition: all 0.1s ease 0.5s;
   visibility: visible;

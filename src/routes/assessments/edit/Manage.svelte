@@ -77,7 +77,7 @@ $effect(()=>{
                     {/each}
                 </tbody>
             </table>
-            <p>{#if cohorts.edit.isEdit}<a href={'javascript:void(0)'} onclick={addSection}>{@html icon.plusCircle()}</a>{/if}</p>
+            <p>{#if cohorts.edit.isEdit}<a href={'javascript:void(0)'} data-title="ADD NEW SECTION" onclick={addSection}>{@html icon.plusCircle(24)}</a>{/if}</p>
         </div>
         <div class="col">
             <table class="small">
