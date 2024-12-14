@@ -20,6 +20,11 @@
     let download=():void=>{
     
     }
+
+    let archive=():void=>{
+    
+    }
+
     
     let create=async():Promise<void>=>{
         data.isCreate=true;
@@ -155,7 +160,7 @@
             <div class="col">
                 <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>&nbsp;&nbsp;
                  <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>&nbsp;&nbsp;
-                <a data-title="ARCHIVE" href={'javascript:void(0)'} onclick={create}>{@html icon.archive(24)}</a>
+                <a data-title="ARCHIVE" href={'javascript:void(0)'} onclick={archive}>{@html icon.archive(24)}</a>
          
             </div>
         </div>
