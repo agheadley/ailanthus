@@ -3,8 +3,18 @@
 	import Alert from '$lib/_Alert.svelte';
 	import {user} from '$lib/state.svelte';
 	import * as icon from '$lib/icon';
+	import {goto} from '$app/navigation';
+
+	let isExam:boolean = $state(false);
 
 	let { children } = $props();
+
+	let switchMenu=()=>{
+		isExam = isExam===true ? false : true;
+		if(isExam) goto('/');
+		else goto('/assessments'); 
+	};
+
 </script>
 
 	<div class="app">
@@ -14,15 +24,37 @@
 	<header>
 		<div class="row">
 			<div class="col"><a class="brand" href="/">Ailanthus</a></div>
-			<div class="col"><span class="tag">{user.name}  {#if user.isAdmin}admin{:else if user.isTeacher}teacher{:else}pupil{/if}</span>
+			<div class="col">
+				{#if user.isTeacher}
+				<button onclick={switchMenu}>{#if isExam}Internal{:else}Exams{/if}</button>
+				{/if}
+				<span>
+					{user.name}  
+					{#if user.isAdmin}admin{:else if user.isTeacher}teacher{:else}pupil{/if}
+				</span>
 				&nbsp;&nbsp;<a data-title="LOGOUT" href={'#'}>{@html icon.logout(24)}</a>
 			</div>
 		</div>
 		<nav>
-			<a href="/assessments">Assessments</a>
-			<a href="/admin">Admin</a>
-			<a href="/testbed">Testbed</a>
-			
+			{#if user.isTeacher}
+				{#if !isExam}
+					<a href="/assessments">Assessments</a>
+					<a href="/">Overview</a>
+					<a href="/">Reports</a>
+				{:else}
+					<a href="/">Results</a>
+					<a href="/">Totals</a>
+					<a href="/">Value Added</a>
+				{/if}
+		
+			{/if}
+			{#if user.isAdmin}
+					<a href="/admin">Admin</a>
+					<a href="/testbed">Testbed</a>
+			{/if}
+			{#if user.isPupil}
+			<a href="/">Pupil</a>
+			{/if}
 		  </nav>
 	  </header>
 	

@@ -3,6 +3,7 @@ import { goto } from '$app/navigation';
 import * as icon from '$lib/icon';
 import * as util from '$lib/util';
 import {user,config,cohorts} from '$lib/state.svelte';
+import { page } from '$app/state';
 
 
 const getCore=async()=>{
@@ -66,7 +67,7 @@ $effect(() => {
   
 
 	(async () => {
-           
+        console.log($props);
 		await getCore();
 		if(config.isReady) {
 			goto(`/assessments`);
