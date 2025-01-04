@@ -22,7 +22,7 @@
 			<a href="/assessments">Assessments</a>
 			<a href="/admin">Admin</a>
 			<a href="/testbed">Testbed</a>
-			<a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a>
+			
 		  </nav>
 	  </header>
 	
@@ -32,7 +32,7 @@
 		</main>
 	
 	  <footer>
-		<p>Svelte5 - Typescript -  Supabase - SimpleCSS - Anthony Headley</p>
+		<p>Svelte5 - Typescript -  Supabase - <a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a> - Anthony Headley</p>
 
 	  </footer>
 	</div>

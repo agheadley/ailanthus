@@ -5,6 +5,7 @@ import * as util from '$lib/util';
 import * as file from '$lib/file';
 import {alert} from '$lib/state.svelte';
 import Modal from '$lib/_Modal.svelte';
+import * as chart from '$lib/chart';
 
 let imageUrls=$state({public:'',private:''});
 
@@ -298,10 +299,20 @@ $effect(() => {
 </svelte:head>
 
 <article>
+	<h4>Test VA Chart</h4>
+	<p>{@html chart.getVA({n:5,v:0.91,s:2})}</p>
+	<p>{@html chart.getVA({n:21,v:-0.71,s:3})}</p>
+	<p>{@html chart.getVA({n:145,v:0.12,s:0})}</p>
+	<p>{@html chart.getVA({n:5,v:0.80,s:0})}</p>
+</article>
+
+
+<article>
 	<h4>Edge Read</h4>
 	<p><button onclick={edgeRead}>Read</button></p>
 	
 </article>
+
 
 
 
