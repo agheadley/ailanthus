@@ -285,7 +285,7 @@ let handleKeydown=(event:any)=>{
 
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} />
 
 <svelte:head>
     <title>Edit</title>
