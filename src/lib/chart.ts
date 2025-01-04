@@ -160,7 +160,7 @@ export const getVA=(data:{n:number,v:number,s:0|2|3}):string=>{
     txt+=`<polygon points="${graph.poly2}" stroke="none" fill="${cfg.colors.bg2}"></polygon>`;
     txt+=`</g>`;
     txt+=`<line x1="${graph.line.x1}" y1="${graph.line.y1}" x2="${graph.line.x2}" y2="${graph.line.y2}" stroke="${cfg.colors.line}"></line>`;
-    txt+=`<rect x="${graph.rect.x}" y="${graph.rect.y}" width="${graph.rect.w}" height="${graph.rect.h}" fill="${graph.rect.color}"></rect>             `;
+    txt+=`<rect x="${graph.rect.x}" y="${graph.rect.y}" width="${graph.rect.w}" height="${graph.rect.h}" fill="${graph.rect.color}" stroke="#333"></rect>             `;
     txt+=`<text x="${graph.text.x}" y="${graph.text.y}" font-size="10" font-weight="500" fill="${cfg.colors.text}">${graph.text.v}</text> `;
     txt+=`</svg>`;
     txt+=``;
