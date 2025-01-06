@@ -36,6 +36,7 @@ export const createAssessment=async(nc:number,sc:string,ss:string,n:string,dl:st
     const assessmentObj= {
         log:`${user.name}|${util.getDateTime()}`,
         nc:nc,
+        exam:util.getExamYear(nc),
         sc:sc,
         ss:ss,
         sl:gps[0].sl,

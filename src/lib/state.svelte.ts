@@ -12,6 +12,41 @@ export const user = $state({name:'DB',isAdmin:true,isTeacher:true,isPupil:false,
 
 export const config = $state({
     isReady:false,
+    year:{
+      "exam": [
+        {
+          "nc": 13,
+          "add": 0
+        },
+        {
+          "nc": 12,
+          "add": 1
+        },
+        {
+          "nc": 11,
+          "add": 0
+        },
+        {
+          "nc": 10,
+          "add": 1
+        },
+        {
+          "nc": 9,
+          "add": 2
+        },
+        {
+          "nc": 8,
+          "add": 3
+        },
+        {
+          "nc": 7,
+          "add": 4
+        }
+      ],
+      "rollover": {
+        "month": 8
+      }
+    },
     rag:{red:0,green:0},
     groups:[{id:0,sc:'',ss:'',sl:'',g:'',nc:0,log:'',pupil:[{pid:0,nc:0,sn:'',pn:'',gnd:'',hse:''}],teacher:[{tid:'',sal:''}]}],
     teachers:[{id:0,mid:'',tid:'',sal:'',pn:'',sn:''}],
