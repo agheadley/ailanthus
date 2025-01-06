@@ -736,7 +736,7 @@ sub {
   
 
 }
-/* extra css */
+/* extra css - agh */
 
 .row {
 	display:flex;
@@ -768,11 +768,21 @@ table.small {
 
 }
 
+.tab a {
+   
+  text-decoration:none;
+  color:#333;
+}
+.tab .selected {
+  border-bottom:1px solid #333;
+}
+
 [data-title]:hover:after {
   font-size:small;
   opacity: 1;
   transition: all 0.1s ease 0.5s;
   visibility: visible;
+  text-transform: uppercase;
 }
 [data-title]:after {
   content: attr(data-title);
@@ -790,6 +800,7 @@ table.small {
 }
 [data-title] {
   position: relative;
+  
 }
 
 

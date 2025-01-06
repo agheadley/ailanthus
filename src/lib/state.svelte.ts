@@ -13,7 +13,7 @@ export const user = $state({name:'DB',isAdmin:true,isTeacher:true,isPupil:false,
 export const config = $state({
     isReady:false,
     year:{
-      "exam": [
+      "yr": [
         {
           "nc": 13,
           "add": 0

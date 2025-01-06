@@ -32,12 +32,12 @@ export const getShortDate=(d:string):string=>{
 
 
 export const getExamYear=(nc:number,):number|null=>{
-  let x = new Date();
+  const x = new Date();
   let currentYear=x.getFullYear();
-  let month=x.getMonth()+1;
+  const month=x.getMonth()+1;
   if(month>config.year.rollover.month) currentYear+=1;
   //console.log(month,currentYear);
-  let f= config.year.exam.find(el=>el.nc===nc);
+  const f= config.year.yr.find(el=>el.nc===nc);
   return f ? currentYear+f.add : null;
 
 };

@@ -11,7 +11,7 @@
 
 	let switchMenu=()=>{
 		isExam = isExam===true ? false : true;
-		if(isExam) goto('/');
+		if(isExam) goto('/results');
 		else goto('/assessments'); 
 	};
 
@@ -42,15 +42,14 @@
 					<a href="/">Overview</a>
 					<a href="/">Reports</a>
 				{:else}
-					<a href="/">Results</a>
-					<a href="/">Totals</a>
-					<a href="/">Value Added</a>
+					<a href="/results">Results</a>
+					<a href="/totals">Totals</a>
+					<a href="/va">Value Added</a>
 				{/if}
 		
 			{/if}
 			{#if user.isAdmin}
 					<a href="/admin">Admin</a>
-					<a href="/testbed">Testbed</a>
 			{/if}
 			{#if user.isPupil}
 			<a href="/">Pupil</a>
@@ -64,8 +63,7 @@
 		</main>
 	
 	  <footer>
-		<p>Svelte5 - Typescript -  Supabase - <a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a> - Anthony Headley</p>
-
+		<p>Svelte5 - Typescript -  Supabase - <a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a> - Anthony Headley {#if user.isAdmin} - <a href="/testbed">Testbed</a>{/if}</p>
 	  </footer>
 	</div>
 </div>

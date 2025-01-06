@@ -13,7 +13,7 @@ const getCore=async()=>{
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
-	//console.log(res);
+	console.log(res);
 	config.groups=res ? res.sort((a: { nc: number; sl: string; sc: string; g: string; },b: { nc: number; sl: any; sc: any; g: any; })=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sc.localeCompare(b.sc) || a.g.localeCompare(b.g)) : [];
 
 	// build cohorts
