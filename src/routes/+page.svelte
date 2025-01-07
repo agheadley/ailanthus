@@ -67,8 +67,10 @@ $effect(() => {
 
 	(async () => {
 		await getCore();
-		if(config.isReady) {
+		if(config.isReady && user.isTeacher) {
 			goto(`/assessments`);
+		} else {
+			goto(`/pupil`);
 		}
 		// add auth/etc to chck whether pupil and direct as necessary.
 	

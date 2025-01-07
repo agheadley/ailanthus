@@ -39,8 +39,8 @@
 			{#if user.isTeacher}
 				{#if !isExam}
 					<a href="/assessments">Assessments</a>
-					<a href="/">Overview</a>
-					<a href="/">Reports</a>
+					<a href="/overview">Overview</a>
+					<a href="/reports">Reports</a>
 				{:else}
 					<a href="/results">Results</a>
 					<a href="/totals">Totals</a>
