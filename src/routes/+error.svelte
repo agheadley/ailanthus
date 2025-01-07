@@ -2,5 +2,10 @@
 	import { page } from '$app/state';
 </script>
 
-<h1>{page.error.message}</h1>
+<h4>{page.url}</h4>
+<p class="notice">
+	{#if page.error}
+		Error: {page.status} {page.error.message} 
+	{/if}
+</p>
 

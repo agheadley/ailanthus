@@ -11,14 +11,15 @@ let switchView=(index:number):void=>{
     data.menu.index=index;
 }
 
-$effect(() => {
-            console.log('data update');
-            //$inspect(data.isUpdateRequired);
-            (async () => {
-                if(config.isReady===false) goto(`/`);
-		    })()
-	});
+$effect(() => {  
+    (async () => {
+        if(!user.isTeacher || config.isReady===false) goto(`/`);
+    })()
+});
 
+
+
+	
 </script>
 
 <svelte:head>
