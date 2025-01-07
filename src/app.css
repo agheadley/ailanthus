@@ -771,10 +771,10 @@ table.small {
 .tab a {
    
   text-decoration:none;
-  color:#333;
+  color:var(--accent);
 }
 .tab .selected {
-  border-bottom:1px solid #333;
+  border-bottom:1px solid var(--accent);
 }
 
 [data-title]:hover:after {
