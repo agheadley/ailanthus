@@ -277,7 +277,8 @@ interface Cohort {
     nc:{list:{nc:number}[],index:number},
     subject:{list:{nc:number,sc:string,ss:string,sl:string}[],index:number},
     mySets:{list:{nc:number,g:string,sc:string,ss:string,sl:string}[],index:number},
-    edit:{id:number,nc:number,sc:string,ss:string,sl:string,g:string,n:string,dt:number,ds:string,isEdit:boolean}
+    edit:{id:number,nc:number,sc:string,ss:string,sl:string,g:string,n:string,dt:number,ds:string,isEdit:boolean},
+    exam:{list:{yr:number,nc:number}[],index:number}
 }
     
 export const cohorts:Cohort = $state({
@@ -285,7 +286,8 @@ export const cohorts:Cohort = $state({
     nc:{list:[{nc:0}],index:0},
     subject:{list:[{nc:0,sc:'',ss:'',sl:''}],index:0},
     mySets:{list:[{nc:0,g:'',sc:'',ss:'',sl:''}],index:0},
-    edit:{id:0,nc:0,sc:'',ss:'',sl:'',g:'',n:'',dt:0,ds:'',isEdit:false}
+    edit:{id:0,nc:0,sc:'',ss:'',sl:'',g:'',n:'',dt:0,ds:'',isEdit:false},
+    exam:{list:[{yr:0,nc:0}],index:0}
     
 });
 

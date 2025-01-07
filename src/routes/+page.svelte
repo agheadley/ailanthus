@@ -56,6 +56,13 @@ const getCore=async()=>{
 	cohorts.mySets.index=0;
 	cohorts.mySets.list=g[0] ? g.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
 
+	//find exams
+	response = await fetch('/api/examCohort', {
+		method: 'POST',
+		body: JSON.stringify({}),
+		headers: {'content-type': 'application/json'}
+	});
+	cohorts.exam.list= await response.json();
 	// set isReady flag
 	config.isReady = true;
 	
