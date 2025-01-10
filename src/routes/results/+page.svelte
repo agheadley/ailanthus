@@ -2,6 +2,7 @@
 import { goto } from '$app/navigation';
 import * as icon from '$lib/icon';
 import {cohorts,config,user,alert} from '$lib/state.svelte';
+import ExamCohort from '$lib/_ExamCohort.svelte';
 
 let data = $state({
     menu:{options:['table','list'],index:0}
@@ -12,10 +13,18 @@ let switchView=(index:number):void=>{
     data.menu.index=index;
 }
 
+let update=()=>{
+	console.log(cohorts.exam.index);
+};
+
 $effect(() => {  
-    (async () => {
+    
         if(!user.isTeacher || config.isReady===false) goto(`/`);
-    })()
+
+		update();
+
+
+   
 });
 
 
@@ -30,12 +39,7 @@ $effect(() => {
 
 <div class="row">
 	<div class="col">
-		<select value={cohorts.exam.index}>
-			{#each cohorts.exam.list as row,rowIndex}
-				<option value={rowIndex}>{row.yr} NC{row.nc}</option>
-			{/each}
-		
-		</select>
+		<ExamCohort></ExamCohort>
 	</div>
 	<div class="col">
 		<span class="tab">
@@ -53,6 +57,7 @@ $effect(() => {
 	
 </div>
 
+<p>{cohorts.exam.index}</p>
 <style>
 
 
