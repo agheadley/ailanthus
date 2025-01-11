@@ -174,7 +174,7 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
 
     }
 
-    console.log('ASSESSMENT TABLE',table);
+    //console.log('ASSESSMENT TABLE',table);
 
     return table;
 };

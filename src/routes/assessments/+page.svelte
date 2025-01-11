@@ -59,6 +59,8 @@
         data.subject.ss=cohorts.subject.list[cohorts.subject.index].ss;
         data.subject.sl=cohorts.subject.list[cohorts.subject.index].sl;
 
+        console.log('UPDATED',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl,data.table?.length ? `FOUND ${data.table.length} GROUP(S)` : `FOUND 0 GROUPS`);
+
         data.isUpdateRequired=false;
 
     };
@@ -99,7 +101,7 @@
  
    
     $effect(() => {
-            console.log('data update');
+            //console.log('data update');
             //$inspect(data.isUpdateRequired);
             (async () => {
                 if(!user.isTeacher || config.isReady===false) goto(`/`);
