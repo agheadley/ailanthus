@@ -23,19 +23,14 @@
 	<div class="container">
 	<header>
 		
-		<div class="row">
-			<div class="col"><a class="brand" href="/">Ailanthus</a></div>
-			<div class="col">
-				{#if user.isTeacher}
-				<button onclick={switchMenu}>{#if isExam}Internal{:else}Exams{/if}</button>
-				{/if}
+			<div><a class="brand" href="/">Ailanthus</a></div>
+			<div>
 				<span>
 					{user.name}  
 					{#if user.isAdmin}admin{:else if user.isTeacher}teacher{:else}pupil{/if}
 				</span>
 				&nbsp;&nbsp;<a data-title="LOGOUT" href={'#'}>{@html icon.logout(24)}</a>
 			</div>
-		</div>
 		
 		<nav>
 			{#if user.isTeacher}
@@ -48,11 +43,16 @@
 					<a href="/totals">Totals</a>
 					<a href="/va">Value Added</a>
 				{/if}
+				
 		
 			{/if}
 			{#if user.isAdmin}
 					<a href="/admin">Admin</a>
 			{/if}
+			{#if user.isTeacher}
+				<button onclick={switchMenu}>{#if isExam}Internal{:else}Exams{/if}</button>
+			{/if}
+				
 			{#if user.isPupil}
 			<a href="/">Pupil</a>
 			{/if}

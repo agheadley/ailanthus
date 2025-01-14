@@ -65,29 +65,19 @@ $effect(() => {
 </svelte:head>
 
 
-
-<div class="row">
-	<div class="col">
-		<ExamCohort></ExamCohort>
-	</div>
-	<div class="col">
-		<span class="tab">
-			{#each data.menu.options as option,index}
-			<a href={'javascript:void(0)'} onclick={()=>data.menu.index=index} class={data.menu.index===index ? 'selected' : ''}>{data.menu.options[index]}</a>&nbsp;
-    		
-			{/each}
-			
-		</span>
-	</div>
-	<div class="col">
-		SEARCH
-	</div>
-	<div class="col">
-		DOWNLOAD
-	</div>
+<p>
+	<ExamCohort></ExamCohort>
+	<span class="tab">
+		{#each data.menu.options as option,index}
+		<a href={'javascript:void(0)'} onclick={()=>data.menu.index=index} class={data.menu.index===index ? 'selected' : ''}>{data.menu.options[index]}</a>&nbsp;
+		
+		{/each}
+		
+	</span>
+	SEARCH & DOWNLOAD
 	
-</div>
-
+</p>
+	
 
 <figure>
 {#if data.menu.options[data.menu.index]=='Table' && data.table[0]}
@@ -100,7 +90,7 @@ $effect(() => {
 			<th>sn</th>
 			<th>pn</th>
 			{#each data.table[0].cols as col,colIndex}
-			<th>{@html chart.getAssessmentTitle(col.sl,`${col.ss}/${col.sc}`)}</th>
+			<th>{@html chart.getAssessmentTitle(col.sl,col.sr!==null ? `${col.sc}/${col.sr}`:`${col.sc}`)}</th>
 			{/each}
 		</tr>
 	</thead>

@@ -21,6 +21,7 @@ export const getDate=():string =>{
 /* TYPES - https://www.geeksforgeeks.org/how-to-get-an-object-value-by-key-in-typescript/ */
 export const unique = (arr : { [key: string]: string|number|boolean }[],props:string[]) => [...new Map(arr.map(entry => [props.map(k=> String(entry[k])).join('|'), entry])).values()];
 
+
 export const random=(min:number, max:number) : number=> {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }

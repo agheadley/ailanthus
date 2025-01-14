@@ -739,29 +739,6 @@ sub {
 /* extra css - agh */
 
 
-
-.row {
- 
-  align-items:center;
-  display: grid;
-  grid-template-columns: auto auto auto auto;
- 
- 
-
- 
-}
-
-
-
-.row.top {
-  align-items:start;
-}
-
-.col {
-  padding:0.rem;
-  border:1px solid #333;
-}
-
 .tag {
   display: inline-block;
   border: 1px solid var(--preformatted);
@@ -773,10 +750,7 @@ sub {
   font-size:1rem;
 }
 
-table.small {
-    font-size:0.8rem;
 
-}
 
 .tab a {
    
@@ -785,6 +759,11 @@ table.small {
 }
 .tab .selected {
   border-bottom:1px solid var(--accent);
+}
+
+table.small {
+  font-size:0.8rem;
+
 }
 
 [data-title]:hover:after {
