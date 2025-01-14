@@ -133,10 +133,10 @@
     </Modal>
     {/if}
 
-
+    <div class="row-container">
         <div class="row">
             <div class="col">
-             
+                <div style="display:flex;">
                 Cohorts&nbsp;
                 <select bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
                     {#each cohorts.nc.list as row,index}
@@ -150,21 +150,24 @@
                     {/if}
                     {/each}
                 </select>
+                </div>
+            </div>
+           
+            <div class="col">
                 &nbsp;MySets&nbsp;
                 <select bind:value={cohorts.mySets.index} onchange={()=>updateTable('MYSET')}>
                     {#each cohorts.mySets.list as row,index}
                     <option value={index}>{row.g}</option>
                     {/each}
                 </select>
-        </div>
-           
-            <div class="col"></div>
+            </div>
             <div class="col">
                 <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>&nbsp;&nbsp;
                  <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>&nbsp;&nbsp;
                 <a data-title="ARCHIVE" href={'javascript:void(0)'} onclick={archive}>{@html icon.archive(24)}</a>
          
             </div>
+        </div>
         </div>
     
         <figure>

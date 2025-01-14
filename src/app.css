@@ -738,18 +738,28 @@ sub {
 }
 /* extra css - agh */
 
+
+
 .row {
-	display:flex;
-	justify-content: space-between;
-  align-items: center;
+ 
+  align-items:center;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+ 
+ 
+
+ 
 }
+
+
 
 .row.top {
   align-items:start;
 }
 
 .col {
-	padding:1rem;
+  padding:0.rem;
+  border:1px solid #333;
 }
 
 .tag {

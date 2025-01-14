@@ -22,6 +22,7 @@
 	<Alert></Alert>
 	<div class="container">
 	<header>
+		
 		<div class="row">
 			<div class="col"><a class="brand" href="/">Ailanthus</a></div>
 			<div class="col">
@@ -35,6 +36,7 @@
 				&nbsp;&nbsp;<a data-title="LOGOUT" href={'#'}>{@html icon.logout(24)}</a>
 			</div>
 		</div>
+		
 		<nav>
 			{#if user.isTeacher}
 				{#if !isExam}

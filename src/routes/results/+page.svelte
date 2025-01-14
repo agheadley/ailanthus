@@ -64,6 +64,8 @@ $effect(() => {
 	<meta name="description" content="ailanthus" />
 </svelte:head>
 
+
+
 <div class="row">
 	<div class="col">
 		<ExamCohort></ExamCohort>
@@ -86,6 +88,8 @@ $effect(() => {
 	
 </div>
 
+
+<figure>
 {#if data.menu.options[data.menu.index]=='Table' && data.table[0]}
 <table class="small">
 	<thead>
@@ -156,6 +160,7 @@ $effect(() => {
 
 
 {/if}
+</figure>
 <style>
 
 
