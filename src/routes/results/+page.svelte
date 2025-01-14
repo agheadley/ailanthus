@@ -1,9 +1,11 @@
 <script lang="ts">
 import { goto } from '$app/navigation';
 import * as icon from '$lib/icon';
+import * as chart from '$lib/chart';
 import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import * as results from './results.svelte';
+
 
 interface ResultRow{
         pid:number,
@@ -25,9 +27,7 @@ let data:Data = $state({
 	list:[]
 });
 
-let switchView=(index:number):void=>{
-    data.menu.index=index;
-}
+
 
 let update=async()=>{
 	console.log('UPDATING RESULTS',`${cohorts.exam.list[cohorts.exam.index].yr}/${cohorts.exam.list[cohorts.exam.index].nc}`);
@@ -86,11 +86,38 @@ $effect(() => {
 	
 </div>
 
-{#if data.menu.options[data.menu.index]=='Table'}
+{#if data.menu.options[data.menu.index]=='Table' && data.table[0]}
+<table class="small">
+	<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>pid</th>
+			<th>sn</th>
+			<th>pn</th>
+			{#each data.table[0].cols as col,colIndex}
+			<th>{@html chart.getAssessmentTitle(col.sl,`${col.ss}/${col.sc}`)}</th>
+			{/each}
+		</tr>
+	</thead>
+	<tbody>
+		{#each data.table as row,rowIndex}
+			<tr>
+				<td>{row.yr}</td>
+				<td>{row.nc}</td>
+				<td>{row.pid}</td>
+				<td>{row.sn}</td>
+				<td>{row.pn}</td>
+				{#each row.cols as col,colIndex}
+					<td>{col.gd}</td>
+				{/each}
+			</tr>
+		{/each}
+	</tbody>
+</table>
 
-Table
 {/if}
-{#if data.menu.options[data.menu.index]=='List'}
+{#if data.menu.options[data.menu.index]=='List' && data.list[0]}
 <table class="small">
 	<thead>
 		<tr>

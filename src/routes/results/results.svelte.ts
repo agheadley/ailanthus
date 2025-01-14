@@ -1,5 +1,6 @@
 
 //import {config,cohorts,user} from '$lib/state.svelte';
+import * as util from '$lib/util';
 import type {ExamTable} from '$lib/_db.d';
 
 interface ResultRow{
@@ -26,10 +27,14 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
 
     console.log(data);
 
+    //rows = <ResultRow[]> util.unique(data,['pid']).map(el=>({pid:el.pid,sn:el.sn,pn:el.pn,yr:el.yr,nc:el.nc,cols:[]}));
+
+    
     for(const item of data) {
         if(!rows.find(el=>el.pid===item.pid)) 
             rows.push({pid:item.pid,sn:item.sn,pn:item.pn,yr:item.yr,nc:item.nc,cols:[]});
     }
+    
 
     rows=rows.sort((a,b)=>a.sn.localeCompare(b.sn) || a.pn.localeCompare(b.pn));
 
