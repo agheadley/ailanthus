@@ -5,7 +5,7 @@ import * as chart from '$lib/chart';
 import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import * as results from './results.svelte';
-
+import * as file from '$lib/file';
 
 interface ResultRow{
         pid:number,
@@ -31,6 +31,9 @@ let data:Data = $state({
 
 
 let download=()=>{
+	  let out:string[][]=[];
+	  console.log(out);
+      file.csvDownload(out,"EXAM_RESULTS.csv");
 
 };
 

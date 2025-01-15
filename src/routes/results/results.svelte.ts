@@ -1,7 +1,7 @@
 
 //import {config,cohorts,user} from '$lib/state.svelte';
 import * as util from '$lib/util';
-import type {ExamTable} from '$lib/_db.d';
+import type {ExamTable} from '$lib/_db';
 
 interface ResultRow{
         pid:number,
@@ -66,3 +66,5 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
 
     return rows;
 };
+
+
