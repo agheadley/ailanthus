@@ -738,6 +738,9 @@ sub {
 }
 /* extra css - agh */
 
+span {
+  padding-right:1rem;
+}
 
 .tag {
   display: inline-block;
