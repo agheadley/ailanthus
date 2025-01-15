@@ -19,15 +19,20 @@ interface ResultRow{
 interface Data  {
 	menu:{options:string[],index:number},
 	table:ResultRow[],
-	list:any[]
+	list:any[],
+	search:string
 };
 let data:Data = $state({
     menu:{options:['Table','List'],index:0},
 	table:[],
-	list:[]
+	list:[],
+	search:''
 });
 
 
+let download=()=>{
+
+};
 
 let update=async()=>{
 	console.log('UPDATING RESULTS',`${cohorts.exam.list[cohorts.exam.index].yr}/${cohorts.exam.list[cohorts.exam.index].nc}`);
@@ -51,6 +56,7 @@ $effect(() => {
 		update();
 
 
+
    
 });
 
@@ -65,18 +71,24 @@ $effect(() => {
 </svelte:head>
 
 
-<p>
+<fieldset>
+	<legend>Exam Results</legend>
 	<ExamCohort></ExamCohort>
+	<span>&nbsp;&nbsp;</span>
 	<span class="tab">
 		{#each data.menu.options as option,index}
 		<a href={'javascript:void(0)'} onclick={()=>data.menu.index=index} class={data.menu.index===index ? 'selected' : ''}>{data.menu.options[index]}</a>&nbsp;
 		
 		{/each}
-		
 	</span>
-	SEARCH & DOWNLOAD
+	<span>&nbsp;&nbsp;</span>
+	<input type="text" placeholder="pupil name" class={data.search==='' ? `icon-search-bg` : ``} bind:value={data.search}/>
+	<span>&nbsp;&nbsp;</span>
+	<a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
 	
-</p>
+</fieldset>
+	
+
 	
 
 <figure>
@@ -96,6 +108,7 @@ $effect(() => {
 	</thead>
 	<tbody>
 		{#each data.table as row,rowIndex}
+			{#if data.search==='' || `${row.pn} ${row.sn}`.toUpperCase().includes(data.search.toUpperCase())}
 			<tr>
 				<td>{row.yr}</td>
 				<td>{row.nc}</td>
@@ -106,6 +119,7 @@ $effect(() => {
 					<td>{col.gd}</td>
 				{/each}
 			</tr>
+			{/if}
 		{/each}
 	</tbody>
 </table>
@@ -130,6 +144,7 @@ $effect(() => {
 	</thead>
 	<tbody>
 		{#each data.list as row,index}
+		{#if data.search==='' || `${row.pn} ${row.sn}`.toUpperCase().includes(data.search.toUpperCase())}
 		<tr>
 			<td>{row.yr}</td>
 			<td>{row.nc}</td>
@@ -144,6 +159,7 @@ $effect(() => {
 			<td>{row.log}</td>
 			
 		</tr>
+		{/if}
 		{/each}
 	</tbody>
 </table>

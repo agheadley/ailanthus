@@ -132,8 +132,8 @@
 	{/snippet}
     </Modal>
     {/if}
-
-        <label for="cohort">Cohort / Set</label>
+    <fieldset>
+        <legend>Assessments by Cohort / My Sets</legend>
             <select id="cohort" bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
                 {#each cohorts.nc.list as row,index}
                 <option value={index}>{row.nc}</option>
@@ -146,17 +146,20 @@
                 {/if}
                 {/each}
             </select>
-              
+           
                 <select id="myset" bind:value={cohorts.mySets.index} onchange={()=>updateTable('MYSET')}>
                     {#each cohorts.mySets.list as row,index}
                     <option value={index}>{row.g}</option>
                     {/each}
                 </select>
-            
-                <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>&nbsp;&nbsp;
-                 <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>&nbsp;&nbsp;
+                <span>&nbsp;&nbsp;</span>
+                <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>
+                <span>&nbsp;&nbsp;</span>
+                 <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
+                 <span>&nbsp;&nbsp;</span>
                 <a data-title="ARCHIVE" href={'javascript:void(0)'} onclick={archive}>{@html icon.archive(24)}</a>
-        
+            </fieldset>
+
         <figure>
         <table class="small">
 
