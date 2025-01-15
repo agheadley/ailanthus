@@ -1,12 +1,12 @@
 <script lang="ts">
-import { goto } from '$app/navigation';
+
 import * as icon from '$lib/icon';
 import * as chart from '$lib/chart';
 import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import * as results from './results.svelte';
 import * as file from '$lib/file';
-	import { asClassComponent } from 'svelte/legacy';
+	
 
 interface ResultRow{
         pid:number,
@@ -94,7 +94,7 @@ let update=async()=>{
 
 $effect(() => {  
     
-        if(!user.isTeacher || config.isReady===false) goto(`/`);
+      
 
 		update();
 

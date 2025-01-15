@@ -2,10 +2,10 @@
 	import { page } from '$app/state';
 </script>
 
-<h4>{page.url}</h4>
+<h4>Whoops! Something went wrong here!</h4>
 <p class="notice">
 	{#if page.error}
-		Error: {page.status} {page.error.message} 
+	PATH: {page.url.pathname} ERROR: {page.status} {page.error.message} 
 	{/if}
 </p>
 

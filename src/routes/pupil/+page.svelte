@@ -6,7 +6,7 @@
    
     
     $effect(() => {  
-       
+ 
     });
     
     
@@ -15,11 +15,11 @@
     </script>
     
     <svelte:head>
-        <title>Overview</title>
+        <title>Pupil</title>
         <meta name="description" content="ailanthus" />
     </svelte:head>
     
-    <p>Overview</p>
+    <p>Pupil</p>
 
 
     <style>

@@ -230,7 +230,7 @@ const openIntake=(rowIndex:number):void=>{
 
 $effect(() => {
         (async () => {
-            if(!user.isTeacher || config.isReady===false) goto(`/`);
+          
             
             const res=await assessment.getEditTable();
             console.log(res);

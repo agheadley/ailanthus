@@ -15,6 +15,11 @@
 		else goto('/assessments'); 
 	};
 
+	const reload=()=>{
+		isExam=false;
+		goto('/assessments'); 
+	};
+
 </script>
 
 	<div class="app">
@@ -23,7 +28,7 @@
 	<div class="container">
 	<header>
 		
-			<div><a class="brand" href="/">Ailanthus</a></div>
+			<div><a class="brand" href={'javascript:void(0)'} onclick={reload}>Ailanthus</a></div>
 			<div>
 				<span>
 					{user.name}  

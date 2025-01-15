@@ -752,17 +752,15 @@ sub {
 
 
 .tab {
-
   line-height:3rem;
-
 }
 .tab a {
-   
+ 
   text-decoration:none;
   color:var(--accent);
 }
 .tab .selected {
-  border-bottom:1px solid var(--accent);
+  border-bottom:2px solid var(--accent);
 }
 
 table.small {

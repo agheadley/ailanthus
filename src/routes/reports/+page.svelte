@@ -6,9 +6,7 @@
    
     
     $effect(() => {  
-        (async () => {
-            if(!user.isTeacher || config.isReady===false) goto(`/`);
-        })()
+       
     });
     
     

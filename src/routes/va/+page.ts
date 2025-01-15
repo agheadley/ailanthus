@@ -1,7 +1,3 @@
-// since there's no dynamic data here, we can prerender
-// it so that it gets served as a static asset in production
-//export const prerender = true;
-
 import type { PageLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
@@ -11,9 +7,9 @@ import {user,config} from '$lib/state.svelte';
 export const load: PageLoad = ({ params }) => {
     
       
-    if(!user.isTeacher ) redirect(302, '/');
+    if(!user.isTeacher || config.isReady===false) redirect(302, '/');
     else {
-        console.log('/results');
+        console.log('/va');
         let msg=`USER ${user.name!=='' ? user.name : ''} ${user.isTeacher ? 'TEACHER' : ''} ${user.isAdmin ? 'ADMIN' : ''} ${user.isPupil ? 'PUPIL' : ''}`;
         
         console.log(msg);

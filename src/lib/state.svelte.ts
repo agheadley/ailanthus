@@ -7,7 +7,7 @@ https://svelte.dev/playground/untitled?version=5.5.3#H4sIAAAAAAAACoVUwW6bQBD9ldG
 */
 
 export const alert = $state({msg:"",type:'',ms:3000});
-export const user = $state({name:'DB',isAdmin:true,isTeacher:true,isPupil:false,sal:'',pn:'',sn:''});
+export const user = $state({name:'DB',isAdmin:false,isTeacher:true,isPupil:false,sal:'',pn:'',sn:''});
 
 
 export const config = $state({

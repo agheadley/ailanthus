@@ -104,7 +104,7 @@
             //console.log('data update');
             //$inspect(data.isUpdateRequired);
             (async () => {
-                if(!user.isTeacher || config.isReady===false) goto(`/`);
+              
                 
                 if(data.isUpdateRequired===true) {
                     await updateTable();
