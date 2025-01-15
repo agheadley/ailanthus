@@ -3,16 +3,20 @@
 import * as icon from '$lib/icon';
 import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
-
+import type {ExamTable} from '$lib/_db';
 import * as totals from './totals';
 
 interface Data  {
 	menu:{options:string[],index:number},
-	table:any
+	table:any,
+	tResults:ExamTable[],
+	kResults:ExamTable[],
 };
 let data:Data = $state({
     menu:{options:['Raw','Percentage','KPI'],index:0},
-	table:[]
+	table:[],
+	tResults:[],
+	kResults:[]
 });
 
 let download=()=>{
@@ -28,6 +32,9 @@ let update=async()=>{
 	});
 	let res= await response.json();
 	console.log(`FOUND ${res.length ? res.length : 0} RECORD(S)`);
+	data.tResults=res.filter((el: { isTotal: boolean; })=>el.isTotal===true);
+	data.kResults=res.filter((el: { isKPI: boolean; })=>el.isKPI===true);
+
 };
 
 $effect(() => {  
