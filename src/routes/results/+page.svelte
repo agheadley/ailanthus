@@ -6,6 +6,7 @@ import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import * as results from './results.svelte';
 import * as file from '$lib/file';
+	import { asClassComponent } from 'svelte/legacy';
 
 interface ResultRow{
         pid:number,
@@ -13,7 +14,10 @@ interface ResultRow{
         pn:string,
         yr:number,
         nc:number,
-        cols:{sc:string,sl:string,ss:string,sr:string,gd:string}[]
+		hse:string,
+		gnd:string,
+        cols:{sc:string,sl:string,ss:string,sr:string,gd:string}[],
+		totals:{sc:string,gd:string,t:number}[]
 }
 
 interface Data  {
@@ -31,9 +35,42 @@ let data:Data = $state({
 
 
 let download=()=>{
-	  let out:string[][]=[];
-	  console.log(out);
-      file.csvDownload(out,"EXAM_RESULTS.csv");
+	let out:string[][]=[];
+	
+	if(data.menu.options[data.menu.index]=='Table' && data.table[0]) {
+
+		let scs = [ ... new Set(data.list.map(el=>el.sc))];
+		console.log(scs);
+		let gds=config.grade.filter(el=>scs.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
+		console.log(gds);
+
+
+		out[0]=['yr','nc','pid','sn','pn','gnd','hse'];
+		for(const el of data.table[0].cols) out[0].push(el.sr!==null ? `${el.ss}/${el.sc}/${el.sr}` : `${el.ss}/${el.sc}`)
+		out[0].push('TOTALS');
+		out[0]=out[0].concat(gds.map(el=>`${el.gd}/${el.sc}`));
+		for(const row of data.table) {
+			if(data.search==='' || `${row.pn} ${row.sn}`.toUpperCase().includes(data.search.toUpperCase())) {
+				let line=[String(row.yr),String(row.nc),String(row.pid),row.sn,row.pn,row.gnd,row.hse];
+				for(const el of row.cols) line.push(el.gd);
+				line.push('');
+				let ts=results.getTotals(row.cols,gds);
+				line=line.concat(ts.map(el=>String(el.t)));
+				out.push(line);
+			}
+		}
+	} else if(data.menu.options[data.menu.index]=='List' && data.table[0]) {
+		out[0]=['yr','nc','pid','sn','pn','gnd','hse','sc','sl','ss','sr','gd','log'];
+		for(const row of data.list) {
+			if(data.search==='' || `${row.pn} ${row.sn}`.toUpperCase().includes(data.search.toUpperCase())) {
+				out.push([String(row.yr),String(row.nc),String(row.pid),row.sn,row.pn,row.gnd,row.hse,row.sc,row.sl,row.ss,row.sr,row.gd,row.log!==null ? row.log : '']);
+			}
+		}
+	}
+
+	file.csvDownload(out,"EXAM_RESULTS.csv");
+
+
 
 };
 
@@ -45,7 +82,10 @@ let update=async()=>{
 		headers: {'content-type': 'application/json'}
 	});
 	let res= await response.json();
+	console.log(`FOUND ${res.length ? res.length : 0} RECORD(S)`);
 	data.table=results.getResultsTable(res);
+
+	//console.log(data.table);
 
 	data.list=res.sort((a: { sn: string; pn: string; sc: string; sl: string; ss: string; sr: string; },b: { sn: any; pn: any; sc: any; sl: any; ss: any; sr: any; })=>a.sn.localeCompare(b.sn) || a.pn.localeCompare(b.pn) || a.sc.localeCompare(b.sc) || a.sl.localeCompare(b.sl) || a.ss.localeCompare(b.ss) || a.sr.localeCompare(b.sr));		
 	
@@ -104,9 +144,16 @@ $effect(() => {
 			<th>pid</th>
 			<th>sn</th>
 			<th>pn</th>
+			<th>gnd</th>
+			<th>hse</th>
 			{#each data.table[0].cols as col,colIndex}
 			<th>{@html chart.getAssessmentTitle(col.sl,col.sr!==null ? `${col.sc}/${col.sr}`:`${col.sc}`)}</th>
 			{/each}
+			<th>TOTALS</th>
+			{#each data.table[0].totals as col,colIndex}
+				<th>{`${col.gd}/${col.sc}`}</th>
+			{/each}
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -118,9 +165,16 @@ $effect(() => {
 				<td>{row.pid}</td>
 				<td>{row.sn}</td>
 				<td>{row.pn}</td>
+				<td>{row.gnd}</td>
+				<td>{row.hse}</td>
 				{#each row.cols as col,colIndex}
 					<td>{col.gd}</td>
 				{/each}
+				<td></td>
+				{#each row.totals as col,colIndex}
+				<td>{col.t}</td>
+			{/each}
+
 			</tr>
 			{/if}
 		{/each}
@@ -137,12 +191,14 @@ $effect(() => {
 			<th>pid</th>
 			<th>sn</th>
 			<th>pn</th>
-			<th>course</th>
-			<th>subject</th>
-			<th></th>
-			<th>code</th>
-			<th>grade</th>
-			<th>note</th>
+			<th>gnd</th>
+			<th>hse</th>
+			<th>sc</th>
+			<th>sl</th>
+			<th>ss</th>
+			<th>sr</th>
+			<th>gd</th>
+			<th>log</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -154,6 +210,9 @@ $effect(() => {
 			<td>{row.pid}</td>
 			<td>{row.sn}</td>
 			<td>{row.pn}</td>
+			<td>{row.gnd}</td>
+				
+			<td>{row.hse}</td>
 			<td>{row.sc}</td>
 			<td>{row.sl}</td>
 			<td>{row.ss}</td>

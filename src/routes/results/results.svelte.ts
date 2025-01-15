@@ -1,5 +1,5 @@
 
-//import {config,cohorts,user} from '$lib/state.svelte';
+import {config,cohorts,user} from '$lib/state.svelte';
 import * as util from '$lib/util';
 import type {ExamTable} from '$lib/_db';
 
@@ -9,7 +9,10 @@ interface ResultRow{
         pn:string,
         yr:number,
         nc:number,
-        cols:{sc:string,sl:string,ss:string,sr:string,gd:string}[]
+        hse:string,
+        gnd:string,
+        cols:{sc:string,sl:string,ss:string,sr:string,gd:string}[],
+        totals:{sc:string,gd:string,t:number}[]
 }
 
 interface ResultCol {
@@ -21,18 +24,24 @@ interface ResultCol {
 
 }
 
+
 export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
     
     let rows:ResultRow[]=[];
 
-    console.log(data);
+    //console.log(data);
 
-    //rows = <ResultRow[]> util.unique(data,['pid']).map(el=>({pid:el.pid,sn:el.sn,pn:el.pn,yr:el.yr,nc:el.nc,cols:[]}));
+   
+    let scs = [ ... new Set(data.map(el=>el.sc))];
+    //console.log(scs);
+    let gds=config.grade.filter(el=>scs.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
+    //console.log(gds);
+
 
     
     for(const item of data) {
         if(!rows.find(el=>el.pid===item.pid)) 
-            rows.push({pid:item.pid,sn:item.sn,pn:item.pn,yr:item.yr,nc:item.nc,cols:[]});
+            rows.push({pid:item.pid,sn:item.sn,pn:item.pn,yr:item.yr,nc:item.nc,hse:item.hse,gnd:item.gnd,cols:[],totals:[]});
     }
     
 
@@ -50,7 +59,7 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
 
 
 
-    console.log(cols);
+    //console.log(cols);
 
 
     for(const item of rows) {
@@ -62,9 +71,20 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
     }
 
    
-    console.log(rows);
+    //console.log(rows);
+
+    for(const item of rows) item.totals=getTotals(item.cols,gds);
+    
 
     return rows;
 };
 
 
+export const getTotals=(results:{sc:string,sl:string,ss:string,sr:string,gd:string}[],grades:{sc:string,gd:string}[]):{sc:string,gd:string,t:number}[]=>{
+    let ts:{sc:string,gd:string,t:number}[]=[];
+    const c = ['a','b','a','c','a'].reduce((acc,el)=>acc + (el==='a' ? 1 : 0),0);
+    ts=grades.map(el=>({sc:el.sc,gd:el.gd,t:results.reduce((a,e)=>a+(e.gd===el.gd ? 1: 0),0)}));
+
+
+    return ts;
+};
