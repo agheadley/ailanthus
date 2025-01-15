@@ -75,7 +75,7 @@ let download=()=>{
 };
 
 let update=async()=>{
-	console.log('UPDATING RESULTS',`${cohorts.exam.list[cohorts.exam.index].yr}/${cohorts.exam.list[cohorts.exam.index].nc}`);
+	console.log('HARVESTING RESULTS',`${cohorts.exam.list[cohorts.exam.index].yr}/${cohorts.exam.list[cohorts.exam.index].nc}`);
 	let response = await fetch('/edge/read', {
 		method: 'POST',
 		body: JSON.stringify({table:"exam_table",select:"*",filter:`yr=eq.${cohorts.exam.list[cohorts.exam.index].yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
@@ -93,14 +93,7 @@ let update=async()=>{
 };
 
 $effect(() => {  
-    
-      
-
 		update();
-
-
-
-   
 });
 
 

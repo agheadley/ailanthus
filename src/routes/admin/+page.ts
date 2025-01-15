@@ -9,7 +9,7 @@ export const load: PageLoad = ({ params }) => {
       
     if(!user.isAdmin || config.isReady===false) redirect(302, '/');
     else {
-        console.log('/va');
+        console.log('/admin');
         let msg=`USER ${user.name!=='' ? user.name : ''} ${user.isTeacher ? 'TEACHER' : ''} ${user.isAdmin ? 'ADMIN' : ''} ${user.isPupil ? 'PUPIL' : ''}`;
         
         console.log(msg);
