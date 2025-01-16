@@ -1,6 +1,6 @@
 
-import {config,cohorts,user} from '$lib/state.svelte';
-import * as util from '$lib/util';
+import {config} from '$lib/state.svelte';
+import * as exam from '$lib/exam';
 import type {ExamTable} from '$lib/_db';
 
 interface ResultRow{
@@ -32,9 +32,9 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
     //console.log(data);
 
    
-    let scs = [ ... new Set(data.map(el=>el.sc))];
+    const scs = [ ... new Set(data.map(el=>el.sc))];
     //console.log(scs);
-    let gds=config.grade.filter(el=>scs.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
+    const gds=config.grade.filter(el=>scs.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
     //console.log(gds);
 
 
@@ -73,18 +73,10 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
    
     //console.log(rows);
 
-    for(const item of rows) item.totals=getTotals(item.cols,gds);
+    for(const item of rows) item.totals=exam.getTotals(item.cols.map(el=>({sc:el.sc,gd:el.gd})),gds);
     
 
     return rows;
 };
 
 
-export const getTotals=(results:{sc:string,sl:string,ss:string,sr:string,gd:string}[],grades:{sc:string,gd:string}[]):{sc:string,gd:string,t:number}[]=>{
-    let ts:{sc:string,gd:string,t:number}[]=[];
-    const c = ['a','b','a','c','a'].reduce((acc,el)=>acc + (el==='a' ? 1 : 0),0);
-    ts=grades.map(el=>({sc:el.sc,gd:el.gd,t:results.reduce((a,e)=>a+(e.gd===el.gd ? 1: 0),0)}));
-
-
-    return ts;
-};
