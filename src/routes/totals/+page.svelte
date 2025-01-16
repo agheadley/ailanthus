@@ -4,19 +4,22 @@ import * as icon from '$lib/icon';
 import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import type {ExamTable} from '$lib/_db';
-import * as totals from './totals';
+import * as totals from './totals.svelte';
 
 interface Data  {
 	menu:{options:string[],index:number},
-	table:any,
-	tResults:ExamTable[],
-	kResults:ExamTable[],
+	raw:any,
+	percentage:any,
+	kpi:any,
+	results:ExamTable[]
 };
 let data:Data = $state({
     menu:{options:['Raw','Percentage','KPI'],index:0},
 	table:[],
-	tResults:[],
-	kResults:[]
+	results:[],
+	raw:[],
+	percentage:[],
+	kpi:[]
 });
 
 let download=()=>{
@@ -30,10 +33,12 @@ let update=async()=>{
 		body: JSON.stringify({table:"exam_table",select:"*",filter:`yr=eq.${cohorts.exam.list[cohorts.exam.index].yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
 		headers: {'content-type': 'application/json'}
 	});
-	let res= await response.json();
-	console.log(`FOUND ${res.length ? res.length : 0} RECORD(S)`);
-	data.tResults=res.filter((el: { isTotal: boolean; })=>el.isTotal===true);
-	data.kResults=res.filter((el: { isKPI: boolean; })=>el.isKPI===true);
+	data.results= await response.json();
+	console.log(`FOUND ${data.results.length ? data.results.length : 0} RECORD(S)`);
+	
+	data.raw=totals.getRaw(data.results.filter(el=>el.isTotal===true));
+	data.percentage=totals.getPercentage(data.results.filter(el=>el.isTotal===true));
+	data.kpi=totals.getKPI(data.results.filter(el=>el.isKPI===true));
 
 };
 

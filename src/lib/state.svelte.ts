@@ -269,6 +269,1184 @@ export const config = $state({
           "pc": 0,
           "pre": 0
         }
+       ],
+       kpi:[
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 1
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-A",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 2
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-A",
+          "sc": "A",
+          "gd": "A",
+          "sort": 3
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 4
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "A",
+          "sort": 5
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "B",
+          "sort": 6
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 7
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "A",
+          "sort": 8
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "B",
+          "sort": 9
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "C",
+          "sort": 10
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "D",
+          "sort": 11
+        },
+        {
+          "nc": 13,
+          "section": "GCE",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "E",
+          "sort": 12
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 13
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 14
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*",
+          "sc": "P",
+          "gd": "D1",
+          "sort": 15
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*",
+          "sc": "P",
+          "gd": "D2",
+          "sort": 16
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-A",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 17
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-A",
+          "sc": "A",
+          "gd": "A",
+          "sort": 18
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-A",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 19
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-A",
+          "sc": "B",
+          "gd": "D",
+          "sort": 20
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-A",
+          "sc": "P",
+          "gd": "D1",
+          "sort": 21
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-A",
+          "sc": "P",
+          "gd": "D2",
+          "sort": 22
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-A",
+          "sc": "P",
+          "gd": "D3",
+          "sort": 23
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-A",
+          "sc": "P",
+          "gd": "M1",
+          "sort": 24
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 25
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "A",
+          "sort": 26
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "B",
+          "sort": 27
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 28
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "B",
+          "gd": "D",
+          "sort": 29
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "D1",
+          "sort": 30
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "D2",
+          "sort": 31
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "D3",
+          "sort": 32
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "M1",
+          "sort": 33
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "M2",
+          "sort": 34
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 35
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "A",
+          "sort": 36
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "B",
+          "sort": 37
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "C",
+          "sort": 38
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "D",
+          "sort": 39
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "A",
+          "gd": "E",
+          "sort": 40
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 41
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "B",
+          "gd": "D",
+          "sort": 42
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "B",
+          "gd": "M",
+          "sort": 43
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "B",
+          "gd": "P",
+          "sort": 44
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "D1",
+          "sort": 45
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "D2",
+          "sort": 46
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "D3",
+          "sort": 47
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "M1",
+          "sort": 48
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "M2",
+          "sort": 49
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "M3",
+          "sort": 50
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "P1",
+          "sort": 51
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "P2",
+          "sort": 52
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC",
+          "kpi": "(%) A*-E",
+          "sc": "P",
+          "gd": "P3",
+          "sort": 53
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 54
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 55
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*",
+          "sc": "P",
+          "gd": "D1",
+          "sort": 56
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*",
+          "sc": "P",
+          "gd": "D2",
+          "sort": 57
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*",
+          "sc": "I",
+          "gd": "7",
+          "sort": 58
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 59
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "A",
+          "gd": "A",
+          "sort": 60
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 61
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "B",
+          "gd": "D",
+          "sort": 62
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "P",
+          "gd": "D1",
+          "sort": 63
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "P",
+          "gd": "D2",
+          "sort": 64
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "P",
+          "gd": "D3",
+          "sort": 65
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "P",
+          "gd": "M1",
+          "sort": 66
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "I",
+          "gd": "7",
+          "sort": 67
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-A",
+          "sc": "I",
+          "gd": "6",
+          "sort": 68
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "A*",
+          "sort": 69
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "A",
+          "sort": 70
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "A",
+          "gd": "B",
+          "sort": 71
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 72
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "B",
+          "gd": "D",
+          "sort": 73
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "D1",
+          "sort": 74
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "D2",
+          "sort": 75
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "D3",
+          "sort": 76
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "M1",
+          "sort": 77
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "P",
+          "gd": "M2",
+          "sort": 78
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "I",
+          "gd": "7",
+          "sort": 79
+        },
+        {
+          "nc": 13,
+          "section": "GCE/PreU/BTEC/IBHL",
+          "kpi": "(%) A*-B",
+          "sc": "I",
+          "gd": "6",
+          "sort": 80
+        },
+        {
+          "nc": 13,
+          "section": "IBHL",
+          "kpi": "(%) 7",
+          "sc": "I",
+          "gd": "7",
+          "sort": 81
+        },
+        {
+          "nc": 13,
+          "section": "IBHL",
+          "kpi": "(%) 7-6",
+          "sc": "I",
+          "gd": "7",
+          "sort": 82
+        },
+        {
+          "nc": 13,
+          "section": "IBHL",
+          "kpi": "(%) 7-6",
+          "sc": "I",
+          "gd": "6",
+          "sort": 83
+        },
+        {
+          "nc": 13,
+          "section": "IBHL",
+          "kpi": "(%) 7-5",
+          "sc": "I",
+          "gd": "7",
+          "sort": 84
+        },
+        {
+          "nc": 13,
+          "section": "IBHL",
+          "kpi": "(%) 7-5",
+          "sc": "I",
+          "gd": "6",
+          "sort": 85
+        },
+        {
+          "nc": 13,
+          "section": "IBHL",
+          "kpi": "(%) 7-5",
+          "sc": "I",
+          "gd": "5",
+          "sort": 86
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9",
+          "sc": "G",
+          "gd": "9",
+          "sort": 87
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-8",
+          "sc": "G",
+          "gd": "9",
+          "sort": 88
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-8",
+          "sc": "G",
+          "gd": "8",
+          "sort": 89
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-7",
+          "sc": "G",
+          "gd": "9",
+          "sort": 90
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-7",
+          "sc": "G",
+          "gd": "8",
+          "sort": 91
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-7",
+          "sc": "G",
+          "gd": "7",
+          "sort": 92
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-6",
+          "sc": "G",
+          "gd": "9",
+          "sort": 93
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-6",
+          "sc": "G",
+          "gd": "8",
+          "sort": 94
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-6",
+          "sc": "G",
+          "gd": "7",
+          "sort": 95
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-6",
+          "sc": "G",
+          "gd": "6",
+          "sort": 96
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-5",
+          "sc": "G",
+          "gd": "9",
+          "sort": 97
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-5",
+          "sc": "G",
+          "gd": "8",
+          "sort": 98
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-5",
+          "sc": "G",
+          "gd": "7",
+          "sort": 99
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-5",
+          "sc": "G",
+          "gd": "6",
+          "sort": 100
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-5",
+          "sc": "G",
+          "gd": "5",
+          "sort": 101
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-4",
+          "sc": "G",
+          "gd": "9",
+          "sort": 102
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-4",
+          "sc": "G",
+          "gd": "8",
+          "sort": 103
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-4",
+          "sc": "G",
+          "gd": "7",
+          "sort": 104
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-4",
+          "sc": "G",
+          "gd": "6",
+          "sort": 105
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-4",
+          "sc": "G",
+          "gd": "5",
+          "sort": 106
+        },
+        {
+          "nc": 11,
+          "section": "GCSE",
+          "kpi": "(%) 9-4",
+          "sc": "G",
+          "gd": "4",
+          "sort": 107
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-8 / A*",
+          "sc": "G",
+          "gd": "9",
+          "sort": 108
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-8 / A*",
+          "sc": "G",
+          "gd": "8",
+          "sort": 109
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-8 / A*",
+          "sc": "G",
+          "gd": "A*",
+          "sort": 110
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-7 / A*-A",
+          "sc": "G",
+          "gd": "9",
+          "sort": 111
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-7 / A*-A",
+          "sc": "G",
+          "gd": "8",
+          "sort": 112
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-7 / A*-A",
+          "sc": "G",
+          "gd": "7",
+          "sort": 113
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-7 / A*-A",
+          "sc": "G",
+          "gd": "A*",
+          "sort": 114
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-7 / A*-A",
+          "sc": "G",
+          "gd": "A",
+          "sort": 115
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-6 / A*-B",
+          "sc": "G",
+          "gd": "9",
+          "sort": 116
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-6 / A*-B",
+          "sc": "G",
+          "gd": "8",
+          "sort": 117
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-6 / A*-B",
+          "sc": "G",
+          "gd": "7",
+          "sort": 118
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-6 / A*-B",
+          "sc": "G",
+          "gd": "6",
+          "sort": 119
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-6 / A*-B",
+          "sc": "G",
+          "gd": "A*",
+          "sort": 120
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-6 / A*-B",
+          "sc": "G",
+          "gd": "A",
+          "sort": 121
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-6 / A*-B",
+          "sc": "G",
+          "gd": "B",
+          "sort": 122
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "9",
+          "sort": 123
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "8",
+          "sort": 124
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "7",
+          "sort": 125
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "6",
+          "sort": 126
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "5",
+          "sort": 127
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "A*",
+          "sort": 128
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "A",
+          "sort": 129
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "B",
+          "sort": 130
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-5 / A*-C",
+          "sc": "G",
+          "gd": "C",
+          "sort": 131
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "9",
+          "sort": 132
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "8",
+          "sort": 133
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "7",
+          "sort": 134
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "6",
+          "sort": 135
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "5",
+          "sort": 136
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "4",
+          "sort": 137
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "A*",
+          "sort": 138
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "A",
+          "sort": 139
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "B",
+          "sort": 140
+        },
+        {
+          "nc": 11,
+          "section": "GCSE LEGACY",
+          "kpi": "(%) 9-4 / A*-C",
+          "sc": "G",
+          "gd": "C",
+          "sort": 141
+        },
+        {
+          "nc": 13,
+          "section": "BTEC",
+          "kpi": "(%) D*",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 142
+        },
+        {
+          "nc": 13,
+          "section": "BTEC",
+          "kpi": "(%) D*-D",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 143
+        },
+        {
+          "nc": 13,
+          "section": "BTEC",
+          "kpi": "(%) D*-D",
+          "sc": "B",
+          "gd": "D",
+          "sort": 144
+        },
+        {
+          "nc": 13,
+          "section": "BTEC",
+          "kpi": "(%) D*-M",
+          "sc": "B",
+          "gd": "D*",
+          "sort": 145
+        },
+        {
+          "nc": 13,
+          "section": "BTEC",
+          "kpi": "(%) D*-M",
+          "sc": "B",
+          "gd": "D",
+          "sort": 146
+        },
+        {
+          "nc": 13,
+          "section": "BTEC",
+          "kpi": "(%) D*-M",
+          "sc": "B",
+          "gd": "M",
+          "sort": 147
+        }
        ]
 });
 
