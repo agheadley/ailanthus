@@ -134,7 +134,7 @@
     {/if}
     <fieldset>
         <legend>Assessments by Cohort / My Sets</legend>
-            <span>
+            <span class="spacer">
             <select id="cohort" bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
                 {#each cohorts.nc.list as row,index}
                 <option value={index}>{row.nc}</option>
@@ -154,7 +154,7 @@
                     {/each}
                 </select>
             </span>
-           <span>
+           <span class="spacer">
                 <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>
                  <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
                 <a data-title="ARCHIVE" href={'javascript:void(0)'} onclick={archive}>{@html icon.archive(24)}</a>

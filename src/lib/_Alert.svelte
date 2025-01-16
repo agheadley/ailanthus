@@ -47,7 +47,7 @@
             flex-direction:column;
             align-items: start;
             justify-content: start;
-            background:rgba(0,0,0,0.1);/*#28bd14;*/
+            background:rgba(0,0,0,0);/*#28bd14;*/
             color:#fff;
             margin-right:0;
             margin-top:0;

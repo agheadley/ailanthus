@@ -52,16 +52,16 @@ $effect(() => {
 
 <fieldset>
 	<legend>Exam Totals & KPIs</legend>
-	<span>
+	<span  class="spacer">
 	<ExamCohort></ExamCohort>
 	</span>
-	<span class="tab">
+	<span class="tab spacer">
 		{#each data.menu.options as option,index}
 		<a href={'javascript:void(0)'} onclick={()=>data.menu.index=index} class={data.menu.index===index ? 'selected' : ''}>{data.menu.options[index]}</a>&nbsp;
 		
 		{/each}
 	</span>
-	<span>
+	<span  class="spacer">
 	<a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
 	</span>
 </fieldset>

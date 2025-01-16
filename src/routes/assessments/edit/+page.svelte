@@ -359,20 +359,31 @@ let handleKeydown=(event:any)=>{
 </Modal>
 {/if}
 
-<div class="row">
-    <div class="col">
-        <input id="radio-group" type="radio" bind:group={data.view} name='data-view' value={'group'} />
-        <label for="radio-group">{cohorts.edit.g}</label>
-        <input id="radio-all" type="radio" bind:group={data.view} name='data-view' value={'all'} />
-        <label for="radio-all">All</label>
-    </div>
-    <div class="col">
-        <button disabled={data.assessment.isGrade} onclick={()=>data.isManage=true}>Boundary/Total</button>&nbsp;&nbsp;
-        <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={()=>data.isDownload=true}>{@html icon.download(24)}</a>&nbsp;&nbsp;
+<fieldset>
+    <span class="tab spacer">
+        <a href={'javascript:void(0)'} onclick={()=>data.view='group'} class={data.view==='group' ? 'selected' : ''}>{cohorts.edit.g}</a>
+        <a href={'javascript:void(0)'} onclick={()=>data.view='all'} class={data.view==='all' ? 'selected' : ''}>All</a>
+	
+    </span>
+    <span class="spacer">
+        <button disabled={data.assessment.isGrade} onclick={()=>data.isManage=true}>Boundary/Total</button>
+    </span>
+    <span class="spacer">
         <button disabled={data.assessment.isLock || data.assessment.isCore} onclick={()=>data.isLock=true}>Send Live</button>
+      
+    </span>
+    <span class="spacer">
+        <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={()=>data.isDownload=true}>{@html icon.download(24)}</a>
         
-    </div>
-</div>
+    </span>
+    <span class="spacer">
+        <button onclick={()=>goto('/assessments')}>Back</button>
+      
+    </span>
+
+</fieldset>
+
+<figure>
 <table class="small">
     <tbody>
         <tr>
@@ -416,6 +427,7 @@ let handleKeydown=(event:any)=>{
         {/each}
     </tbody>
 </table>
+</figure>
 
 <style>
 

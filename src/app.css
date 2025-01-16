@@ -738,7 +738,7 @@ sub {
 }
 /* extra css - agh */
 
-span {
+span.spacer {
   padding-right:1rem;
 }
 
