@@ -1,5 +1,5 @@
 import type {ExamTable} from '$lib/_db';
-import {config} from '$lib/state.svelte';
+import {config,cohorts} from '$lib/state.svelte';
 import * as util from '$lib/util';
 import * as exam from '$lib/exam';
 
@@ -59,10 +59,41 @@ export const getRaw=(data:ExamTable[]):Total[]=>{
     return raw;
 };
 
-export const getPercentage=(data:ExamTable[]):any=>{
+export const getPercentage=(data:ExamTable[]):Total[]=>{
+
+    let percentage = [];
+    const subjects=getSubjects(data);
+    
+    const courses=[ ... new Set(subjects.map(el=>el.sc))].sort((a,b)=>a.localeCompare(b));
+    
+    for(const course of courses) {
+        let row:Total={sc:course,totals:[]};
+        let item = {sc:course,sl:'ALL',ss:'*',
+            all:exam.getPercentages(data.filter(el=>el.sc===course).map(el=>({gd:el.gd,sc:el.sc})),[course]),
+            m:exam.getPercentages(data.filter(el=>el.sc===course && el.gnd==='M').map(el=>({gd:el.gd,sc:el.sc})),[course]),
+            f:exam.getPercentages(data.filter(el=>el.sc===course && el.gnd==='F').map(el=>({gd:el.gd,sc:el.sc})),[course])
+            
+        };
+        row.totals.push(item);
+        for(const subject of subjects.filter(el=>el.sc===course)) {
+            item = {sc:course,sl:subject.sl,ss:subject.sc,
+                all:exam.getPercentages(data.filter(el=>el.sc===course && el.ss===subject.ss).map(el=>({gd:el.gd,sc:el.sc})),[course]),
+                m:exam.getPercentages(data.filter(el=>el.sc===course &&  el.ss===subject.ss && el.gnd==='M').map(el=>({gd:el.gd,sc:el.sc})),[course]),
+                f:exam.getPercentages(data.filter(el=>el.sc===course && el.ss===subject.ss && el.gnd==='F').map(el=>({gd:el.gd,sc:el.sc})),[course])
+                
+            };
+            row.totals.push(item);
+        }
+
+        percentage.push(row);
+    } 
+
+    return percentage;
 
 };
 
 export const getKPI=(data:ExamTable[]):any=>{
+    console.log(cohorts.exam.list[cohorts.exam.index].nc);
 
+    return;
 };

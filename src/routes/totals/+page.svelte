@@ -5,6 +5,7 @@ import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import type {ExamTable} from '$lib/_db';
 import * as totals from './totals.svelte';
+import * as chart from '$lib/chart';
 
 interface Data  {
 	menu:{options:string[],index:number},
@@ -85,15 +86,15 @@ $effect(() => {
 				<th>SUBJECT</th>
 				<th></th>
 				{#each table.totals[0].all as col,colIndex}
-					<th>{col.gd}</th>
+					<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
 				{/each}
 				<th></th>
 				{#each table.totals[0].m as col,colIndex}
-					<th>{col.gd}</th>
+					<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
 				{/each}
 				<th></th>
 				{#each table.totals[0].f as col,colIndex}
-					<th>{col.gd}</th>
+					<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
 				{/each}
 			</tr>
 		</thead>
@@ -104,15 +105,15 @@ $effect(() => {
 					<td>{row.sl}</td>
 					<td>(all)</td>
 					{#each row.all as col,colIndex}
-						<td>{col.t}</td>
+						<td>{@html chart.getTotal<boolean,number>(false,col.t)}</td>
 					{/each}
 					<td>(male)</td>
 					{#each row.m as col,colIndex}
-						<td>{col.t}</td>
+						<td>{@html chart.getTotal<boolean,number>(false,col.t)}</td>
 					{/each}
 					<td>(female)</td>
 					{#each row.f as col,colIndex}
-						<td>{col.t}</td>
+						<td>{@html chart.getTotal<boolean,number>(false,col.t)}</td>
 					{/each}
 				</tr>
 			{/each}
@@ -122,10 +123,49 @@ $effect(() => {
 	{/each}
 {/if}
 {#if data.menu.options[data.menu.index]==='Percentage' && data.percentage[0]}
-	<table class="small">
-
-	</table>
-
+{#each data.percentage as table,tableIndex}
+<table class="small">
+	<thead>
+		<tr>
+			<th>COURSE: {table.sc}</th>
+			<th>SUBJECT</th>
+			<th></th>
+			{#each table.totals[0].all as col,colIndex}
+				<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+			{/each}
+			<th></th>
+			{#each table.totals[0].m as col,colIndex}
+				<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+			{/each}
+			<th></th>
+			{#each table.totals[0].f as col,colIndex}
+				<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+			{/each}
+		</tr>
+	</thead>
+	<tbody>
+		{#each table.totals as row,rowIndex}
+			<tr>
+				<td></td>
+				<td>{row.sl}</td>
+				<td>(all)</td>
+				{#each row.all as col,colIndex}
+					<td>{@html chart.getTotal<boolean,number>(true,Math.round(col.t))}</td>
+				{/each}
+				<td>(male)</td>
+				{#each row.m as col,colIndex}
+					<td>{@html chart.getTotal<boolean,number>(true,Math.round(col.t))}</td>
+				{/each}
+				<td>(female)</td>
+				{#each row.f as col,colIndex}
+					<td>{@html chart.getTotal<boolean,number>(true,Math.round(col.t))}</td>
+				{/each}
+			</tr>
+		{/each}
+	</tbody>
+</table>
+<p></p>
+{/each}
 {/if}
 {#if data.menu.options[data.menu.index]==='KPI'}
 	<table class="small">
