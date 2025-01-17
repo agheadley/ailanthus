@@ -34,7 +34,7 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
    
     const scs = [ ... new Set(data.map(el=>el.sc))];
     //console.log(scs);
-    const gds=config.grade.filter(el=>scs.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
+    //const gds=config.grade.filter(el=>scs.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
     //console.log(gds);
 
 
@@ -73,7 +73,7 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
    
     //console.log(rows);
 
-    for(const item of rows) item.totals=exam.getTotals(item.cols.map(el=>({sc:el.sc,gd:el.gd})),gds);
+    for(const item of rows) item.totals=exam.getTotals(item.cols.map(el=>({sc:el.sc,gd:el.gd})),scs);
     
 
     return rows;

@@ -6,6 +6,7 @@ import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import * as results from './results.svelte';
 import * as file from '$lib/file';
+
 	
 
 interface ResultRow{
@@ -41,21 +42,18 @@ let download=()=>{
 
 		let scs = [ ... new Set(data.list.map(el=>el.sc))];
 		console.log(scs);
-		let gds=config.grade.filter(el=>scs.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
-		console.log(gds);
-
+		
 
 		out[0]=['yr','nc','pid','sn','pn','gnd','hse'];
 		for(const el of data.table[0].cols) out[0].push(el.sr!==null ? `${el.ss}/${el.sc}/${el.sr}` : `${el.ss}/${el.sc}`)
 		out[0].push('TOTALS');
-		out[0]=out[0].concat(gds.map(el=>`${el.gd}/${el.sc}`));
+		out[0]=out[0].concat(data.table[0].totals.map(el=>`${el.gd}/${el.sc}`));
 		for(const row of data.table) {
 			if(data.search==='' || `${row.pn} ${row.sn}`.toUpperCase().includes(data.search.toUpperCase())) {
 				let line=[String(row.yr),String(row.nc),String(row.pid),row.sn,row.pn,row.gnd,row.hse];
 				for(const el of row.cols) line.push(el.gd);
 				line.push('');
-				let ts=results.getTotals(row.cols,gds);
-				line=line.concat(ts.map(el=>String(el.t)));
+				line=line.concat(row.totals.map(el=>String(el.t)));
 				out.push(line);
 			}
 		}
@@ -63,7 +61,7 @@ let download=()=>{
 		out[0]=['yr','nc','pid','sn','pn','gnd','hse','sc','sl','ss','sr','gd','log'];
 		for(const row of data.list) {
 			if(data.search==='' || `${row.pn} ${row.sn}`.toUpperCase().includes(data.search.toUpperCase())) {
-				out.push([String(row.yr),String(row.nc),String(row.pid),row.sn,row.pn,row.gnd,row.hse,row.sc,row.sl,row.ss,row.sr,row.gd,row.log!==null ? row.log : '']);
+				out.push([String(row.yr),String(row.nc),String(row.pid),row.sn,row.pn,row.gnd,row.hse,row.sc,row.sl,row.ss,row.sr!==null ? row.sr : '',row.gd,row.log!==null ? row.log : '']);
 			}
 		}
 	}
@@ -89,6 +87,7 @@ let update=async()=>{
 
 	data.list=res.sort((a: { sn: string; pn: string; sc: string; sl: string; ss: string; sr: string; },b: { sn: any; pn: any; sc: any; sl: any; ss: any; sr: any; })=>a.sn.localeCompare(b.sn) || a.pn.localeCompare(b.pn) || a.sc.localeCompare(b.sc) || a.sl.localeCompare(b.sl) || a.ss.localeCompare(b.ss) || a.sr.localeCompare(b.sr));		
 	
+	//console.log(data);
 
 };
 

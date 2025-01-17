@@ -40,6 +40,9 @@ let update=async()=>{
 	data.percentage=totals.getPercentage(data.results.filter(el=>el.isTotal===true));
 	data.kpi=totals.getKPI(data.results.filter(el=>el.isKPI===true));
 
+
+	//console.log(data.raw);
+
 };
 
 $effect(() => {  
@@ -72,6 +75,65 @@ $effect(() => {
 </fieldset>
 	
 
+<figure>
+{#if data.menu.options[data.menu.index]==='Raw' && data.raw[0]}
+	{#each data.raw as table,tableIndex}
+	<table class="small">
+		<thead>
+			<tr>
+				<th>COURSE: {table.sc}</th>
+				<th>SUBJECT</th>
+				<th></th>
+				{#each table.totals[0].all as col,colIndex}
+					<th>{col.gd}</th>
+				{/each}
+				<th></th>
+				{#each table.totals[0].m as col,colIndex}
+					<th>{col.gd}</th>
+				{/each}
+				<th></th>
+				{#each table.totals[0].f as col,colIndex}
+					<th>{col.gd}</th>
+				{/each}
+			</tr>
+		</thead>
+		<tbody>
+			{#each table.totals as row,rowIndex}
+				<tr>
+					<td></td>
+					<td>{row.sl}</td>
+					<td>(all)</td>
+					{#each row.all as col,colIndex}
+						<td>{col.t}</td>
+					{/each}
+					<td>(male)</td>
+					{#each row.m as col,colIndex}
+						<td>{col.t}</td>
+					{/each}
+					<td>(female)</td>
+					{#each row.f as col,colIndex}
+						<td>{col.t}</td>
+					{/each}
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+	<p></p>
+	{/each}
+{/if}
+{#if data.menu.options[data.menu.index]==='Percentage' && data.percentage[0]}
+	<table class="small">
+
+	</table>
+
+{/if}
+{#if data.menu.options[data.menu.index]==='KPI'}
+	<table class="small">
+
+	</table>
+
+{/if}
+</figure>
 
 
 <style>

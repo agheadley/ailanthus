@@ -158,6 +158,7 @@
                 <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>
                  <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
                 <a data-title="ARCHIVE" href={'javascript:void(0)'} onclick={archive}>{@html icon.archive(24)}</a>
+               
             </span>
             </fieldset>
 
