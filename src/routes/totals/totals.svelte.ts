@@ -113,10 +113,10 @@ export const getKPI=(data:ExamTable[]):any=>{
             .map(el=>el.kpi);
 
         for(let kpi of kpis) {
-            let results = list.filter(el=>el.section===section && el.kpi===kpi).map(el=>({sc:el.sc,gd:el.gd}));
+            let results = list.filter(el=>el.section===section).map(el=>({sc:el.sc,gd:el.gd}));
             let courses = [... new Set(results.map(el=>el.sc))];
 
-          
+            
 
             const allData = data.filter(el=>courses.includes(el.sc));
             const total = allData.length ? allData.length : 0;
