@@ -1,6 +1,6 @@
 
 import {config} from '$lib/state.svelte';
-import * as exam from '$lib/exam';
+import * as util from '$lib/util';
 import type {ExamTable} from '$lib/_db';
 
 interface ResultRow{
@@ -73,7 +73,7 @@ export const getResultsTable=(data:ExamTable[]):ResultRow[]=>{
    
     //console.log(rows);
 
-    for(const item of rows) item.totals=exam.getTotals(item.cols.map(el=>({sc:el.sc,gd:el.gd})),scs);
+    for(const item of rows) item.totals=util.getTotals(item.cols.map(el=>({sc:el.sc,gd:el.gd})),scs);
     
 
     return rows;

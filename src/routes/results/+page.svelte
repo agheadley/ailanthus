@@ -6,7 +6,7 @@ import {cohorts,config,user,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import * as results from './results.svelte';
 import * as file from '$lib/file';
-
+import * as util from '$lib/util';
 	
 
 interface ResultRow{
@@ -162,11 +162,11 @@ $effect(() => {
 				<td>{row.gnd}</td>
 				<td>{row.hse}</td>
 				{#each row.cols as col,colIndex}
-					<td>{col.gd}</td>
+					<td>{@html chart.getTotal<boolean,string>(false,col.gd)}</td>
 				{/each}
 				<td></td>
 				{#each row.totals as col,colIndex}
-				<td>{col.t}</td>
+					<td>{@html chart.getTotal<boolean,number>(false,col.t)}</td>
 			{/each}
 
 			</tr>
