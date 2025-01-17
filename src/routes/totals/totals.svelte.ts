@@ -27,6 +27,7 @@ interface Total {
 };
 
 export const getRaw=(data:ExamTable[]):Total[]=>{
+    data=data.filter(el=>el.gd!=='X');
 
     let raw = [];
     const subjects=getSubjects(data);
@@ -59,7 +60,7 @@ export const getRaw=(data:ExamTable[]):Total[]=>{
 };
 
 export const getPercentage=(data:ExamTable[]):Total[]=>{
-
+    data=data.filter(el=>el.gd!=='X');
     let percentage = [];
     const subjects=getSubjects(data);
     
@@ -91,12 +92,45 @@ export const getPercentage=(data:ExamTable[]):Total[]=>{
 
 };
 
+
+
+
+
 export const getKPI=(data:ExamTable[]):any=>{
-    console.log(cohorts.exam.list[cohorts.exam.index].nc);
+    data=data.filter(el=>el.gd!=='X');
+
 
 
     let list = config.kpi.filter(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
+    
+    let sections = util.unique(<{order:number,section:string,nc:number,kpi:string,sc:string,gd:string}[]>list,['section']).sort((a,b)=>Number(a.order)-Number(b.order))
+        .map(el=>el.section);
+    
 
+    for(const section of sections) {
+
+        const kpis=util.unique(list.filter(el=>el.section===section),['kpi']).sort((a,b)=>Number(a.order)-Number(b.order))
+            .map(el=>el.kpi);
+
+        for(let kpi of kpis) {
+            let results = list.filter(el=>el.section===section && el.kpi===kpi).map(el=>({sc:el.sc,gd:el.gd}));
+            let courses = [... new Set(results.map(el=>el.sc))];
+
+          
+
+            const allData = data.filter(el=>courses.includes(el.sc));
+            const total = allData.length ? allData.length : 0;
+
+            console.log(section,kpi,courses,total);
+
+            //for(const result of results) console.log(result);
+
+
+
+        }
+
+
+    }
     
     return;
 };

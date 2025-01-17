@@ -277,7 +277,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "A",
           "gd": "A*",
-          "sort": 1
+          "order": 1
         },
         {
           "nc": 13,
@@ -285,7 +285,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "A",
           "gd": "A*",
-          "sort": 2
+          "order": 2
         },
         {
           "nc": 13,
@@ -293,7 +293,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "A",
           "gd": "A",
-          "sort": 3
+          "order": 3
         },
         {
           "nc": 13,
@@ -301,7 +301,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "A*",
-          "sort": 4
+          "order": 4
         },
         {
           "nc": 13,
@@ -309,7 +309,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "A",
-          "sort": 5
+          "order": 5
         },
         {
           "nc": 13,
@@ -317,7 +317,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "B",
-          "sort": 6
+          "order": 6
         },
         {
           "nc": 13,
@@ -325,7 +325,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "A*",
-          "sort": 7
+          "order": 7
         },
         {
           "nc": 13,
@@ -333,7 +333,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "A",
-          "sort": 8
+          "order": 8
         },
         {
           "nc": 13,
@@ -341,7 +341,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "B",
-          "sort": 9
+          "order": 9
         },
         {
           "nc": 13,
@@ -349,7 +349,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "C",
-          "sort": 10
+          "order": 10
         },
         {
           "nc": 13,
@@ -357,7 +357,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "D",
-          "sort": 11
+          "order": 11
         },
         {
           "nc": 13,
@@ -365,7 +365,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "E",
-          "sort": 12
+          "order": 12
         },
         {
           "nc": 13,
@@ -373,7 +373,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "A",
           "gd": "A*",
-          "sort": 13
+          "order": 13
         },
         {
           "nc": 13,
@@ -381,7 +381,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "B",
           "gd": "D*",
-          "sort": 14
+          "order": 14
         },
         {
           "nc": 13,
@@ -389,7 +389,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "P",
           "gd": "D1",
-          "sort": 15
+          "order": 15
         },
         {
           "nc": 13,
@@ -397,7 +397,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "P",
           "gd": "D2",
-          "sort": 16
+          "order": 16
         },
         {
           "nc": 13,
@@ -405,7 +405,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "A",
           "gd": "A*",
-          "sort": 17
+          "order": 17
         },
         {
           "nc": 13,
@@ -413,7 +413,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "A",
           "gd": "A",
-          "sort": 18
+          "order": 18
         },
         {
           "nc": 13,
@@ -421,7 +421,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "B",
           "gd": "D*",
-          "sort": 19
+          "order": 19
         },
         {
           "nc": 13,
@@ -429,7 +429,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "B",
           "gd": "D",
-          "sort": 20
+          "order": 20
         },
         {
           "nc": 13,
@@ -437,7 +437,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "P",
           "gd": "D1",
-          "sort": 21
+          "order": 21
         },
         {
           "nc": 13,
@@ -445,7 +445,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "P",
           "gd": "D2",
-          "sort": 22
+          "order": 22
         },
         {
           "nc": 13,
@@ -453,7 +453,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "P",
           "gd": "D3",
-          "sort": 23
+          "order": 23
         },
         {
           "nc": 13,
@@ -461,7 +461,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "P",
           "gd": "M1",
-          "sort": 24
+          "order": 24
         },
         {
           "nc": 13,
@@ -469,7 +469,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "A*",
-          "sort": 25
+          "order": 25
         },
         {
           "nc": 13,
@@ -477,7 +477,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "A",
-          "sort": 26
+          "order": 26
         },
         {
           "nc": 13,
@@ -485,7 +485,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "B",
-          "sort": 27
+          "order": 27
         },
         {
           "nc": 13,
@@ -493,7 +493,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "B",
           "gd": "D*",
-          "sort": 28
+          "order": 28
         },
         {
           "nc": 13,
@@ -501,7 +501,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "B",
           "gd": "D",
-          "sort": 29
+          "order": 29
         },
         {
           "nc": 13,
@@ -509,7 +509,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "D1",
-          "sort": 30
+          "order": 30
         },
         {
           "nc": 13,
@@ -517,7 +517,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "D2",
-          "sort": 31
+          "order": 31
         },
         {
           "nc": 13,
@@ -525,7 +525,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "D3",
-          "sort": 32
+          "order": 32
         },
         {
           "nc": 13,
@@ -533,7 +533,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "M1",
-          "sort": 33
+          "order": 33
         },
         {
           "nc": 13,
@@ -541,7 +541,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "M2",
-          "sort": 34
+          "order": 34
         },
         {
           "nc": 13,
@@ -549,7 +549,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "A*",
-          "sort": 35
+          "order": 35
         },
         {
           "nc": 13,
@@ -557,7 +557,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "A",
-          "sort": 36
+          "order": 36
         },
         {
           "nc": 13,
@@ -565,7 +565,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "B",
-          "sort": 37
+          "order": 37
         },
         {
           "nc": 13,
@@ -573,7 +573,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "C",
-          "sort": 38
+          "order": 38
         },
         {
           "nc": 13,
@@ -581,7 +581,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "D",
-          "sort": 39
+          "order": 39
         },
         {
           "nc": 13,
@@ -589,7 +589,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "A",
           "gd": "E",
-          "sort": 40
+          "order": 40
         },
         {
           "nc": 13,
@@ -597,7 +597,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "B",
           "gd": "D*",
-          "sort": 41
+          "order": 41
         },
         {
           "nc": 13,
@@ -605,7 +605,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "B",
           "gd": "D",
-          "sort": 42
+          "order": 42
         },
         {
           "nc": 13,
@@ -613,7 +613,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "B",
           "gd": "M",
-          "sort": 43
+          "order": 43
         },
         {
           "nc": 13,
@@ -621,7 +621,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "B",
           "gd": "P",
-          "sort": 44
+          "order": 44
         },
         {
           "nc": 13,
@@ -629,7 +629,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "D1",
-          "sort": 45
+          "order": 45
         },
         {
           "nc": 13,
@@ -637,7 +637,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "D2",
-          "sort": 46
+          "order": 46
         },
         {
           "nc": 13,
@@ -645,7 +645,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "D3",
-          "sort": 47
+          "order": 47
         },
         {
           "nc": 13,
@@ -653,7 +653,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "M1",
-          "sort": 48
+          "order": 48
         },
         {
           "nc": 13,
@@ -661,7 +661,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "M2",
-          "sort": 49
+          "order": 49
         },
         {
           "nc": 13,
@@ -669,7 +669,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "M3",
-          "sort": 50
+          "order": 50
         },
         {
           "nc": 13,
@@ -677,7 +677,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "P1",
-          "sort": 51
+          "order": 51
         },
         {
           "nc": 13,
@@ -685,7 +685,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "P2",
-          "sort": 52
+          "order": 52
         },
         {
           "nc": 13,
@@ -693,7 +693,7 @@ export const config = $state({
           "kpi": "(%) A*-E",
           "sc": "P",
           "gd": "P3",
-          "sort": 53
+          "order": 53
         },
         {
           "nc": 13,
@@ -701,7 +701,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "A",
           "gd": "A*",
-          "sort": 54
+          "order": 54
         },
         {
           "nc": 13,
@@ -709,7 +709,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "B",
           "gd": "D*",
-          "sort": 55
+          "order": 55
         },
         {
           "nc": 13,
@@ -717,7 +717,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "P",
           "gd": "D1",
-          "sort": 56
+          "order": 56
         },
         {
           "nc": 13,
@@ -725,7 +725,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "P",
           "gd": "D2",
-          "sort": 57
+          "order": 57
         },
         {
           "nc": 13,
@@ -733,7 +733,7 @@ export const config = $state({
           "kpi": "(%) A*",
           "sc": "I",
           "gd": "7",
-          "sort": 58
+          "order": 58
         },
         {
           "nc": 13,
@@ -741,7 +741,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "A",
           "gd": "A*",
-          "sort": 59
+          "order": 59
         },
         {
           "nc": 13,
@@ -749,7 +749,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "A",
           "gd": "A",
-          "sort": 60
+          "order": 60
         },
         {
           "nc": 13,
@@ -757,7 +757,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "B",
           "gd": "D*",
-          "sort": 61
+          "order": 61
         },
         {
           "nc": 13,
@@ -765,7 +765,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "B",
           "gd": "D",
-          "sort": 62
+          "order": 62
         },
         {
           "nc": 13,
@@ -773,7 +773,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "P",
           "gd": "D1",
-          "sort": 63
+          "order": 63
         },
         {
           "nc": 13,
@@ -781,7 +781,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "P",
           "gd": "D2",
-          "sort": 64
+          "order": 64
         },
         {
           "nc": 13,
@@ -789,7 +789,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "P",
           "gd": "D3",
-          "sort": 65
+          "order": 65
         },
         {
           "nc": 13,
@@ -797,7 +797,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "P",
           "gd": "M1",
-          "sort": 66
+          "order": 66
         },
         {
           "nc": 13,
@@ -805,7 +805,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "I",
           "gd": "7",
-          "sort": 67
+          "order": 67
         },
         {
           "nc": 13,
@@ -813,7 +813,7 @@ export const config = $state({
           "kpi": "(%) A*-A",
           "sc": "I",
           "gd": "6",
-          "sort": 68
+          "order": 68
         },
         {
           "nc": 13,
@@ -821,7 +821,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "A*",
-          "sort": 69
+          "order": 69
         },
         {
           "nc": 13,
@@ -829,7 +829,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "A",
-          "sort": 70
+          "order": 70
         },
         {
           "nc": 13,
@@ -837,7 +837,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "A",
           "gd": "B",
-          "sort": 71
+          "order": 71
         },
         {
           "nc": 13,
@@ -845,7 +845,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "B",
           "gd": "D*",
-          "sort": 72
+          "order": 72
         },
         {
           "nc": 13,
@@ -853,7 +853,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "B",
           "gd": "D",
-          "sort": 73
+          "order": 73
         },
         {
           "nc": 13,
@@ -861,7 +861,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "D1",
-          "sort": 74
+          "order": 74
         },
         {
           "nc": 13,
@@ -869,7 +869,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "D2",
-          "sort": 75
+          "order": 75
         },
         {
           "nc": 13,
@@ -877,7 +877,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "D3",
-          "sort": 76
+          "order": 76
         },
         {
           "nc": 13,
@@ -885,7 +885,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "M1",
-          "sort": 77
+          "order": 77
         },
         {
           "nc": 13,
@@ -893,7 +893,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "P",
           "gd": "M2",
-          "sort": 78
+          "order": 78
         },
         {
           "nc": 13,
@@ -901,7 +901,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "I",
           "gd": "7",
-          "sort": 79
+          "order": 79
         },
         {
           "nc": 13,
@@ -909,7 +909,7 @@ export const config = $state({
           "kpi": "(%) A*-B",
           "sc": "I",
           "gd": "6",
-          "sort": 80
+          "order": 80
         },
         {
           "nc": 13,
@@ -917,7 +917,7 @@ export const config = $state({
           "kpi": "(%) 7",
           "sc": "I",
           "gd": "7",
-          "sort": 81
+          "order": 81
         },
         {
           "nc": 13,
@@ -925,7 +925,7 @@ export const config = $state({
           "kpi": "(%) 7-6",
           "sc": "I",
           "gd": "7",
-          "sort": 82
+          "order": 82
         },
         {
           "nc": 13,
@@ -933,7 +933,7 @@ export const config = $state({
           "kpi": "(%) 7-6",
           "sc": "I",
           "gd": "6",
-          "sort": 83
+          "order": 83
         },
         {
           "nc": 13,
@@ -941,7 +941,7 @@ export const config = $state({
           "kpi": "(%) 7-5",
           "sc": "I",
           "gd": "7",
-          "sort": 84
+          "order": 84
         },
         {
           "nc": 13,
@@ -949,7 +949,7 @@ export const config = $state({
           "kpi": "(%) 7-5",
           "sc": "I",
           "gd": "6",
-          "sort": 85
+          "order": 85
         },
         {
           "nc": 13,
@@ -957,7 +957,7 @@ export const config = $state({
           "kpi": "(%) 7-5",
           "sc": "I",
           "gd": "5",
-          "sort": 86
+          "order": 86
         },
         {
           "nc": 11,
@@ -965,7 +965,7 @@ export const config = $state({
           "kpi": "(%) 9",
           "sc": "G",
           "gd": "9",
-          "sort": 87
+          "order": 87
         },
         {
           "nc": 11,
@@ -973,7 +973,7 @@ export const config = $state({
           "kpi": "(%) 9-8",
           "sc": "G",
           "gd": "9",
-          "sort": 88
+          "order": 88
         },
         {
           "nc": 11,
@@ -981,7 +981,7 @@ export const config = $state({
           "kpi": "(%) 9-8",
           "sc": "G",
           "gd": "8",
-          "sort": 89
+          "order": 89
         },
         {
           "nc": 11,
@@ -989,7 +989,7 @@ export const config = $state({
           "kpi": "(%) 9-7",
           "sc": "G",
           "gd": "9",
-          "sort": 90
+          "order": 90
         },
         {
           "nc": 11,
@@ -997,7 +997,7 @@ export const config = $state({
           "kpi": "(%) 9-7",
           "sc": "G",
           "gd": "8",
-          "sort": 91
+          "order": 91
         },
         {
           "nc": 11,
@@ -1005,7 +1005,7 @@ export const config = $state({
           "kpi": "(%) 9-7",
           "sc": "G",
           "gd": "7",
-          "sort": 92
+          "order": 92
         },
         {
           "nc": 11,
@@ -1013,7 +1013,7 @@ export const config = $state({
           "kpi": "(%) 9-6",
           "sc": "G",
           "gd": "9",
-          "sort": 93
+          "order": 93
         },
         {
           "nc": 11,
@@ -1021,7 +1021,7 @@ export const config = $state({
           "kpi": "(%) 9-6",
           "sc": "G",
           "gd": "8",
-          "sort": 94
+          "order": 94
         },
         {
           "nc": 11,
@@ -1029,7 +1029,7 @@ export const config = $state({
           "kpi": "(%) 9-6",
           "sc": "G",
           "gd": "7",
-          "sort": 95
+          "order": 95
         },
         {
           "nc": 11,
@@ -1037,7 +1037,7 @@ export const config = $state({
           "kpi": "(%) 9-6",
           "sc": "G",
           "gd": "6",
-          "sort": 96
+          "order": 96
         },
         {
           "nc": 11,
@@ -1045,7 +1045,7 @@ export const config = $state({
           "kpi": "(%) 9-5",
           "sc": "G",
           "gd": "9",
-          "sort": 97
+          "order": 97
         },
         {
           "nc": 11,
@@ -1053,7 +1053,7 @@ export const config = $state({
           "kpi": "(%) 9-5",
           "sc": "G",
           "gd": "8",
-          "sort": 98
+          "order": 98
         },
         {
           "nc": 11,
@@ -1061,7 +1061,7 @@ export const config = $state({
           "kpi": "(%) 9-5",
           "sc": "G",
           "gd": "7",
-          "sort": 99
+          "order": 99
         },
         {
           "nc": 11,
@@ -1069,7 +1069,7 @@ export const config = $state({
           "kpi": "(%) 9-5",
           "sc": "G",
           "gd": "6",
-          "sort": 100
+          "order": 100
         },
         {
           "nc": 11,
@@ -1077,7 +1077,7 @@ export const config = $state({
           "kpi": "(%) 9-5",
           "sc": "G",
           "gd": "5",
-          "sort": 101
+          "order": 101
         },
         {
           "nc": 11,
@@ -1085,7 +1085,7 @@ export const config = $state({
           "kpi": "(%) 9-4",
           "sc": "G",
           "gd": "9",
-          "sort": 102
+          "order": 102
         },
         {
           "nc": 11,
@@ -1093,7 +1093,7 @@ export const config = $state({
           "kpi": "(%) 9-4",
           "sc": "G",
           "gd": "8",
-          "sort": 103
+          "order": 103
         },
         {
           "nc": 11,
@@ -1101,7 +1101,7 @@ export const config = $state({
           "kpi": "(%) 9-4",
           "sc": "G",
           "gd": "7",
-          "sort": 104
+          "order": 104
         },
         {
           "nc": 11,
@@ -1109,7 +1109,7 @@ export const config = $state({
           "kpi": "(%) 9-4",
           "sc": "G",
           "gd": "6",
-          "sort": 105
+          "order": 105
         },
         {
           "nc": 11,
@@ -1117,7 +1117,7 @@ export const config = $state({
           "kpi": "(%) 9-4",
           "sc": "G",
           "gd": "5",
-          "sort": 106
+          "order": 106
         },
         {
           "nc": 11,
@@ -1125,7 +1125,7 @@ export const config = $state({
           "kpi": "(%) 9-4",
           "sc": "G",
           "gd": "4",
-          "sort": 107
+          "order": 107
         },
         {
           "nc": 11,
@@ -1133,7 +1133,7 @@ export const config = $state({
           "kpi": "(%) 9-8 / A*",
           "sc": "G",
           "gd": "9",
-          "sort": 108
+          "order": 108
         },
         {
           "nc": 11,
@@ -1141,7 +1141,7 @@ export const config = $state({
           "kpi": "(%) 9-8 / A*",
           "sc": "G",
           "gd": "8",
-          "sort": 109
+          "order": 109
         },
         {
           "nc": 11,
@@ -1149,7 +1149,7 @@ export const config = $state({
           "kpi": "(%) 9-8 / A*",
           "sc": "G",
           "gd": "A*",
-          "sort": 110
+          "order": 110
         },
         {
           "nc": 11,
@@ -1157,7 +1157,7 @@ export const config = $state({
           "kpi": "(%) 9-7 / A*-A",
           "sc": "G",
           "gd": "9",
-          "sort": 111
+          "order": 111
         },
         {
           "nc": 11,
@@ -1165,7 +1165,7 @@ export const config = $state({
           "kpi": "(%) 9-7 / A*-A",
           "sc": "G",
           "gd": "8",
-          "sort": 112
+          "order": 112
         },
         {
           "nc": 11,
@@ -1173,7 +1173,7 @@ export const config = $state({
           "kpi": "(%) 9-7 / A*-A",
           "sc": "G",
           "gd": "7",
-          "sort": 113
+          "order": 113
         },
         {
           "nc": 11,
@@ -1181,7 +1181,7 @@ export const config = $state({
           "kpi": "(%) 9-7 / A*-A",
           "sc": "G",
           "gd": "A*",
-          "sort": 114
+          "order": 114
         },
         {
           "nc": 11,
@@ -1189,7 +1189,7 @@ export const config = $state({
           "kpi": "(%) 9-7 / A*-A",
           "sc": "G",
           "gd": "A",
-          "sort": 115
+          "order": 115
         },
         {
           "nc": 11,
@@ -1197,7 +1197,7 @@ export const config = $state({
           "kpi": "(%) 9-6 / A*-B",
           "sc": "G",
           "gd": "9",
-          "sort": 116
+          "order": 116
         },
         {
           "nc": 11,
@@ -1205,7 +1205,7 @@ export const config = $state({
           "kpi": "(%) 9-6 / A*-B",
           "sc": "G",
           "gd": "8",
-          "sort": 117
+          "order": 117
         },
         {
           "nc": 11,
@@ -1213,7 +1213,7 @@ export const config = $state({
           "kpi": "(%) 9-6 / A*-B",
           "sc": "G",
           "gd": "7",
-          "sort": 118
+          "order": 118
         },
         {
           "nc": 11,
@@ -1221,7 +1221,7 @@ export const config = $state({
           "kpi": "(%) 9-6 / A*-B",
           "sc": "G",
           "gd": "6",
-          "sort": 119
+          "order": 119
         },
         {
           "nc": 11,
@@ -1229,7 +1229,7 @@ export const config = $state({
           "kpi": "(%) 9-6 / A*-B",
           "sc": "G",
           "gd": "A*",
-          "sort": 120
+          "order": 120
         },
         {
           "nc": 11,
@@ -1237,7 +1237,7 @@ export const config = $state({
           "kpi": "(%) 9-6 / A*-B",
           "sc": "G",
           "gd": "A",
-          "sort": 121
+          "order": 121
         },
         {
           "nc": 11,
@@ -1245,7 +1245,7 @@ export const config = $state({
           "kpi": "(%) 9-6 / A*-B",
           "sc": "G",
           "gd": "B",
-          "sort": 122
+          "order": 122
         },
         {
           "nc": 11,
@@ -1253,7 +1253,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "9",
-          "sort": 123
+          "order": 123
         },
         {
           "nc": 11,
@@ -1261,7 +1261,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "8",
-          "sort": 124
+          "order": 124
         },
         {
           "nc": 11,
@@ -1269,7 +1269,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "7",
-          "sort": 125
+          "order": 125
         },
         {
           "nc": 11,
@@ -1277,7 +1277,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "6",
-          "sort": 126
+          "order": 126
         },
         {
           "nc": 11,
@@ -1285,7 +1285,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "5",
-          "sort": 127
+          "order": 127
         },
         {
           "nc": 11,
@@ -1293,7 +1293,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "A*",
-          "sort": 128
+          "order": 128
         },
         {
           "nc": 11,
@@ -1301,7 +1301,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "A",
-          "sort": 129
+          "order": 129
         },
         {
           "nc": 11,
@@ -1309,7 +1309,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "B",
-          "sort": 130
+          "order": 130
         },
         {
           "nc": 11,
@@ -1317,7 +1317,7 @@ export const config = $state({
           "kpi": "(%) 9-5 / A*-C",
           "sc": "G",
           "gd": "C",
-          "sort": 131
+          "order": 131
         },
         {
           "nc": 11,
@@ -1325,7 +1325,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "9",
-          "sort": 132
+          "order": 132
         },
         {
           "nc": 11,
@@ -1333,7 +1333,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "8",
-          "sort": 133
+          "order": 133
         },
         {
           "nc": 11,
@@ -1341,7 +1341,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "7",
-          "sort": 134
+          "order": 134
         },
         {
           "nc": 11,
@@ -1349,7 +1349,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "6",
-          "sort": 135
+          "order": 135
         },
         {
           "nc": 11,
@@ -1357,7 +1357,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "5",
-          "sort": 136
+          "order": 136
         },
         {
           "nc": 11,
@@ -1365,7 +1365,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "4",
-          "sort": 137
+          "order": 137
         },
         {
           "nc": 11,
@@ -1373,7 +1373,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "A*",
-          "sort": 138
+          "order": 138
         },
         {
           "nc": 11,
@@ -1381,7 +1381,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "A",
-          "sort": 139
+          "order": 139
         },
         {
           "nc": 11,
@@ -1389,7 +1389,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "B",
-          "sort": 140
+          "order": 140
         },
         {
           "nc": 11,
@@ -1397,7 +1397,7 @@ export const config = $state({
           "kpi": "(%) 9-4 / A*-C",
           "sc": "G",
           "gd": "C",
-          "sort": 141
+          "order": 141
         },
         {
           "nc": 13,
@@ -1405,7 +1405,7 @@ export const config = $state({
           "kpi": "(%) D*",
           "sc": "B",
           "gd": "D*",
-          "sort": 142
+          "order": 142
         },
         {
           "nc": 13,
@@ -1413,7 +1413,7 @@ export const config = $state({
           "kpi": "(%) D*-D",
           "sc": "B",
           "gd": "D*",
-          "sort": 143
+          "order": 143
         },
         {
           "nc": 13,
@@ -1421,7 +1421,7 @@ export const config = $state({
           "kpi": "(%) D*-D",
           "sc": "B",
           "gd": "D",
-          "sort": 144
+          "order": 144
         },
         {
           "nc": 13,
@@ -1429,7 +1429,7 @@ export const config = $state({
           "kpi": "(%) D*-M",
           "sc": "B",
           "gd": "D*",
-          "sort": 145
+          "order": 145
         },
         {
           "nc": 13,
@@ -1437,7 +1437,7 @@ export const config = $state({
           "kpi": "(%) D*-M",
           "sc": "B",
           "gd": "D",
-          "sort": 146
+          "order": 146
         },
         {
           "nc": 13,
@@ -1445,7 +1445,7 @@ export const config = $state({
           "kpi": "(%) D*-M",
           "sc": "B",
           "gd": "M",
-          "sort": 147
+          "order": 147
         }
        ]
 });
