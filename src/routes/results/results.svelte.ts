@@ -1,5 +1,4 @@
-
-import {config} from '$lib/state.svelte';
+//import {config} from '$lib/state.svelte';
 import * as util from '$lib/util';
 import type {ExamTable} from '$lib/_db';
 

@@ -29,13 +29,13 @@ interface Total {
 export const getRaw=(data:ExamTable[]):Total[]=>{
     data=data.filter(el=>el.gd!=='X');
 
-    let raw = [];
+    const raw = [];
     const subjects=getSubjects(data);
     
     const courses=[ ... new Set(subjects.map(el=>el.sc))].sort((a,b)=>a.localeCompare(b));
     
     for(const course of courses) {
-        let row:Total={sc:course,totals:[]};
+        const row:Total={sc:course,totals:[]};
         let item = {sc:course,sl:'ALL',ss:'*',
             all:util.getTotals(data.filter(el=>el.sc===course).map(el=>({gd:el.gd,sc:el.sc})),[course]),
             m:util.getTotals(data.filter(el=>el.sc===course && el.gnd==='M').map(el=>({gd:el.gd,sc:el.sc})),[course]),
@@ -61,13 +61,13 @@ export const getRaw=(data:ExamTable[]):Total[]=>{
 
 export const getPercentage=(data:ExamTable[]):Total[]=>{
     data=data.filter(el=>el.gd!=='X');
-    let percentage = [];
+    const percentage = [];
     const subjects=getSubjects(data);
     
     const courses=[ ... new Set(subjects.map(el=>el.sc))].sort((a,b)=>a.localeCompare(b));
     
     for(const course of courses) {
-        let row:Total={sc:course,totals:[]};
+        const row:Total={sc:course,totals:[]};
         let item = {sc:course,sl:'ALL',ss:'*',
             all:util.getPercentages(data.filter(el=>el.sc===course).map(el=>({gd:el.gd,sc:el.sc})),[course]),
             m:util.getPercentages(data.filter(el=>el.sc===course && el.gnd==='M').map(el=>({gd:el.gd,sc:el.sc})),[course]),
@@ -96,41 +96,45 @@ export const getPercentage=(data:ExamTable[]):Total[]=>{
 
 
 
-export const getKPI=(data:ExamTable[]):any=>{
-    data=data.filter(el=>el.gd!=='X');
-
-
-
-    let list = config.kpi.filter(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
+export const getKPI=(data:{yr:number,results:ExamTable[]}[])=>{
+    data=data.map(el=>({yr:el.yr,results:el.results.filter(e=>e.gd!=='X')}));
     
-    let sections = util.unique(<{order:number,section:string,nc:number,kpi:string,sc:string,gd:string}[]>list,['section']).sort((a,b)=>Number(a.order)-Number(b.order))
+
+
+
+    const list = config.kpi.filter(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
+    
+    const sections = util.unique(<{order:number,section:string,nc:number,kpi:string,sc:string,gd:string}[]>list,['section']).sort((a,b)=>Number(a.order)-Number(b.order))
         .map(el=>el.section);
     
+    for(const yr of data) {
+        for(const section of sections) {
 
-    for(const section of sections) {
-
-        const kpis=util.unique(list.filter(el=>el.section===section),['kpi']).sort((a,b)=>Number(a.order)-Number(b.order))
-            .map(el=>el.kpi);
-
-        for(let kpi of kpis) {
-            let results = list.filter(el=>el.section===section).map(el=>({sc:el.sc,gd:el.gd}));
-            let courses = [... new Set(results.map(el=>el.sc))];
-
-            
-
-            const allData = data.filter(el=>courses.includes(el.sc));
-            const total = allData.length ? allData.length : 0;
-
-            console.log(section,kpi,courses,total);
-
-            //for(const result of results) console.log(result);
-
-
-
+            const kpis=util.unique(list.filter(el=>el.section===section),['kpi']).sort((a,b)=>Number(a.order)-Number(b.order))
+                .map(el=>el.kpi);
+    
+            for(const kpi of kpis) {
+                const results = list.filter(el=>el.section===section).map(el=>({sc:el.sc,gd:el.gd}));
+                const courses = [... new Set(results.map(el=>el.sc))];
+    
+                
+    
+                const allData = yr.results.filter(el=>courses.includes(el.sc));
+                const total = allData.length ? allData.length : 0;
+    
+                console.log(yr.yr,section,kpi,courses,total);
+    
+                // create arr of sc+/+gd and use includes to filte r/ count etc
+                //make into % with total etc
+    
+    
+    
+            }
+    
+    
         }
-
-
     }
+   
     
     return;
 };

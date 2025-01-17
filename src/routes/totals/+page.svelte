@@ -12,7 +12,7 @@ interface Data  {
 	raw:any,
 	percentage:any,
 	kpi:any,
-	results:ExamTable[]
+	results:{yr:number,results:ExamTable[]}[]
 };
 let data:Data = $state({
     menu:{options:['Raw','Percentage','KPI'],index:0},
@@ -29,17 +29,32 @@ let download=()=>{
 
 let update=async()=>{
     console.log('HARVESTING RESULTS',`${cohorts.exam.list[cohorts.exam.index].yr}/${cohorts.exam.list[cohorts.exam.index].nc}`);
-	let response = await fetch('/edge/read', {
-		method: 'POST',
-		body: JSON.stringify({table:"exam_table",select:"*",filter:`yr=eq.${cohorts.exam.list[cohorts.exam.index].yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
-		headers: {'content-type': 'application/json'}
-	});
-	data.results= await response.json();
-	console.log(`FOUND ${data.results.length ? data.results.length : 0} RECORD(S)`);
 	
-	data.raw=totals.getRaw(data.results.filter(el=>el.isTotal===true));
-	data.percentage=totals.getPercentage(data.results.filter(el=>el.isTotal===true));
-	data.kpi=totals.getKPI(data.results.filter(el=>el.isKPI===true));
+	let yrs:{yr:number,results:ExamTable[]}[] = [0,0,0,0,0].map((el,i)=>({yr:cohorts.exam.list[cohorts.exam.index].yr-i,results:[]}));
+
+	console.log(data.results);
+
+	
+	for(const yr of yrs) {
+			console.log(yr.yr)
+			let response = await fetch('/edge/read', {
+			method: 'POST',
+			body: JSON.stringify({table:"exam_table",select:"*",filter:`yr=eq.${yr.yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
+			headers: {'content-type': 'application/json'}
+		});
+		yr.results= await response.json();
+		console.log(`FOUND ${yr.results.length ? yr.results.length : 0} RECORD(S)`);
+		
+	}
+	
+	
+
+	
+	data.raw=totals.getRaw(yrs[0].results.filter(el=>el.isTotal===true));
+	data.percentage=totals.getPercentage(yrs[0].results.filter(el=>el.isTotal===true));
+	
+	
+	data.kpi=totals.getKPI(yrs.map(el=>({yr:el.yr,results:el.results.filter(el=>el.isKPI===true)})));
 
 
 	//console.log(data.raw);
@@ -86,15 +101,15 @@ $effect(() => {
 				<th>SUBJECT</th>
 				<th></th>
 				{#each table.totals[0].all as col,colIndex}
-					<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+					<th>{@html chart.getTotal(false,col.gd)}</th>
 				{/each}
 				<th></th>
 				{#each table.totals[0].m as col,colIndex}
-					<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+					<th>{@html chart.getTotal(false,col.gd)}</th>
 				{/each}
 				<th></th>
 				{#each table.totals[0].f as col,colIndex}
-					<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+					<th>{@html chart.getTotal(false,col.gd)}</th>
 				{/each}
 			</tr>
 		</thead>
@@ -105,15 +120,15 @@ $effect(() => {
 					<td>{row.sl}</td>
 					<td>(all)</td>
 					{#each row.all as col,colIndex}
-						<td>{@html chart.getTotal<boolean,number>(false,col.t)}</td>
+						<td>{@html chart.getTotal(false,col.t)}</td>
 					{/each}
 					<td>(male)</td>
 					{#each row.m as col,colIndex}
-						<td>{@html chart.getTotal<boolean,number>(false,col.t)}</td>
+						<td>{@html chart.getTotal(false,col.t)}</td>
 					{/each}
 					<td>(female)</td>
 					{#each row.f as col,colIndex}
-						<td>{@html chart.getTotal<boolean,number>(false,col.t)}</td>
+						<td>{@html chart.getTotal(false,col.t)}</td>
 					{/each}
 				</tr>
 			{/each}
@@ -131,15 +146,15 @@ $effect(() => {
 			<th>SUBJECT</th>
 			<th></th>
 			{#each table.totals[0].all as col,colIndex}
-				<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+				<th>{@html chart.getTotal(false,col.gd)}</th>
 			{/each}
 			<th></th>
 			{#each table.totals[0].m as col,colIndex}
-				<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+				<th>{@html chart.getTotal(false,col.gd)}</th>
 			{/each}
 			<th></th>
 			{#each table.totals[0].f as col,colIndex}
-				<th>{@html chart.getTotal<boolean,string>(false,col.gd)}</th>
+				<th>{@html chart.getTotal(false,col.gd)}</th>
 			{/each}
 		</tr>
 	</thead>
@@ -150,15 +165,15 @@ $effect(() => {
 				<td>{row.sl}</td>
 				<td>(all)</td>
 				{#each row.all as col,colIndex}
-					<td>{@html chart.getTotal<boolean,number>(true,Math.round(col.t))}</td>
+					<td>{@html chart.getTotal(true,Math.round(col.t))}</td>
 				{/each}
 				<td>(male)</td>
 				{#each row.m as col,colIndex}
-					<td>{@html chart.getTotal<boolean,number>(true,Math.round(col.t))}</td>
+					<td>{@html chart.getTotal(true,Math.round(col.t))}</td>
 				{/each}
 				<td>(female)</td>
 				{#each row.f as col,colIndex}
-					<td>{@html chart.getTotal<boolean,number>(true,Math.round(col.t))}</td>
+					<td>{@html chart.getTotal(true,Math.round(col.t))}</td>
 				{/each}
 			</tr>
 		{/each}

@@ -36,7 +36,7 @@ export const getGrade=(isRag:boolean,gd:string,residual:number):string=>{
     return txt;
 };
 
-export const getTotal=<B,T>(isPercentage:boolean,total:T):string=>{
+export const getTotal=(isPercentage:boolean,total:string|number):string=>{
    
 
     let txt=``;
@@ -122,7 +122,7 @@ export const getChance=(sc:string,pre:number):string=>{
 
 export const getVA=(data:{n:number,v:number,s:0|2|3}):string=>{
   
-    let cfg = {
+    const cfg = {
         colors:{bg2:'#aaa',bg3:'#ddd',red:'#B22222',green:'#228B22',grey:'#7a7a7a',text:'#333',line:'#888'},
         height:80,
         width:50,
@@ -130,7 +130,7 @@ export const getVA=(data:{n:number,v:number,s:0|2|3}):string=>{
         max:3
     };
 
-    let graph = {
+    const graph = {
         poly2:'',
         poly3:'',
         rect:{x:0,y:0,w:0,h:0,color:cfg.colors.text},
@@ -139,10 +139,10 @@ export const getVA=(data:{n:number,v:number,s:0|2|3}):string=>{
 
     };
 
-    let h=data.n===0 ? 0 : cfg.d/(cfg.max*Math.sqrt(data.n));
-    let midX=20;
-    let dx=20;
-    let midY=cfg.height/2;
+    const h=data.n===0 ? 0 : cfg.d/(cfg.max*Math.sqrt(data.n));
+    const midX=20;
+    const dx=20;
+    const midY=cfg.height/2;
     
     graph.line.x1=midX-dx;
     graph.line.y1=midY;
