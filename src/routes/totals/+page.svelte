@@ -7,11 +7,22 @@ import type {ExamTable} from '$lib/_db';
 import * as totals from './totals.svelte';
 import * as chart from '$lib/chart';
 
+interface KPI {
+    section:string,
+    results:{
+        yr:number,
+        a:{kpi:string,pc:number}[],
+        m:{kpi:string,pc:number}[],
+        f:{kpi:string,pc:number}[]
+    }[]
+
+};
+
 interface Data  {
 	menu:{options:string[],index:number},
 	raw:any,
 	percentage:any,
-	kpi:any,
+	kpi:KPI[],
 	results:{yr:number,results:ExamTable[]}[]
 };
 let data:Data = $state({
@@ -28,32 +39,32 @@ let download=()=>{
 };
 
 let update=async()=>{
-    console.log('HARVESTING RESULTS',`${cohorts.exam.list[cohorts.exam.index].yr}/${cohorts.exam.list[cohorts.exam.index].nc}`);
+    //console.log('HARVESTING RESULTS',`${cohorts.exam.list[cohorts.exam.index].yr}/${cohorts.exam.list[cohorts.exam.index].nc}`);
 	
 	let yrs:{yr:number,results:ExamTable[]}[] = [0,0,0,0,0].map((el,i)=>({yr:cohorts.exam.list[cohorts.exam.index].yr-i,results:[]}));
 
-	console.log(data.results);
+	//console.log(data.results);
 
-	
+	// find all with correct nc, excluding 'X' grades, for each year
 	for(const yr of yrs) {
-			console.log(yr.yr)
+			//console.log(yr.yr);
+			
 			let response = await fetch('/edge/read', {
 			method: 'POST',
-			body: JSON.stringify({table:"exam_table",select:"*",filter:`yr=eq.${yr.yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
+			body: JSON.stringify({table:"exam_table",select:"*",filter:`gd=neq.X&yr=eq.${yr.yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
 			headers: {'content-type': 'application/json'}
 		});
 		yr.results= await response.json();
-		console.log(`FOUND ${yr.results.length ? yr.results.length : 0} RECORD(S)`);
+		console.log(`${yr.yr} FOUND ${yr.results.length ? yr.results.length : 0} RECORD(S)`);
 		
 	}
 	
 	
 
-	
+	// only process if iSTotal or isKPI is true - use only results that are valid, 
+	// e.g. yr 10 early GCSE results should not be counted in KPIs
 	data.raw=totals.getRaw(yrs[0].results.filter(el=>el.isTotal===true));
 	data.percentage=totals.getPercentage(yrs[0].results.filter(el=>el.isTotal===true));
-	
-	
 	data.kpi=totals.getKPI(yrs.map(el=>({yr:el.yr,results:el.results.filter(el=>el.isKPI===true)})));
 
 
@@ -183,10 +194,47 @@ $effect(() => {
 {/each}
 {/if}
 {#if data.menu.options[data.menu.index]==='KPI'}
-	<table class="small">
-
-	</table>
-
+	{#each data.kpi as table,tableIndex}
+		<table class="small">
+			<thead>
+				<tr>
+					<th>{table.section}</th>
+					<th></th>
+					{#each table.results[0].a as col,colIndex}
+							<th>{col.kpi}</th>
+					{/each}
+					<th></th>
+					{#each table.results[0].m as col,colIndex}
+						<th>{col.kpi}</th>
+					{/each}
+					<th></th>
+					{#each table.results[0].f as col,colIndex}
+						<th>{col.kpi}</th>
+					{/each}
+				</tr>
+			</thead>
+			<tbody>
+				{#each table.results as row,rowIndex}
+					<tr>
+						<td>{row.yr}</td>
+						<td>(all)</td>
+						{#each row.a as col,colIndex}
+							<td>{@html chart.getTotal(true,Math.round(col.pc))}</td>
+						{/each}
+						<td>(male)</td>
+						{#each row.m as col,colIndex}
+						<td>{@html chart.getTotal(true,Math.round(col.pc))}</td>
+						{/each}
+						<td>(female)</td>
+						{#each row.f as col,colIndex}
+						<td>{@html chart.getTotal(true,Math.round(col.pc))}</td>
+						{/each}
+				</tr>
+				{/each}
+			</tbody>
+		</table>
+		<p></p>
+	{/each}
 {/if}
 </figure>
 

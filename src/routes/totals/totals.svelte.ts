@@ -27,8 +27,6 @@ interface Total {
 };
 
 export const getRaw=(data:ExamTable[]):Total[]=>{
-    data=data.filter(el=>el.gd!=='X');
-
     const raw = [];
     const subjects=getSubjects(data);
     
@@ -60,7 +58,6 @@ export const getRaw=(data:ExamTable[]):Total[]=>{
 };
 
 export const getPercentage=(data:ExamTable[]):Total[]=>{
-    data=data.filter(el=>el.gd!=='X');
     const percentage = [];
     const subjects=getSubjects(data);
     
@@ -94,47 +91,88 @@ export const getPercentage=(data:ExamTable[]):Total[]=>{
 
 
 
+interface KPI {
+    section:string,
+    results:{
+        yr:number,
+        a:{kpi:string,pc:number}[],
+        m:{kpi:string,pc:number}[],
+        f:{kpi:string,pc:number}[]
+    }[]
 
+};
 
-export const getKPI=(data:{yr:number,results:ExamTable[]}[])=>{
-    data=data.map(el=>({yr:el.yr,results:el.results.filter(e=>e.gd!=='X')}));
+export const getKPI=(data:{yr:number,results:ExamTable[]}[]):KPI[]=>{
     
-
-
+    const out:KPI[]=[];
 
     const list = config.kpi.filter(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
     
     const sections = util.unique(<{order:number,section:string,nc:number,kpi:string,sc:string,gd:string}[]>list,['section']).sort((a,b)=>Number(a.order)-Number(b.order))
         .map(el=>el.section);
     
-    for(const yr of data) {
+   
+
         for(const section of sections) {
 
             const kpis=util.unique(list.filter(el=>el.section===section),['kpi']).sort((a,b)=>Number(a.order)-Number(b.order))
                 .map(el=>el.kpi);
     
-            for(const kpi of kpis) {
-                const results = list.filter(el=>el.section===section).map(el=>({sc:el.sc,gd:el.gd}));
-                const courses = [... new Set(results.map(el=>el.sc))];
-    
-                
-    
+            const results = list.filter(el=>el.section===section).map(el=>({sc:el.sc,gd:el.gd}));
+            const courses = [... new Set(results.map(el=>el.sc))];
+
+            const outItem:KPI={section:String(section),results:[]};
+
+            for(const yr of data) {
+
                 const allData = yr.results.filter(el=>courses.includes(el.sc));
+                const fData = yr.results.filter(el=>courses.includes(el.sc) && el.gnd==='F');
+                const mData = yr.results.filter(el=>courses.includes(el.sc) && el.gnd==='M');
                 const total = allData.length ? allData.length : 0;
-    
-                console.log(yr.yr,section,kpi,courses,total);
-    
-                // create arr of sc+/+gd and use includes to filte r/ count etc
-                //make into % with total etc
-    
-    
-    
-            }
-    
-    
+                const fTotal = fData.length ? fData.length : 0;
+                const mTotal = mData.length ? mData.length : 0;
+
+                console.log(`yr: ${yr.yr} section: ${section} total: ${total} fTotal: ${fTotal} mTotal: ${mTotal}`);
+
+                const aKPIs=[];
+                const fKPIs=[];
+                const mKPIs=[];
+
+                for(const kpi of kpis) {
+                
+
+                    const kpiList=list.filter(el=>el.section===section && el.kpi===kpi).map(el=>`sc:${el.sc},gd:${el.gd}`);
+                    
+                    //console.log(yr.yr,section,kpi,courses,total,kpiList);
+        
+                    let a = allData.filter(el=>kpiList.includes(`sc:${el.sc},gd:${el.gd}`)).length;
+                    let m = mData.filter(el=>kpiList.includes(`sc:${el.sc},gd:${el.gd}`)).length;
+                    let f = fData.filter(el=>kpiList.includes(`sc:${el.sc},gd:${el.gd}`)).length;
+                    
+                    //console.log(yr.yr,section,kpi,courses,total,kpiList,a);
+                    
+                    a = total>0 ? Math.round(10000*a/total)/100 : 0;
+                    m = mTotal>0 ? Math.round(10000*m/mTotal)/100 : 0;
+                    f = fTotal>0 ? Math.round(10000*f/fTotal)/100 : 0;
+
+                    // create arr of sc+/+gd and use includes to filte r/ count etc
+                    //make into % with total etc
+                    console.log(yr.yr,section,kpi,courses,total,kpiList,a,m,f);
+        
+                    aKPIs.push({kpi:String(kpi),pc:a});
+                    mKPIs.push({kpi:String(kpi),pc:m});
+                    fKPIs.push({kpi:String(kpi),pc:f});
+                  
+                }
+
+                outItem.results.push({yr:yr.yr,a:aKPIs,m:mKPIs,f:fKPIs});
         }
+
+        out.push(outItem);
     }
    
-    
-    return;
+    console.log(out);
+   
+
+    return out;
 };
