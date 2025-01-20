@@ -39,10 +39,11 @@ let download=()=>{
 	let out:string[][]=[];
 
 	if(data.menu.options[data.menu.index]==='Raw') {
-		let line=[];
+	
 		for(const table of data.raw) {
-			line.push(`COURSE: ${table.sc}`);
-			line.push(`SUBJECT`);
+			let line:string[]=[];
+			line.push(`( ${table.sc} )`);
+			line.push(``);
 			for(const col of table.totals[0].all) line.push(col.gd);
 			line.push('');
 			for(const col of table.totals[0].m) line.push(col.gd);
@@ -50,12 +51,66 @@ let download=()=>{
 			for(const col of table.totals[0].f) line.push(col.gd);
 			
 			out.push(line);
+
+			for(const row of table.totals) {
+				line=[];
+				line.push(row.sl);
+				line.push('(all)');
+				for(const col of row.all) line.push(col.t);
+				line.push('(m)');
+				for(const col of row.m) line.push(col.t);
+				line.push('(f)');
+				for(const col of row.f) line.push(col.t);
+
+				out.push(line);
+
+			}
+
+			out.push(['']);
+
 		}
 
-		
+		file.csvDownload(out,"EXAM_RAW_TOTALS.csv");
 	}
 
-	file.csvDownload(out,"EXAM_TOTALS.csv");
+
+	if(data.menu.options[data.menu.index]==='Percentage') {
+	
+	for(const table of data.percentage) {
+		let line:string[]=[];
+		line.push(`( ${table.sc} )`);
+		line.push(``);
+		for(const col of table.totals[0].all) line.push(col.gd);
+		line.push('');
+		for(const col of table.totals[0].m) line.push(col.gd);
+		line.push('');
+		for(const col of table.totals[0].f) line.push(col.gd);
+		
+		out.push(line);
+
+		for(const row of table.totals) {
+			line=[];
+			line.push(row.sl);
+			line.push('(all)');
+			for(const col of row.all) line.push(col.t);
+			line.push('(m)');
+			for(const col of row.m) line.push(col.t);
+			line.push('(f)');
+			for(const col of row.f) line.push(col.t);
+
+			out.push(line);
+
+		}
+
+		out.push(['']);
+
+	}
+
+	file.csvDownload(out,"EXAM_PERCENTAGE_TOTALS.csv");
+}
+	
+	
+
 	
 	
 
