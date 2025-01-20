@@ -92,11 +92,11 @@ let download=()=>{
 			line=[];
 			line.push(row.sl);
 			line.push('(all)');
-			for(const col of row.all) line.push(col.t);
+			for(const col of row.all) line.push(String(col.t));
 			line.push('(m)');
-			for(const col of row.m) line.push(col.t);
+			for(const col of row.m) line.push(String(col.t));
 			line.push('(f)');
-			for(const col of row.f) line.push(col.t);
+			for(const col of row.f) line.push(String(col.t));
 
 			out.push(line);
 
@@ -107,6 +107,46 @@ let download=()=>{
 	}
 
 	file.csvDownload(out,"EXAM_PERCENTAGE_TOTALS.csv");
+}
+
+if(data.menu.options[data.menu.index]==='KPI') {
+	let line:string[]=[];
+	for(const table of data.kpi) {
+		line=[];
+		line.push(`( ${table.section} )`);
+		
+		line.push(``);
+		for(const col of table.results[0].a) line.push(col.kpi);
+		line.push(``);
+		for(const col of table.results[0].m) line.push(col.kpi);
+		line.push(``);
+		for(const col of table.results[0].f) line.push(col.kpi);
+
+		out.push(line);
+
+		for(const row of table.results) {
+			line=[];
+			line.push(String(row.yr));
+			line.push('(all)');
+			for(const col of row.a) line.push(String(col.pc));
+			line.push('(m)');
+			for(const col of row.m) line.push(String(col.pc));
+			line.push('(f)');
+			for(const col of row.f) line.push(String(col.pc));
+
+			out.push(line);
+
+		}
+
+
+
+		out.push(['']);
+
+	}
+
+	
+
+	file.csvDownload(out,"EXAM_KPI_TOTALS.csv");
 }
 	
 	
@@ -146,7 +186,7 @@ let update=async()=>{
 	data.kpi=totals.getKPI(yrs.map(el=>({yr:el.yr,results:el.results.filter(el=>el.isKPI===true)})));
 
 
-	//console.log(data.raw);
+	console.log(data.kpi);
 
 };
 
