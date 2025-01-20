@@ -6,6 +6,7 @@ import ExamCohort from '$lib/_ExamCohort.svelte';
 import type {ExamTable} from '$lib/_db';
 import * as totals from './totals.svelte';
 import * as chart from '$lib/chart';
+import * as file from '$lib/file';
 
 interface KPI {
     section:string,
@@ -35,6 +36,28 @@ let data:Data = $state({
 });
 
 let download=()=>{
+	let out:string[][]=[];
+
+	if(data.menu.options[data.menu.index]==='Raw') {
+		let line=[];
+		for(const table of data.raw) {
+			line.push(`COURSE: ${table.sc}`);
+			line.push(`SUBJECT`);
+			for(const col of table.totals[0].all) line.push(col.gd);
+			line.push('');
+			for(const col of table.totals[0].m) line.push(col.gd);
+			line.push('');
+			for(const col of table.totals[0].f) line.push(col.gd);
+			
+			out.push(line);
+		}
+
+		
+	}
+
+	file.csvDownload(out,"EXAM_TOTALS.csv");
+	
+	
 
 };
 

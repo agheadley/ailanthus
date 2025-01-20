@@ -132,7 +132,7 @@ export const getKPI=(data:{yr:number,results:ExamTable[]}[]):KPI[]=>{
                 const fTotal = fData.length ? fData.length : 0;
                 const mTotal = mData.length ? mData.length : 0;
 
-                console.log(`yr: ${yr.yr} section: ${section} total: ${total} fTotal: ${fTotal} mTotal: ${mTotal}`);
+                //console.log(`yr: ${yr.yr} section: ${section} total: ${total} fTotal: ${fTotal} mTotal: ${mTotal}`);
 
                 const aKPIs=[];
                 const fKPIs=[];
@@ -157,7 +157,7 @@ export const getKPI=(data:{yr:number,results:ExamTable[]}[]):KPI[]=>{
 
                     // create arr of sc+/+gd and use includes to filte r/ count etc
                     //make into % with total etc
-                    console.log(yr.yr,section,kpi,courses,total,kpiList,a,m,f);
+                    //console.log(yr.yr,section,kpi,courses,total,kpiList,a,m,f);
         
                     aKPIs.push({kpi:String(kpi),pc:a});
                     mKPIs.push({kpi:String(kpi),pc:m});
@@ -171,7 +171,7 @@ export const getKPI=(data:{yr:number,results:ExamTable[]}[]):KPI[]=>{
         out.push(outItem);
     }
    
-    console.log(out);
+    //console.log(out);
    
 
     return out;

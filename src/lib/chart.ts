@@ -28,9 +28,9 @@ export const getGrade=(isRag:boolean,gd:string,residual:number):string=>{
 
     if(isRag) {
         if(residual<config.rag.red) {
-            txt=` <div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;background:rgba(${178},${34},${34},${0.1+0.8*Math.abs(residual)/10})">${gd}</div>`;
+            txt=` <div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;background:rgba(${178},${34},${34},${0.05+0.87*Math.abs(residual)/10})">${gd}</div>`;
         } else if(residual>=config.rag.green) {
-            txt=` <div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;background:rgba(${34},${139},${34},${0.1+0.8*Math.abs(residual)/10})">${gd}</div>`;
+            txt=` <div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;background:rgba(${34},${139},${34},${0.05+0.7*Math.abs(residual)/10})">${gd}</div>`;
         } else txt=`<div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;">${gd}</div>`;
     } else txt=`<div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;">${gd}</div>`;
     return txt;
@@ -42,7 +42,7 @@ export const getTotal=(isPercentage:boolean,total:string|number):string=>{
     let txt=``;
 
     if(isPercentage) 
-        txt=` <div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;background:rgba(${34},${139},${34},${0.1+0.8*Math.abs(Number(total))/100})">${total}</div>`;
+        txt=` <div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;background:rgba(${34},${139},${34},${0.7*Math.abs(Number(total))/100})">${total}</div>`;
     else 
         txt=`<div style="width:1.5rem;text-align: center;overflow:hidden;padding:0.1rem;">${total}</div>`;
     return txt;
