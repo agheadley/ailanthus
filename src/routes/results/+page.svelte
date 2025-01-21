@@ -118,11 +118,12 @@ $effect(() => {
 		{/each}
 	</span>
 	<span  class="spacer">
-	<input type="text" placeholder="pupil name" class={data.search==='' ? `icon-search-bg` : ``} bind:value={data.search}/>
+		<a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
 	</span>
 	<span  class="spacer">
-	<a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
+	<input type="text" placeholder="pupil name" class={data.search==='' ? `icon-search-bg` : ``} bind:value={data.search}/>
 	</span>
+	
 </fieldset>
 	
 

@@ -82,7 +82,7 @@ export const findAverageGrade=(sc:string,gradeArr:string[]):string=>{
 
 export const getTotals=(results:{sc:string,gd:string}[],courses:string[]):{sc:string,gd:string,t:number}[]=>{
 
-  let grades=config.grade.filter(el=>courses.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
+  const grades=config.grade.filter(el=>courses.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
 //console.log(grades);
 
 
@@ -95,7 +95,7 @@ export const getTotals=(results:{sc:string,gd:string}[],courses:string[]):{sc:st
 
 export const getPercentages=(results:{sc:string,gd:string}[],courses:string[]):{sc:string,gd:string,t:number}[]=>{
 
-  let grades=config.grade.filter(el=>courses.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
+  const grades=config.grade.filter(el=>courses.includes(el.sc)).sort((a,b)=>a.sc.localeCompare(b.sc) ||b.pc-a.pc).map(el=>({sc:el.sc,gd:el.gd}));
 //console.log(grades);
 
 

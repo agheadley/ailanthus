@@ -740,6 +740,7 @@ sub {
 
 span.spacer {
   padding-right:1rem;
+  white-space: pre;
 }
 
 .tag {

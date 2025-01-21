@@ -4,6 +4,7 @@ import {config,user,cohorts} from '$lib/state.svelte';
 import {alert} from '$lib/state.svelte';
 import * as assessment from '../assessments/assessment.svelte';
 import * as util from '$lib/util';
+import * as test from '$lib/intake_test';
 
 let status = $state({
     n:'',
@@ -50,6 +51,48 @@ let create=async():Promise<void>=>{
 };
 
 
+
+const createIntake=async()=>{
+
+    console.log(`test intake data`,test.intake);
+
+    let response = await fetch('/edge/read', {
+		method: 'POST',
+		body: JSON.stringify({table:"intake_table",select:"*"}),
+		headers: {'content-type': 'application/json'}
+	});
+	let res= await response.json();
+    console.log('2012 bare intake records',res);
+
+    let d = [];
+    for(const row of res) {
+        let f=test.intake.filter(el=>el.nc===row.nc);
+        if(f.length && f.length>0) {
+            let x=util.random(0,f.length-1);
+            console.log(row.sn,row.pid,x);
+            row.base=f[x].base;
+            row.pre=f[x].pre;
+            console.log(row);
+            d.push({id:row.id,base:f[x].base,pre:f[x].pre});
+        } else console.log('ERROR WITH DATA',row.pid);
+
+
+
+    }
+
+    console.log(d);
+    
+    response = await fetch('/api/upsert', {
+		method: 'POST',
+		body: JSON.stringify({table:"intake_table",data:d}),
+		headers: {'content-type': 'application/json'}
+	});
+	res= await response.json();
+    
+
+
+
+};
 
 
 
@@ -99,6 +142,12 @@ $effect(() => {
     </p>
 </article>
 
+
+<article>
+    <h4>Create Fake 2012 Intake Data</h4>
+    <p class="notice">Careful - only run once!</p>
+    <button disabled onclick={createIntake}>Create</button>
+</article>
 
 <style>
 

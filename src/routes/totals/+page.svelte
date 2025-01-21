@@ -186,7 +186,7 @@ let update=async()=>{
 	data.kpi=totals.getKPI(yrs.map(el=>({yr:el.yr,results:el.results.filter(el=>el.isKPI===true)})));
 
 
-	console.log(data.kpi);
+	//console.log(data.kpi);
 
 };
 
