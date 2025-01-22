@@ -1,19 +1,25 @@
 <script lang="ts">
 
 import * as icon from '$lib/icon';
+import * as chart from '$lib/chart';
 import {cohorts,config,user,alert} from '$lib/state.svelte';
 import type {ExamTable} from '$lib/_db';
 import ExamCohort from '$lib/_ExamCohort.svelte';
+import * as va from './va.svelte';
 
 interface Data  {
 	menu:{options:string[],index:number},
 	standards:{options:{key:string,txt:string}[],index:number},
-	results:{yr:number,results:ExamTable[]}[]
+	overall:any,
+	groups:any,
+	intake:any
 };
 let data:Data = $state({
     menu:{options:['Overall','Group','Intake'],index:0},
-	standards:{options:[{key:'stdResA',txt:''},{key:'stdResB',txt:''}],index:0},
-	results:[]
+	standards:{options:[{key:'A',txt:''},{key:'B',txt:''}],index:0},
+	overall:[],
+	groups:[],
+	intake:[]
 	
 });
 
@@ -36,11 +42,11 @@ const update=async()=>{
 
 	let yrs:{yr:number,results:ExamTable[]}[] = [0,0,0,0,0].map((el,i)=>({yr:cohorts.exam.list[cohorts.exam.index].yr-i,results:[]}));
 
-	//console.log(data.results);
+	console.log(yrs);
 
 	// find all with correct nc, excluding 'X' grades, for each year
 	for(const yr of yrs) {
-			//console.log(yr.yr);
+			console.log(yr.yr);
 			
 			let response = await fetch('/edge/read', {
 			method: 'POST',
@@ -53,11 +59,18 @@ const update=async()=>{
 	}
 	console.log('********************');
 
+	data.overall = va.getOverall(yrs);
+	data.groups=va.getGroups(yrs[0].results);
+	data.intake=va.getIntake(yrs[0].results);
+	
+	console.log(data.overall);
+
 };
 
 $effect(() => { 
 	getStandards(); 
    	update();
+
 });
 
 
@@ -93,6 +106,53 @@ $effect(() => {
 
 <figure>
 	
+	{#if data.overall[0] && data.menu.options[data.menu.index]==='Overall'}
+	<table class="small">		
+		<tbody>
+			{#each data.overall as row,rowIndex}
+				{#if rowIndex===0 || (rowIndex>0 && row.sc !==data.overall[rowIndex-1].sc)}
+				<tr>
+					<th>COURSE</th>
+					<th>SUBJECT</th>
+					<th></th>
+					{#each row.all as col,colIndex}
+					<th>{col.yr}</th>
+					{/each}
+					<th></th>
+					{#each row.m as col,colIndex}
+					<th>{col.yr}</th>
+						{/each}
+					<th></th>
+					{#each row.f as col,colIndex}
+					<th>{col.yr}</th>
+					{/each}
+				</tr>
+		
+				{/if}
+
+				<tr>
+					<th>{row.sc}</th>
+					<th>{row.sl}</th>
+					<th>(all)</th>
+					{#each row.all as col,colIndex}
+					<th>{@html chart.getVA(col[data.standards.options[data.standards.index].key])}</th>
+					{/each}
+					<th>(male)</th>
+					{#each row.m as col,colIndex}
+					<th>{@html chart.getVA(col[data.standards.options[data.standards.index].key])}</th>
+					{/each}
+					<th>(female)</th>
+					{#each row.f as col,colIndex}
+					<th>{@html chart.getVA(col[data.standards.options[data.standards.index].key])}</th>
+					{/each}
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+
+	
+
+	{/if}
 
 
 
