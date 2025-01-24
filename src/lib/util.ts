@@ -29,7 +29,18 @@ export const random=(min:number, max:number) : number=> {
 export const getShortDate=(d:string):string=>{
   return d?.length===10 ? d[5]+d[6]+"/" +d[2]+d[3]: '00/00';
         
-}
+};
+
+/* CEM scores > bands A-D */
+export const getBand=(scr:number|null):string=>{
+  let band='';
+  let scrs=[{scr:110,band:"A"},{scr:100,band:"B"},{scr:90,band:"C"},{scr:0,band:"D"}];
+  if(scr!==null && scr>0) {
+      let f=scrs.find(el=>scr>el.scr);
+      band=f? f.band : '';
+  }
+  return band;
+};
 
 
 export const getExamYear=(nc:number,):number|null=>{

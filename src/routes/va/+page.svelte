@@ -69,7 +69,7 @@ const update=async()=>{
 	console.log(i);
 
 	data.groups=va.getGroups(yrs[0].results);
-	data.intake=va.getIntake(yrs[0].results);
+	data.intake=va.getIntake(yrs[0].results,i);
 	// run overall last, as it resorts data yr asc, groups,intake need to take latest year
 	data.overall = va.getOverall(yrs);
 	

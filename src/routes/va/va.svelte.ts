@@ -1,5 +1,6 @@
-import type { ExamTable } from "$lib/_db";
+import type { ExamTable,IntakeTable } from "$lib/_db";
 import * as util from '$lib/util';
+import {config,cohorts} from '$lib/state.svelte';
 
 const getVA=(results:(number|null )[]):{n:number,v:number,s:0|2|3}=>{
     let out:{n:number,v:number,s:0|2|3}={n:0,v:0,s:0};
@@ -145,7 +146,14 @@ export const getGroups=(data:ExamTable[]):GroupVA[]=>{
 
 };
 
-export const getIntake=(data:ExamTable[])=>{
+export const getIntake=(data:ExamTable[],i:IntakeTable[])=>{
+    let f=config.std.find(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
+
+   const x = i.map(el=>el.base.map(b=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
+    .flat().filter(el=>el.type==="overall")
+    .map(el=>({pid:el.pid,A:f && f.A!=='GCSE'? util.getBand(el.A) : '',B:f && f.B!=='GCSE' ? util.getBand(el.B) : ''}))
+   console.log(x);
+
 
 };
 
