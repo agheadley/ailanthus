@@ -3,7 +3,7 @@ import * as util from '$lib/util';
 import {config,cohorts} from '$lib/state.svelte';
 
 const getVA=(results:(number|null )[]):{n:number,v:number,s:0|2|3}=>{
-    let out:{n:number,v:number,s:0|2|3}={n:0,v:0,s:0};
+    const out:{n:number,v:number,s:0|2|3}={n:0,v:0,s:0};
 
     results=results.filter(el=>el!==null);
 
@@ -11,7 +11,7 @@ const getVA=(results:(number|null )[]):{n:number,v:number,s:0|2|3}=>{
         out.v=results.filter(el=>el!==null).reduce((a,b) => a + b, 0) / results.length;
         out.v=Math.round(100*out.v)/100;
         out.n=results.length;
-        let lp=1/Math.sqrt(out.n);
+        const lp=1/Math.sqrt(out.n);
         out.s = Math.abs(out.v) <= 2*lp ? 0 : Math.abs(out.v) > 3*lp ? 3 : 2;  
     }
     return out;
@@ -53,7 +53,7 @@ export const getOverall=(data:{yr:number,results:ExamTable[]}[]):OverallVA[]=>{
 
     data=data.sort((a,b)=>a.yr-b.yr);
 
-    let rows:OverallVA[]=[];
+    const rows:OverallVA[]=[];
 
     let line:OverallVA = {sc:'ALL',sl:'ALL',ss:'*',all:[],m:[],f:[]};
 
@@ -99,15 +99,15 @@ export const getGroups=(data:ExamTable[]):GroupVA[]=>{
     const subjects=getSubjects(data);
     //const courses=[ ... new Set(subjects.map(el=>el.sc))].sort((a,b)=>a.localeCompare(b));
 
-    let rows:GroupVA[]=[];
+    const rows:GroupVA[]=[];
 
     //console.log(data);
 
-    for(let subject of subjects) {
+    for(const subject of subjects) {
         
-        let line : GroupVA = {sc:subject.sc,sl:subject.sl,ss:subject.ss,g:[]};
+        const line : GroupVA = {sc:subject.sc,sl:subject.sl,ss:subject.ss,g:[]};
 
-        let members = data.filter(el=>el.sc===subject.sc && el.ss===subject.ss ).map(el=>el.pid);
+        const members = data.filter(el=>el.sc===subject.sc && el.ss===subject.ss ).map(el=>el.pid);
          
 
         line.g.push({
@@ -123,7 +123,7 @@ export const getGroups=(data:ExamTable[]):GroupVA[]=>{
         for(const group of groups) {
             //console.log(subject.sc, subject.sl,group);
 
-            let members = data.filter(el=>el.sc===subject.sc && el.ss===subject.ss && el.g===group).map(el=>el.pid);
+            const members = data.filter(el=>el.sc===subject.sc && el.ss===subject.ss && el.g===group).map(el=>el.pid);
             //console.log(members);
             line.g.push({
                 g:group,
@@ -146,21 +146,45 @@ export const getGroups=(data:ExamTable[]):GroupVA[]=>{
 
 };
 
-interface IntakeVA {
+interface ExamBand {
+    sc:string,
+    sl:string,
+    ss:string,
+    A:string;
+    B:string,
+    stdResA:number|null,
+    stdResB:number|null,
+    
+}
 
+interface IntakeVA {
+    sc:string,
+    sl:string,
+    ss:string,
+    all:{band:string,A:{n:number,v:number,s:0|2|3},B:{n:number,v:number,s:0|2|3}}[],
+    m:{band:string,A:{n:number,v:number,s:0|2|3},B:{n:number,v:number,s:0|2|3}}[],
+    f:{band:string,A:{n:number,v:number,s:0|2|3},B:{n:number,v:number,s:0|2|3}}[],
+    
 };
 
 export const getIntake=(data:ExamTable[],i:IntakeTable[])=>{
-    let f=config.std.find(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
+   const f=config.std.find(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
 
    const x = i.map(el=>el.base.map(b=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
     .flat().filter(el=>el.type==="overall")
     .map(el=>({pid:el.pid,A:f && f.A!=='GCSE'? util.getBand(el.A) : '',B:f && f.B!=='GCSE' ? util.getBand(el.B) : ''}))
    console.log(x);
 
+   //const results:ExamBand[] = data.map(el=>({band:x.find(p=>p.pid===el.pid) ? x.find(p=>p.pid===el.pid)?. ));
+
    const subjects=getSubjects(data);
    const courses=[ ... new Set(subjects.map(el=>el.sc))].sort((a,b)=>a.localeCompare(b));
 
+   const rows:IntakeVA[]=[];
+
+   let line:IntakeVA = {sc:'ALL',sl:'ALL',ss:'*',all:[],m:[],f:[]};
+
+   
 
 };
 
