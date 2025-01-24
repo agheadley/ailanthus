@@ -156,7 +156,7 @@ export const getVA=(data:{n:number,v:number,s:0|2|3}):string=>{
     
     graph.rect.w=cfg.width/10;
     graph.rect.x=midX - graph.rect.w/2;
-    console.log(cfg.width/2,graph.rect.w);
+    //console.log(cfg.width/2,graph.rect.w);
     graph.rect.h= Math.abs(data.v)>cfg.max? cfg.d : cfg.d*Math.abs(data.v)/cfg.max ;
     
     graph.rect.y = data.v < 0 ? cfg.d : cfg.d-graph.rect.h;

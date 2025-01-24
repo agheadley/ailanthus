@@ -1,6 +1,6 @@
 export interface ExamTable {
     id:number,
-    created_at: string;
+    created_at: string,
     g: string
     gd:string,
     gnd:string,
@@ -26,4 +26,19 @@ export interface ExamTable {
     yr:number,
     nc:number
 
+}
+
+export interface IntakeTable {
+    id:number,
+    created_at: string,
+    yr:number,
+    nc:number,
+    mid:string,
+    pid:number,
+    pn:string,
+    sn:string,
+    gnd:string,
+    test:string,
+    pre:{sc:string,ss:string,A:number|null,B:number|null}[],
+    base:{type:string,A:number|null,B:number|null}[]
 }

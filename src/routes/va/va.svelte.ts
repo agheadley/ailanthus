@@ -87,10 +87,65 @@ export const getOverall=(data:{yr:number,results:ExamTable[]}[]):OverallVA[]=>{
 
 };
 
-export const getGroups=(data:ExamTable[])=>{
+interface GroupVA {
+    sc:string,
+    sl:string,
+    ss:string,
+    g:{g:string,A:{n:number,v:number,s:0|2|3},B:{n:number,v:number,s:0|2|3},cfA:{n:number,v:number,s:0|2|3},cfB:{n:number,v:number,s:0|2|3}}[]
+}
+
+export const getGroups=(data:ExamTable[]):GroupVA[]=>{
+    const subjects=getSubjects(data);
+    //const courses=[ ... new Set(subjects.map(el=>el.sc))].sort((a,b)=>a.localeCompare(b));
+
+    let rows:GroupVA[]=[];
+
+    //console.log(data);
+
+    for(let subject of subjects) {
+        
+        let line : GroupVA = {sc:subject.sc,sl:subject.sl,ss:subject.ss,g:[]};
+
+        let members = data.filter(el=>el.sc===subject.sc && el.ss===subject.ss ).map(el=>el.pid);
+         
+
+        line.g.push({
+            g:'ALL',
+            A:getVA(data.filter(el=>el.sc===subject.sc && el.ss===subject.ss).map(el=>el.stdResA)),
+            B:getVA(data.filter(el=>el.sc===subject.sc && el.ss===subject.ss).map(el=>el.stdResB)),
+            cfA:getVA(data.filter(el=>(el.sc!==subject.sc || el.ss!==subject.ss) && members.includes(el.pid)).map(el=>el.stdResA)),
+            cfB:getVA(data.filter(el=>(el.sc!==subject.sc || el.ss!==subject.ss) && members.includes(el.pid)).map(el=>el.stdResB))
+            
+        });
+
+        const groups=[ ... new Set(data.filter(el=>el.sc===subject.sc && el.ss===subject.ss).map(el=>el.g))].sort((a,b)=>a.localeCompare(b));
+        for(const group of groups) {
+            //console.log(subject.sc, subject.sl,group);
+
+            let members = data.filter(el=>el.sc===subject.sc && el.ss===subject.ss && el.g===group).map(el=>el.pid);
+            //console.log(members);
+            line.g.push({
+                g:group,
+                A:getVA(data.filter(el=>el.sc===subject.sc && el.ss===subject.ss && el.g===group).map(el=>el.stdResA)),
+                B:getVA(data.filter(el=>el.sc===subject.sc && el.ss===subject.ss && el.g===group).map(el=>el.stdResB)),
+                cfA:getVA(data.filter(el=>(el.sc!==subject.sc || el.ss!==subject.ss) && members.includes(el.pid)).map(el=>el.stdResA)),
+                cfB:getVA(data.filter(el=>(el.sc!==subject.sc || el.ss!==subject.ss) && members.includes(el.pid)).map(el=>el.stdResB))  
+            });
+
+
+
+        }
+
+        rows.push(line);
+    }
+
+    console.log(rows);
+
+    return rows;
 
 };
 
 export const getIntake=(data:ExamTable[])=>{
 
 };
+

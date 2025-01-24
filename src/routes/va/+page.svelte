@@ -29,7 +29,7 @@ const download=()=>{
 
 const getStandards=()=>{
 	let f=config.std.find(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
-	console.log(f);
+	//console.log(f);
 	data.standards.options[0].txt = f ? f.A : data.standards.options[0].key;
 	data.standards.options[1].txt = f ? f.B : data.standards.options[1].key;
 	
@@ -42,11 +42,11 @@ const update=async()=>{
 
 	let yrs:{yr:number,results:ExamTable[]}[] = [0,0,0,0,0].map((el,i)=>({yr:cohorts.exam.list[cohorts.exam.index].yr-i,results:[]}));
 
-	console.log(yrs);
+	//console.log(yrs);
 
 	// find all with correct nc, excluding 'X' grades, for each year
 	for(const yr of yrs) {
-			console.log(yr.yr);
+			//console.log(yr.yr);
 			
 			let response = await fetch('/edge/read', {
 			method: 'POST',
@@ -59,11 +59,22 @@ const update=async()=>{
 	}
 	console.log('********************');
 
-	data.overall = va.getOverall(yrs);
+
+	const response = await fetch('/edge/read', {
+        method: 'POST',
+        body: JSON.stringify({table:"intake_table",select:"*",filter:`yr=eq.${cohorts.exam.list[cohorts.exam.index].yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
+        headers: {'content-type': 'application/json'}
+    });
+    const i= await response.json();
+	console.log(i);
+
 	data.groups=va.getGroups(yrs[0].results);
 	data.intake=va.getIntake(yrs[0].results);
+	// run overall last, as it resorts data yr asc, groups,intake need to take latest year
+	data.overall = va.getOverall(yrs);
 	
-	console.log(data.overall);
+	
+	//console.log(data.overall);
 
 };
 
@@ -152,7 +163,45 @@ $effect(() => {
 
 	
 
-	{/if}
+	{/if} 	<!-- /end of Overall-->
+
+
+	{#if data.groups[0] && data.menu.options[data.menu.index]==='Group'}
+	<table class="small">		
+		<tbody>
+			{#each data.groups as row,rowIndex}
+				
+
+				<tr>
+					<th>{row.sc}</th>
+					<th>{row.sl}</th>
+					{#each row.g as col,colIndex}
+						<th>{col.g}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>Group VA</th>
+					<th></th>
+					{#each row.g as col,colIndex}
+						<th>{@html chart.getVA(col[data.standards.options[data.standards.index].key])}</th>
+					{/each}
+				</tr>
+				<tr>
+					<th>Same pupils</th>
+					<th>(Other subjects)</th>
+					{#each row.g as col,colIndex}
+						<th>{@html chart.getVA(col[`cf${data.standards.options[data.standards.index].key}`])}</th>
+					{/each}
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+
+	
+
+	{/if} <!-- /end of Group-->
+
+
 
 
 
