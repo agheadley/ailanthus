@@ -146,6 +146,10 @@ export const getGroups=(data:ExamTable[]):GroupVA[]=>{
 
 };
 
+interface IntakeVA {
+
+};
+
 export const getIntake=(data:ExamTable[],i:IntakeTable[])=>{
     let f=config.std.find(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
 
@@ -153,6 +157,9 @@ export const getIntake=(data:ExamTable[],i:IntakeTable[])=>{
     .flat().filter(el=>el.type==="overall")
     .map(el=>({pid:el.pid,A:f && f.A!=='GCSE'? util.getBand(el.A) : '',B:f && f.B!=='GCSE' ? util.getBand(el.B) : ''}))
    console.log(x);
+
+   const subjects=getSubjects(data);
+   const courses=[ ... new Set(subjects.map(el=>el.sc))].sort((a,b)=>a.localeCompare(b));
 
 
 };
