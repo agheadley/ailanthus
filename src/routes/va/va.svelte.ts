@@ -147,14 +147,14 @@ export const getGroups=(data:ExamTable[]):GroupVA[]=>{
 };
 
 interface ExamBand {
+    gnd:string,
     sc:string,
     sl:string,
     ss:string,
-    A:string;
-    B:string,
+    bandA:string,
+    bandB:string,
     stdResA:number|null,
-    stdResB:number|null,
-    
+    stdResB:number|null  
 }
 
 interface IntakeVA {
@@ -163,19 +163,34 @@ interface IntakeVA {
     ss:string,
     all:{band:string,A:{n:number,v:number,s:0|2|3},B:{n:number,v:number,s:0|2|3}}[],
     m:{band:string,A:{n:number,v:number,s:0|2|3},B:{n:number,v:number,s:0|2|3}}[],
-    f:{band:string,A:{n:number,v:number,s:0|2|3},B:{n:number,v:number,s:0|2|3}}[],
+    f:{band:string,A:{n:number,v:number,s:0|2|3},B:{n:number,v:number,s:0|2|3}}[]
     
 };
+
+
+// !   is non-null assertion operator
+// https://stackoverflow.com/questions/54738221/typescript-array-find-possibly-undefined
 
 export const getIntake=(data:ExamTable[],i:IntakeTable[])=>{
    const f=config.std.find(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
 
-   const x = i.map(el=>el.base.map(b=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
+   const x : {pid:number,bandA:string,bandB:string}[]= i.map(el=>el.base.map(b=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
     .flat().filter(el=>el.type==="overall")
-    .map(el=>({pid:el.pid,A:f && f.A!=='GCSE'? util.getBand(el.A) : '',B:f && f.B!=='GCSE' ? util.getBand(el.B) : ''}))
+    .map(el=>({pid:el.pid,bandA:f && f.A!=='GCSE'? util.getBand(el.A) : 'X',bandB:f && f.B!=='GCSE' ? util.getBand(el.B) : 'X'}))
    console.log(x);
 
-   //const results:ExamBand[] = data.map(el=>({band:x.find(p=>p.pid===el.pid) ? x.find(p=>p.pid===el.pid)?. ));
+   const results:ExamBand[] = data.map(el=>({
+        bandA:x.find(p=>p.pid===el.pid) ? x.find(p=>p.pid===el.pid)!.bandA : 'X',
+        bandB:x.find(p=>p.pid===el.pid) ? x.find(p=>p.pid===el.pid)!.bandB : 'X',
+        gnd:el.gnd,
+        sc:el.sc,
+        sl:el.sl,
+        ss:el.ss,
+        stdResA:el.stdResA,
+        stdResB:el.stdResB
+    }));
+    console.log(results);
+
 
    const subjects=getSubjects(data);
    const courses=[ ... new Set(subjects.map(el=>el.sc))].sort((a,b)=>a.localeCompare(b));
@@ -187,4 +202,3 @@ export const getIntake=(data:ExamTable[],i:IntakeTable[])=>{
    
 
 };
-
