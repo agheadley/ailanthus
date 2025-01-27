@@ -135,32 +135,36 @@
     <fieldset>
         <legend>Assessments by Cohort / My Sets</legend>
             <span class="spacer">
-            <select id="cohort" bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
-                {#each cohorts.nc.list as row,index}
-                <option value={index}>{row.nc}</option>
-                {/each}
-            </select>
-            <select bind:value={cohorts.subject.index} onchange={()=>updateTable()}>
-                {#each cohorts.subject.list as row,index}
-                {#if row.nc===cohorts.nc.list[cohorts.nc.index].nc}
-                <option value={index}>{row.sl} ({row.sc})</option>
-                {/if}
-                {/each}
-            </select>
-            
-                <select id="myset" bind:value={cohorts.mySets.index} onchange={()=>updateTable('MYSET')}>
-                    {#each cohorts.mySets.list as row,index}
-                    <option value={index}>{row.g}</option>
+                <select bind:value={cohorts.nc.index} onchange={()=>updateTable('NC')}>
+                    {#each cohorts.nc.list as row,index}
+                    <option value={index}>{row.nc}</option>
                     {/each}
                 </select>
-            </span>
+                </span>
+                <span class="spacer">
+                <select bind:value={cohorts.subject.index} onchange={()=>updateTable()}>
+                    {#each cohorts.subject.list as row,index}
+                    {#if row.nc===cohorts.nc.list[cohorts.nc.index].nc}
+                    <option value={index}>{row.sl} ({row.sc})</option>
+                    {/if}
+                    {/each}
+                </select>
+                </span>
+                <span class="spacer">
+        
+                    <select bind:value={cohorts.mySets.index} onchange={()=>updateTable('MYSET')}>
+                        {#each cohorts.mySets.list as row,index}
+                        <option value={index}>{row.g}</option>
+                        {/each}
+                    </select>
+                </span>
            <span class="spacer">
                 <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>
                  <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
                 <a data-title="ARCHIVE" href={'javascript:void(0)'} onclick={archive}>{@html icon.archive(24)}</a>
                
             </span>
-            </fieldset>
+        </fieldset>
 
         <figure>
         <table class="small">

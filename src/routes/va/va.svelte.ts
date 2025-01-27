@@ -171,7 +171,7 @@ interface IntakeVA {
 // !   is non-null assertion operator
 // https://stackoverflow.com/questions/54738221/typescript-array-find-possibly-undefined
 
-export const getIntake=(data:ExamTable[],i:IntakeTable[])=>{
+export const getIntake=(data:ExamTable[],i:IntakeTable[]):IntakeVA[]=>{
    const f=config.std.find(el=>el.nc===cohorts.exam.list[cohorts.exam.index].nc);
 
    const x : {pid:number,bandA:string,bandB:string}[]= i.map(el=>el.base.map(b=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
@@ -199,6 +199,68 @@ export const getIntake=(data:ExamTable[],i:IntakeTable[])=>{
 
    let line:IntakeVA = {sc:'ALL',sl:'ALL',ss:'*',all:[],m:[],f:[]};
 
-   
+   for(const b of ['A','B','C','D']) {
+        line.all.push({
+            band:b,
+            A:getVA(results.filter(el=>el.bandA===b).map(el=>el.stdResA)),
+            B:getVA(results.filter(el=>el.bandB===b).map(el=>el.stdResB))
+        });
+        line.m.push({
+            band:b,
+            A:getVA(results.filter(el=>el.gnd==='M' && el.bandA===b).map(el=>el.stdResA)),
+            B:getVA(results.filter(el=>el.gnd==='M' && el.bandB===b).map(el=>el.stdResB))
+        });
+        line.f.push({
+            band:b,
+            A:getVA(results.filter(el=>el.gnd==='F' && el.bandA===b).map(el=>el.stdResA)),
+            B:getVA(results.filter(el=>el.gnd==='F' && el.bandB===b).map(el=>el.stdResB))
+        });
+   }
+   rows.push(line);
+
+    for(const course of courses) {
+            line = {sc:course,sl:'ALL',ss:'*',all:[],m:[],f:[]};
+            for(const b of ['A','B','C','D']) {
+                line.all.push({
+                    band:b,
+                    A:getVA(results.filter(el=>el.sc===course && el.bandA===b).map(el=>el.stdResA)),
+                    B:getVA(results.filter(el=>el.sc===course && el.bandB===b).map(el=>el.stdResB))
+                });
+                line.m.push({
+                    band:b,
+                    A:getVA(results.filter(el=>el.gnd==='M' && el.sc===course && el.bandA===b).map(el=>el.stdResA)),
+                    B:getVA(results.filter(el=>el.gnd==='M' && el.sc===course && el.bandB===b).map(el=>el.stdResB))
+                });
+                line.f.push({
+                    band:b,
+                    A:getVA(results.filter(el=>el.gnd==='F' && el.sc===course && el.bandA===b).map(el=>el.stdResA)),
+                    B:getVA(results.filter(el=>el.gnd==='F' && el.sc===course && el.bandB===b).map(el=>el.stdResB))
+                });
+            }
+            rows.push(line);
+            for(const subject of subjects.filter(el=>el.sc===course)) {
+                line = {sc:course,sl:subject.sl,ss:subject.ss,all:[],m:[],f:[]};
+                for(const b of ['A','B','C','D']) {
+                    line.all.push({
+                        band:b,
+                        A:getVA(results.filter(el=>el.sc===course && el.ss===subject.ss && el.bandA===b).map(el=>el.stdResA)),
+                        B:getVA(results.filter(el=>el.sc===course && el.ss===subject.ss && el.bandB===b).map(el=>el.stdResB))
+                    });
+                    line.m.push({
+                        band:b,
+                        A:getVA(results.filter(el=>el.gnd==='M' && el.sc===course && el.ss===subject.ss && el.bandA===b).map(el=>el.stdResA)),
+                        B:getVA(results.filter(el=>el.gnd==='M' && el.sc===course && el.ss===subject.ss && el.bandB===b).map(el=>el.stdResB))
+                    });
+                    line.f.push({
+                        band:b,
+                        A:getVA(results.filter(el=>el.gnd==='F' && el.sc===course && el.ss===subject.ss && el.bandA===b).map(el=>el.stdResA)),
+                        B:getVA(results.filter(el=>el.gnd==='F' && el.sc===course && el.ss===subject.ss && el.bandB===b).map(el=>el.stdResB))
+                    });
+                }
+                rows.push(line);
+            }
+        }
+
+        return rows;
 
 };

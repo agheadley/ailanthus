@@ -34,7 +34,7 @@ export const getShortDate=(d:string):string=>{
 /* CEM scores > bands A-D */
 export const getBand=(scr:number|null):string=>{
   let band='X';
-  let scrs=[{scr:110,band:"A"},{scr:100,band:"B"},{scr:90,band:"C"},{scr:0,band:"D"}];
+  let scrs:{scr:number,band:string}[]=[{scr:110,band:"A"},{scr:100,band:"B"},{scr:90,band:"C"},{scr:0,band:"D"}];
   if(scr!==null && scr>0) {
       let f=scrs.find(el=>scr>el.scr);
       band=f? f.band : 'X';
