@@ -202,7 +202,49 @@ $effect(() => {
 	{/if} <!-- /end of Group-->
 
 
-
+	{#if data.intake[0] && data.menu.options[data.menu.index]==='Intake'}
+	<table class="small">		
+		<tbody>
+			{#each data.intake as row,rowIndex}
+				{#if rowIndex===0 || (rowIndex>0 && row.sc !==data.overall[rowIndex-1].sc)}
+				<tr>
+					<th>COURSE</th>
+					<th>SUBJECT</th>
+					<th></th>
+					{#each row.all as col,colIndex}
+					<th>{col.band}</th>
+					{/each}
+					<th></th>
+					{#each row.m as col,colIndex}
+					<th>{col.band}</th>
+						{/each}
+					<th></th>
+					{#each row.f as col,colIndex}
+					<th>{col.band}</th>
+					{/each}
+				</tr>
+		
+				{/if}
+				<tr>
+					<th>{row.sc}</th>
+					<th>{row.sl}</th>
+					<th>(all)</th>
+					{#each row.all as col,colIndex}
+					<th>{@html chart.getVA(col[data.standards.options[data.standards.index].key])}</th>
+					{/each}
+					<th>(m)</th>
+					{#each row.m as col,colIndex}
+					<th>{@html chart.getVA(col[data.standards.options[data.standards.index].key])}</th>
+					{/each}
+					<th>(f)</th>
+					{#each row.f as col,colIndex}
+					<th>{@html chart.getVA(col[data.standards.options[data.standards.index].key])}</th>
+					{/each}
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+	{/if} <!-- /end of Intake-->
 
 
 </figure>
