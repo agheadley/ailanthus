@@ -70,7 +70,7 @@ export const getOverall=(data:{yr:number,results:ExamTable[]}[]):OverallVA[]=>{
         line.m=data.map(el=>({yr:el.yr,A:getVA(el.results.filter(el=>el.gnd==='M' && el.sc===course).map(el=>el.stdResA)),B:getVA(el.results.filter(el=>el.gnd==='M' && el.sc===course).map(el=>el.stdResB))}));
         line.f=data.map(el=>({yr:el.yr,A:getVA(el.results.filter(el=>el.gnd==='F' && el.sc===course).map(el=>el.stdResA)),B:getVA(el.results.filter(el=>el.gnd==='F' && el.sc===course).map(el=>el.stdResB))}));
         rows.push(line);
-        for(const subject of subjects) {
+        for(const subject of subjects.filter(el=>el.sc===course)) {
             //console.log(`${course} ${subject.sl} ${subject.ss}`);
             line = {sc:course,sl:subject.sl,ss:subject.ss,all:[],m:[],f:[]};
             line.all=data.map(el=>({yr:el.yr,A:getVA(el.results.filter(el=>el.sc===course && el.ss===subject.ss).map(el=>el.stdResA)),B:getVA(el.results.filter(el=>el.sc===course && el.ss===subject.ss).map(el=>el.stdResB))}));
@@ -81,7 +81,8 @@ export const getOverall=(data:{yr:number,results:ExamTable[]}[]):OverallVA[]=>{
     }
 
 
-   
+    console.log(rows);
+
     return rows;
   
 
@@ -140,7 +141,7 @@ export const getGroups=(data:ExamTable[]):GroupVA[]=>{
         rows.push(line);
     }
 
-    console.log(rows);
+    //console.log(rows);
 
     return rows;
 
@@ -177,7 +178,7 @@ export const getIntake=(data:ExamTable[],i:IntakeTable[]):IntakeVA[]=>{
    const x : {pid:number,bandA:string,bandB:string}[]= i.map(el=>el.base.map(b=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
     .flat().filter(el=>el.type==="overall")
     .map(el=>({pid:el.pid,bandA:f && f.A!=='GCSE'? util.getBand(el.A) : 'X',bandB:f && f.B!=='GCSE' ? util.getBand(el.B) : 'X'}))
-   console.log(x);
+   //console.log(x);
 
    const results:ExamBand[] = data.map(el=>({
         bandA:x.find(p=>p.pid===el.pid) ? x.find(p=>p.pid===el.pid)!.bandA : 'X',
@@ -189,7 +190,7 @@ export const getIntake=(data:ExamTable[],i:IntakeTable[]):IntakeVA[]=>{
         stdResA:el.stdResA,
         stdResB:el.stdResB
     }));
-    console.log(results);
+    //console.log(results);
 
 
    const subjects=getSubjects(data);
