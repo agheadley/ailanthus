@@ -48,7 +48,7 @@ export const config = $state({
       }
     },
     rag:{red:0,green:0},
-    groups:[{id:0,sc:'',ss:'',sl:'',g:'',nc:0,log:'',pupil:[{pid:0,nc:0,sn:'',pn:'',gnd:'',hse:''}],teacher:[{tid:'',sal:''}]}],
+    groups:[{id:0,sc:'',ss:'',sl:'',g:'',yr:0,nc:0,log:'',pupil:[{pid:0,nc:0,sn:'',pn:'',gnd:'',hse:''}],teacher:[{tid:'',sal:''}]}],
     teachers:[{id:0,mid:'',tid:'',sal:'',pn:'',sn:''}],
     pupils:[{id:0,mid:'',pid:0,nc:0,sn:'',pn:'',gnd:'',hse:'',tg:'',overall:{A:0,B:0},base:[{type:'',A:0,B:0}],groups:[{nc:0,sc:'',ss:'',sl:'',g:'',pre:{A:0,B:0}}]}],
     std:[{nc:6,A:'NAT',B:'IND'},{nc:7,A:'NAT',B:'IND'},{nc:8,A:'NAT',B:'IND'},{nc:9,A:'NAT',B:'IND'},{nc:10,A:'NAT',B:'IND'},{nc:11,A:'NAT',B:'IND'},{nc:12,A:'GCSE',B:'ALIS'},{nc:13,A:'GCSE',B:'ALIS'}],
@@ -1452,8 +1452,8 @@ export const config = $state({
 
 
 interface Cohort {
-    nc:{list:{nc:number}[],index:number},
-    subject:{list:{nc:number,sc:string,ss:string,sl:string}[],index:number},
+    nc:{list:{nc:number,yr:number}[],index:number},
+    subject:{list:{yr:number,nc:number,sc:string,ss:string,sl:string}[],index:number},
     mySets:{list:{nc:number,g:string,sc:string,ss:string,sl:string}[],index:number},
     edit:{id:number,nc:number,sc:string,ss:string,sl:string,g:string,n:string,dt:number,ds:string,isEdit:boolean},
     exam:{list:{yr:number,nc:number}[],index:number},
@@ -1462,8 +1462,8 @@ interface Cohort {
     
 export const cohorts:Cohort = $state({
   
-    nc:{list:[{nc:0}],index:0},
-    subject:{list:[{nc:0,sc:'',ss:'',sl:''}],index:0},
+    nc:{list:[{nc:0,yr:0}],index:0},
+    subject:{list:[{yr:0,nc:0,sc:'',ss:'',sl:''}],index:0},
     mySets:{list:[{nc:0,g:'',sc:'',ss:'',sl:''}],index:0},
     edit:{id:0,nc:0,sc:'',ss:'',sl:'',g:'',n:'',dt:0,ds:'',isEdit:false},
     exam:{list:[{yr:0,nc:0}],index:0},

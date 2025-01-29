@@ -27,7 +27,7 @@ let validate=():void=>{
 let create=async():Promise<void>=>{
    
     alert.ms=0;
-    let arr= util.unique(config.groups.filter(el=>el.nc===cohorts.nc.list[status.ncIndex].nc).map(el=>({nc:el.nc,sc:el.sc,ss:el.ss})),['nc','sc','ss']);
+    let arr= util.unique(config.groups.filter(el=>el.nc===cohorts.nc.list[status.ncIndex].nc).map(el=>({yr:Number(el.yr),nc:el.nc,sc:el.sc,ss:el.ss})),['nc','sc','ss']);
     console.log(arr);
     if(arr[0]) {
         alert.msg=`found ${arr.length} subjects for yeargroup ${cohorts.nc.list[status.ncIndex].nc} ( ${status.isGrade ? 'grade only' : 'grades & scores'} )`;
@@ -36,7 +36,7 @@ let create=async():Promise<void>=>{
         for(const item of arr) {
             alert.msg=`CREATING SUBJECT ${item.ss} (${item.sc})`;
             util.wait(1000);
-            const res = await assessment.createAssessment(Number(item.nc),String(item.sc),String(item.ss),status.n,status.dl,status.isGrade,true);
+            const res = await assessment.createAssessment(Number(item.yr),Number(item.nc),String(item.sc),String(item.ss),status.n,status.dl,status.isGrade,true);
             console.log(res);
             if(res.isOK===false) alert.type='error';
             alert.msg=res.msg;

@@ -20,11 +20,11 @@ export const getPercentage=(scoreArr:number[],tArr:{t:number,w:number,p:string}[
 
 
 
-export const createAssessment=async(nc:number,sc:string,ss:string,n:string,dl:string,isGrade:boolean,isCore:boolean):Promise<{isOK:boolean,msg:string}>=>{
+export const createAssessment=async(yr:number,nc:number,sc:string,ss:string,n:string,dl:string,isGrade:boolean,isCore:boolean):Promise<{isOK:boolean,msg:string}>=>{
 
 
     console.log('assessment.create()');
-
+    //console.log('nc',nc,'yr',yr);
 
     const gps = config.groups.filter(el=>el.nc===nc && el.sc===sc && el.ss===ss);
     console.log('found groups ',gps);
@@ -36,7 +36,7 @@ export const createAssessment=async(nc:number,sc:string,ss:string,n:string,dl:st
     const assessmentObj= {
         log:`${user.name}|${util.getDateTime()}`,
         nc:nc,
-        yr:util.getExamYear(nc),
+        yr:yr,   //util.getExamYear(nc),
         sc:sc,
         ss:ss,
         sl:gps[0].sl,
@@ -50,6 +50,7 @@ export const createAssessment=async(nc:number,sc:string,ss:string,n:string,dl:st
         isGrade:isGrade,
         isArchive:false
       };
+      //console.log(assessmentObj);
   
       let response = await fetch('/api/insert', {
           method: 'POST',

@@ -27,7 +27,7 @@ let create=async():Promise<void>=>{
     alert.ms=0;
     alert.msg = 'Creating Assessment ...';
    
-    const res = await assessment.createAssessment(data.subject.nc,data.subject.sc,data.subject.ss,status.n,status.dl,false,false);
+    const res = await assessment.createAssessment(data.subject.yr,data.subject.nc,data.subject.sc,data.subject.ss,status.n,status.dl,false,false);
     //console.log(res);
     if(res.isOK===false) alert.type='error';
     alert.msg=res.msg;
@@ -42,7 +42,7 @@ let create=async():Promise<void>=>{
 </script>
 
 
-<p class="notice">{data.subject.nc} {data.subject.sl} ({data.subject.sc})</p>
+<p class="notice">EXAM {data.subject.yr} {data.subject.nc} {data.subject.sl} ({data.subject.sc})</p>
 
 
 <p>

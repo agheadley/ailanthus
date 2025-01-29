@@ -11,7 +11,7 @@
     let data : any = $state({
         table:[],
         std:{A:'',B:''},
-        subject:{sc:'',ss:'',sl:'',nc:0},
+        subject:{sc:'',ss:'',sl:'',nc:0,yr:0},
         isCreate:false,
         isUpdateRequired:true
 
@@ -52,6 +52,7 @@
         //$state.snapshot(data.table);
 
         data.subject.nc=cohorts.nc.list[cohorts.nc.index].nc;
+        data.subject.yr=cohorts.nc.list[cohorts.nc.index].yr;
         data.subject.sc=cohorts.subject.list[cohorts.subject.index].sc;
         data.subject.ss=cohorts.subject.list[cohorts.subject.index].ss;
         data.subject.sl=cohorts.subject.list[cohorts.subject.index].sl;
@@ -59,6 +60,8 @@
         console.log('UPDATED',cohorts.nc.list[cohorts.nc.index].nc,cohorts.subject.list[cohorts.subject.index].sl,data.table?.length ? `FOUND ${data.table.length} GROUP(S)` : `FOUND 0 GROUPS`);
 
         data.isUpdateRequired=false;
+
+        console.log(data.subject);
 
     };
 

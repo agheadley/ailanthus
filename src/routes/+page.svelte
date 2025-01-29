@@ -19,11 +19,12 @@ const getCore=async()=>{
 	// build cohorts
 
 	cohorts.subject.index=0;
-	cohorts.subject.list=util.unique(res,['nc','ss','sc']).map(el=>({nc:Number(el.nc),sc:String(el.sc),ss:String(el.ss),sl:String(el.sl)}));
-	cohorts.nc.list=util.unique(cohorts.subject.list,['nc']).map(el=>({nc:Number(el.nc)}))
+	cohorts.subject.list=util.unique(res,['nc','ss','sc']).map(el=>({yr:Number(el.yr),nc:Number(el.nc),sc:String(el.sc),ss:String(el.ss),sl:String(el.sl)}));
+	cohorts.nc.list=util.unique(cohorts.subject.list,['nc']).map(el=>({yr:Number(el.yr),nc:Number(el.nc)}))
 	cohorts.nc.index=0;
 	//cohorts.academic.yr.list=util.unique(cohorts.academic.sub,['nc']);
 	
+	//console.log(cohorts);
 
 	
 
