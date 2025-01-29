@@ -63,6 +63,28 @@ const getCore=async()=>{
 		headers: {'content-type': 'application/json'}
 	});
 	cohorts.exam.list= await response.json();
+
+
+
+	response = await fetch('/api/assessmentCohort', {
+		method: 'POST',
+		body: JSON.stringify({}),
+		headers: {'content-type': 'application/json'}
+	});
+	res= await response.json();
+	cohorts.archive.subjects=res ? res : [];
+	cohorts.archive.yrs=util.unique(res,['yr','nc'])
+		.map(el=>({yr:Number(el.yr),nc:Number(el.nc)}))
+		.sort((a,b)=>b.yr-a.yr || b.nc-a.nc);
+	cohorts.archive.yIndex=0;
+	cohorts.archive.sIndex=0;
+	
+
+
+
+
+
+
 	// set isReady flag
 	config.isReady = true;
 	
