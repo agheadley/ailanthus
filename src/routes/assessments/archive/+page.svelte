@@ -2,13 +2,16 @@
     import {goto} from '$app/navigation';
     import {config,user,cohorts} from '$lib/state.svelte';
     import {alert} from '$lib/state.svelte';
+    import * as assessments from '../assessment.svelte';
    
     interface Data {
         assessments: { id:number,n: string; dl: string; dt: number; t: {t:number,w:number,p:string}[]; gd: {sc:string,gd:string,pc:number,pre:number}[]; sc: string; ss: string; sl: string; nc: number; yr: number; }[];
+        table:any
     }
 
     const data : Data = $state({
-        assessments:[]
+        assessments:[],
+        table:[]
     });
 
     let updateTable=async(type?:string):Promise<void>=>{
@@ -20,18 +23,8 @@
         }
 
         let s = cohorts.archive.subjects[cohorts.archive.sIndex];
-
-        const select=`select=id,nc,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
-        const filter=`nc=eq.${s.nc}&yr=eq.${s.yr}&sc=eq.${s.sc}&ss=eq.${s.ss}`;
-    
-        const response = await fetch('/edge/read', {
-            method: 'POST',
-            body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
-            headers: {'content-type': 'application/json'}
-        });
-        const res= await response.json();
-        data.assessments =res.map((el: { id:number,n: any; dl: any; dt: any; t: any; gd: any; sc: any; scc: any; sl: any; nc: any; yr: any; })=>({id:el.id,n:el.n,dl:el.dl,dt:el.dt,t:el.t,gd:el.gd,sc:el.sc,ss:el.scc,sl:el.sl,nc:el.nc,yr:el.yr}))
-            .sort((a: { dt: number; },b: { dt: number; })=>a.dt-b.dt);
+        data.table=assessments.getArchiveTable(s.yr,s.nc,s.sc,s.ss);
+       
 
         //console.log(data.assessments);
     
@@ -73,7 +66,7 @@
                 </span>
         </fieldset>
 
-        {#each data.assessments as row}
+        {#each data.table.assessments as row}
             <p>{row.id},{row.n},{row.dl}</p>
         {/each}
 

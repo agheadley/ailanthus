@@ -1,6 +1,6 @@
 import {config,cohorts,user} from '$lib/state.svelte';
 import * as util from '$lib/util';
-
+import type {IntakeTable} from '$lib/_db';
 
 
 export const getGrade=(pc:number,gdArr:{gd:string,pc:number,sc:string,pre:number}[]):string=>{
@@ -47,8 +47,7 @@ export const createAssessment=async(yr:number,nc:number,sc:string,ss:string,n:st
         t:[{t:100,w:100,p:"P1"}],
         isLock:false,
         isCore:isCore,
-        isGrade:isGrade,
-        isArchive:false
+        isGrade:isGrade
       };
       //console.log(assessmentObj);
   
@@ -94,20 +93,89 @@ export const createAssessment=async(yr:number,nc:number,sc:string,ss:string,n:st
 };
 
 
+
+
+
+
+
+
 interface TableRow {
-    nc:number,
-    sc:string,
-    ss:string,
-    sl:string,
-    g:string,
-    assessments:{id:number,nc:number,sc:string,ss:string,sl:string,n:string,dt:number,ds:string,isEdit:boolean,gd:string,r:number}[],
-    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number},results:{gd:string,r:number}[]}[],
-    overall:{A:number,B:number}
+    nc?:number,
+    sc?:string,
+    ss?:string,
+    sl?:string,
+    g?:string,
+    assessments:{id:number,yr:number,nc:number,sc:string,ss:string,sl:string,n:string,dt:number,ds:string,isEdit:boolean,gd:string,r:number}[],
+    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number}, pre?:{A:number,B:number},results:{gd:string,r:number}[]}[],
+    overall?:{A:number,B:number}
 
 };
 
+
+export const getArchiveTable = async (yr:number,nc:number,sc:string,ss:string) : Promise<TableRow>=>{
+
+    const table:TableRow= {
+        assessments:[],
+        pupil:[]
+    }
+
+
+    const select=`select=id,nc,yr,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
+    const filter=`nc=eq.${nc}&yr=eq.${yr}&sc=eq.${sc}&ss=eq.${ss}`;
+
+    let response = await fetch('/edge/read', {
+        method: 'POST',
+        body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
+        headers: {'content-type': 'application/json'}
+    });
+    let res= await response.json();
+    table.assessments =res.map((el: { id: any; n: any; dl: string; dt: any; t: any; sc: any; sl: any; nc: any; yr: any; })=>({id:el.id,n:el.n,ds:util.getShortDate(el.dl),dt:el.dt,t:el.t,sc:el.sc,ss:el.sc,sl:el.sl,nc:el.nc,yr:el.yr,gd:'',r:0,isEdit:false}))
+        .sort((a: { dt: number; },b: { dt: number; })=>a.dt-b.dt);
+
+    console.log(table);
+    console.log(res);
+
+    let  pupils = res.map((el: { result_table: any; })=>el.result_table).flat().map((el: { pid: any; sn: any; pn: any; })=>({pid:el.pid,sn:el.sn,pn:el.pn}));
+    pupils = util.unique(pupils,['pid']);
+
+    table.pupil=pupils.map((el: { pid: any; sn: any; pn: any; })=>({pid:el.pid,sn:el.sn,pn:el.pn,overall:{A:0,B:0},pre:{A:0,B:0},results:[]}))
+        .sort((a: { sn: string; pn: string; },b: { sn: any; pn: any; })=>a.sn.localeCompare(b.sn)-a.pn.localeCompare(b.pn));
+
+    
+    response = await fetch('/edge/read', {
+        method: 'POST',
+        body: JSON.stringify({table:"intake_table",select:"*",filter:`yr=eq.${cohorts.exam.list[cohorts.exam.index].yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
+        headers: {'content-type': 'application/json'}
+    });
+    const i:IntakeTable[]= await response.json();
+
+    const overall : {pid:number,A:number,B:number}[]= i.map((el: { base: any[]; pid: any; pre:any[]})=>el.base.map((b: { type: any; A: any; B: any; })=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
+    .flat().filter((el: { type: string; })=>el.type==="overall");
+    const pre:{pid:number,A:number,B:number,sc:string,ss:string}[]= i.map((el: { base: any[]; pid: any;pre:any[] })=>el.pre.map((b: { sc: any; ss: any; A: any; B: any; })=>({pid:el.pid,sc:b.sc,ss:b.ss,A:b.A,B:b.B})))
+    .flat().filter((el: { sc: string; ss: any; })=>el.sc===sc && el.ss===el.ss);
+
+    console.log(overall,pre)
+
+    
+    for(const p of table.pupil) {
+        p.overall.A = overall.find((el: { pid: number; })=>el.pid===p.pid)?.A || 0;
+        p.overall.B = overall.find((el: { pid: number; })=>el.pid===p.pid)?.B || 0;
+        p.pre = p.pre || { A: 0, B: 0 };
+        p.pre.A = pre.find((el: { pid: number; })=>el.pid===p.pid)?.A || 0;
+        p.pre.B = pre.find((el: { pid: number; })=>el.pid===p.pid)?.B || 0;
+        
+    };
+
+    console.log(table);
+
+
+    return table;
+    
+};
+
+
 // returns display table arr - one item for each group.
-export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]>=>{
+export const getTable=async (yr:number,nc:number,sc:string,ss:string) : Promise<TableRow[]>=>{
     const table:TableRow[]=config.groups.filter(el=>el.nc===nc && el.sc===sc && el.ss===ss)
         .map(el=>(
             {nc:nc,sc:sc,ss:ss,sl:el.sl,g:el.g,overall:{A:0,B:0},assessments:[],pupil:el.pupil.map(p=>(
@@ -120,8 +188,8 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
     }));
 
     // get assessments and result
-    const select=`select=id,nc,n,dl,dt,sc,ss,sl,log,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
-    const filter=`nc=eq.${nc}&sc=eq.${sc}&ss=eq.${ss}&isArchive=eq.false`;
+    const select=`select=id,nc,yr,n,dl,dt,sc,ss,sl,log,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
+    const filter=`yr=eq.${yr}&nc=eq.${nc}&sc=eq.${sc}&ss=eq.${ss}`;
     const order=`order=dt.asc`;
     const response = await fetch('/edge/read', {
         method: 'POST',
@@ -129,6 +197,8 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
         headers: {'content-type': 'application/json'}
     });
     const res= await response.json();
+
+    console.log(res);
 
     // assess edit status isLock:false && tch of nc/subject or admin required.
     const gps = config.groups.filter(el=>el.nc===nc && el.sc===sc && el.ss===ss);
@@ -138,7 +208,7 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
     //console.log(tch);
    
     for(const g of table) {
-        g.assessments=res.map((el: { id:number,nc: number; sc: string; ss: string; sl: string; n: string; dt: number;dl:string, isLock: boolean; })=>({id:el.id,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:util.getShortDate(el.dl),isEdit:tch.includes(user.name) && !el.isLock,gd:'',r:0}));
+        g.assessments=res.map((el: { id: any; yr: any; nc: any; sc: any; ss: any; sl: any; n: any; dt: any; dl: string; isLock: any; })=>({id:el.id,yr:el.yr,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:util.getShortDate(el.dl),isEdit:tch.includes(user.name) && !el.isLock,gd:'',r:0}));
         // add pupil grades, intake data
         for(const p of g.pupil) {
             const f=config.pupils.find(el=>el.pid===p.pid);
@@ -167,15 +237,15 @@ export const getTable=async (nc:number,sc:string,ss:string) : Promise<TableRow[]
         // intake overall averages
         const A = g.pupil.filter(el=>el.overall.A>0).map(el=>el.overall.A);
         const B = g.pupil.filter(el=>el.overall.B>0).map(el=>el.overall.B);
-        if(A.length) g.overall.A = A.reduce((a,b) => a+b) / A.length;
-        if(B.length) g.overall.B = B.reduce((a,b) => a+b) / B.length;
+        g.overall!.A = A.length ? A.reduce((a,b) => a+b) / A.length : 0;
+        g.overall!.B = B.length ? B.reduce((a,b) => a+b) / B.length : 0;
         
         
 
 
     }
 
-    //console.log('ASSESSMENT TABLE',table);
+    console.log('ASSESSMENT TABLE',table);
 
     return table;
 };

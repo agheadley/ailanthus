@@ -46,7 +46,7 @@
             cohorts.subject.index = i > -1 ? i : 0;
         }
 
-        data.table = await assessment.getTable(cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
+        data.table = await assessment.getTable(cohorts.subject.list[cohorts.subject.index].yr,cohorts.subject.list[cohorts.subject.index].nc,cohorts.subject.list[cohorts.subject.index].sc,cohorts.subject.list[cohorts.subject.index].ss); 
      
         data.std=util.getStd( cohorts.nc.list[ cohorts.nc.index].nc);
         //$state.snapshot(data.table);
@@ -86,6 +86,7 @@
         cohorts.edit = {
             id:data.table[groupIndex].assessments[colIndex].id,
             nc:data.table[groupIndex].assessments[colIndex].nc,
+            yr:data.table[groupIndex].assessments[colIndex].yr,
             sc:data.table[groupIndex].assessments[colIndex].sc,
             ss:data.table[groupIndex].assessments[colIndex].ss,
             sl:data.table[groupIndex].assessments[colIndex].sl,
@@ -159,8 +160,8 @@
                     </select>
                 </span>
            <span class="spacer">
-                <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>
-                 <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
+                <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>&nbsp;
+                 <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>&nbsp;
                 <a data-title="ARCHIVE" href={'/assessments/archive'}>{@html icon.archive(24)}</a>
                
             </span>
