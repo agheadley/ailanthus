@@ -106,7 +106,7 @@ interface TableRow {
     sl?:string,
     g?:string,
     assessments:{id:number,yr:number,nc:number,sc:string,ss:string,sl:string,n:string,dt:number,ds:string,isEdit:boolean,gd:string,r:number}[],
-    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number}, pre?:{A:number,B:number},results:{gd:string,r:number}[]}[],
+    pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number}, pre?:{A:number,B:number,sc?:string,ss?:string},results:{gd:string,r:number}[]}[],
     overall?:{A:number,B:number}
 
 };
@@ -128,33 +128,36 @@ export const getArchiveTable = async (yr:number,nc:number,sc:string,ss:string) :
         body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
         headers: {'content-type': 'application/json'}
     });
-    let res= await response.json();
-    table.assessments =res.map((el: { id: any; n: any; dl: string; dt: any; t: any; sc: any; sl: any; nc: any; yr: any; })=>({id:el.id,n:el.n,ds:util.getShortDate(el.dl),dt:el.dt,t:el.t,sc:el.sc,ss:el.sc,sl:el.sl,nc:el.nc,yr:el.yr,gd:'',r:0,isEdit:false}))
+    const res= await response.json();
+    table.assessments =res.map((el: { id: number; n: string; dl: string; dt: number;  sc: string; sl: string; nc: number; yr: number;t:{p:string,t:number,w:number}[],gd:{sc:string,gd:string,pc:number,pre:number}[] })=>({id:el.id,n:el.n,ds:util.getShortDate(el.dl),dt:el.dt,t:el.t,sc:el.sc,ss:el.sc,sl:el.sl,nc:el.nc,yr:el.yr,gd:el.gd,r:0,isEdit:false}))
         .sort((a: { dt: number; },b: { dt: number; })=>a.dt-b.dt);
 
-    console.log(table);
-    console.log(res);
+    //console.log(table);
+    //console.log(res);
 
-    let  pupils = res.map((el: { result_table: any; })=>el.result_table).flat().map((el: { pid: any; sn: any; pn: any; })=>({pid:el.pid,sn:el.sn,pn:el.pn}));
+    let  pupils = res.map((el: { result_table: {id:number,log:string,aid:number,g:string,t:number[],gd:string,pc:number,fb:string,pid:number,sn:string,pn:string}[] })=>el.result_table).flat().map((el: { pid: number; sn: string; pn: string; })=>({pid:el.pid,sn:el.sn,pn:el.pn}));
     pupils = util.unique(pupils,['pid']);
 
-    table.pupil=pupils.map((el: { pid: any; sn: any; pn: any; })=>({pid:el.pid,sn:el.sn,pn:el.pn,overall:{A:0,B:0},pre:{A:0,B:0},results:[]}))
-        .sort((a: { sn: string; pn: string; },b: { sn: any; pn: any; })=>a.sn.localeCompare(b.sn)-a.pn.localeCompare(b.pn));
+    table.pupil=pupils.map((el: { pid: number; sn: string; pn: string; })=>({pid:el.pid,sn:el.sn,pn:el.pn,overall:{A:0,B:0},pre:{A:0,B:0},results:[]}))
+        .sort((a: { sn: string; pn: string; },b: { sn: string; pn: string; })=>a.sn.localeCompare(b.sn)-a.pn.localeCompare(b.pn));
 
     
     response = await fetch('/edge/read', {
         method: 'POST',
-        body: JSON.stringify({table:"intake_table",select:"*",filter:`yr=eq.${cohorts.exam.list[cohorts.exam.index].yr}&nc=eq.${cohorts.exam.list[cohorts.exam.index].nc}`}),
+        body: JSON.stringify({table:"intake_table",select:"*",filter:`yr=eq.${cohorts.archive.subjects[cohorts.archive.sIndex].yr}&nc=eq.${cohorts.archive.subjects[cohorts.archive.sIndex].nc}`}),
         headers: {'content-type': 'application/json'}
     });
     const i:IntakeTable[]= await response.json();
 
-    const overall : {pid:number,A:number,B:number}[]= i.map((el: { base: any[]; pid: any; pre:any[]})=>el.base.map((b: { type: any; A: any; B: any; })=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
+    //console.log(i);
+    const overall : {pid:number,type:string,A:number|null,B:number|null}[]= i.filter(el=>el.base!==null).map((el)=>el.base.map((b)=>({pid:el.pid,type:b.type,A:b.A,B:b.B})))
     .flat().filter((el: { type: string; })=>el.type==="overall");
-    const pre:{pid:number,A:number,B:number,sc:string,ss:string}[]= i.map((el: { base: any[]; pid: any;pre:any[] })=>el.pre.map((b: { sc: any; ss: any; A: any; B: any; })=>({pid:el.pid,sc:b.sc,ss:b.ss,A:b.A,B:b.B})))
-    .flat().filter((el: { sc: string; ss: any; })=>el.sc===sc && el.ss===el.ss);
 
-    console.log(overall,pre)
+    const pre:{pid:number,A:number|null,B:number|null,sc:string,ss:string}[]= i.filter(el=>el.pre!==null).map(el=>el.pre.map((b)=>({pid:el.pid,sc:b.sc,ss:b.ss,A:b.A,B:b.B})))
+    .flat().filter(el=>el.sc===sc && el.ss===ss);
+    //const pre:{pid:number,A:number|null,B:number|null,sc:string,ss:string}[]=[];
+
+    //console.log(overall,pre);
 
     
     for(const p of table.pupil) {
@@ -208,7 +211,7 @@ export const getTable=async (yr:number,nc:number,sc:string,ss:string) : Promise<
     //console.log(tch);
    
     for(const g of table) {
-        g.assessments=res.map((el: { id: any; yr: any; nc: any; sc: any; ss: any; sl: any; n: any; dt: any; dl: string; isLock: any; })=>({id:el.id,yr:el.yr,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:util.getShortDate(el.dl),isEdit:tch.includes(user.name) && !el.isLock,gd:'',r:0}));
+        g.assessments=res.map((el: { id: number; yr: number; nc: number; sc: string; ss: string; sl: string; n: string; dt: number; dl: string; isLock: boolean; })=>({id:el.id,yr:el.yr,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:util.getShortDate(el.dl),isEdit:tch.includes(user.name) && !el.isLock,gd:'',r:0}));
         // add pupil grades, intake data
         for(const p of g.pupil) {
             const f=config.pupils.find(el=>el.pid===p.pid);
