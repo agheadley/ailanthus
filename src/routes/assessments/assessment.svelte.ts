@@ -169,7 +169,18 @@ export const getArchiveTable = async (yr:number,nc:number,sc:string,ss:string) :
         
     };
 
-    console.log(table);
+    
+    for(const p of table.pupil) {
+        for(const a of table.assessments) {
+            const f=res.find((el: { id: number; })=>el.id===a.id);
+            const r=f?.result_table.find((el: { pid: number; })=>el.pid===p.pid);
+            p.results.push(r?{gd:r.gd,r:0}:{gd:'X',r:0});
+        }
+        for(let i=0;i<p.results.length;i++) 
+            p.results[i].r=util.findGradeResidual(sc,p.results[0].gd,p.results[i].gd);
+    }
+
+    //console.log(table);
 
 
     return table;

@@ -3,15 +3,20 @@
     import {config,user,cohorts} from '$lib/state.svelte';
     import {alert} from '$lib/state.svelte';
     import * as assessments from '../assessment.svelte';
+    import * as util from '$lib/util';
+    import * as chart from '$lib/chart';
+    import * as icon from '$lib/icon';
    
     interface Data {
         assessments: { id:number,n: string; dl: string; dt: number; t: {t:number,w:number,p:string}[]; gd: {sc:string,gd:string,pc:number,pre:number}[]; sc: string; ss: string; sl: string; nc: number; yr: number; }[];
-        table:any
+        table:any,
+        std:{A:string,B:string}
     }
 
     const data : Data = $state({
         assessments:[],
-        table:[]
+        table:[],
+        std:{A:'',B:''}
     });
 
     let updateTable=async(type?:string):Promise<void>=>{
@@ -23,8 +28,15 @@
         }
 
         let s = cohorts.archive.subjects[cohorts.archive.sIndex];
+
+        data.std=util.getStd( cohorts.archive.subjects[cohorts.archive.sIndex].nc);
+
+
         data.table=assessments.getArchiveTable(s.yr,s.nc,s.sc,s.ss);
        
+      
+
+
 
         //console.log(data.assessments);
     
@@ -73,11 +85,36 @@
     <figure>
 
         <table class="small">
-            
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Intake</th>
+                    <th></th>
+                    <th>Predictions</th>
+                    <th></th>
+                    {#each data.table.assessments as col}
+                    <th></th>
+                    {/each}
+
+               </tr>
+                <tr>
+                    <th></th>
+                    <th>{data.std.A}</th>
+                    <th>{data.std.B}</th>
+                    <th>{data.std.A}</th>
+                    <th>{data.std.B}</th>
+                    {#each data.table.assessments as col}
+                    <th>{col.n}</th>
+                    {/each}
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+
+
         </table>
-
-
-
     </figure>
 
 

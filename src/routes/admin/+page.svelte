@@ -94,7 +94,48 @@ const createIntake=async()=>{
 
 };
 
+const addPre=async()=>{
+    let response = await fetch('/edge/read', {
+		method: 'POST',
+		body: JSON.stringify({table:"pupil_table",select:"*"}),
+		headers: {'content-type': 'application/json'}
+	});
+	const pupils= await response.json();
+    
+    response = await fetch('/edge/read', {
+		method: 'POST',
+		body: JSON.stringify({table:"intake_table",select:"*"}),
+		headers: {'content-type': 'application/json'}
+	});
+	const i= await response.json();
 
+    let d=[];
+
+    for(const item of i.filter((el: { pre: null; })=>el.pre===null)) {
+        let t=item.nc>11 ? 'A' : 'M';
+        let p=pupils.find((el: { pid: any; yr: any; nc: any; })=>el.pid===item.pid && el.yr===item.yr && el.nc===item.nc);
+        if(p) {
+            let line:any={id:item.id,test:item.test!==null ? item.test : t,pre:[]};
+            let x=util.random(0,p.length-1);
+            console.log(item.pid,p.groups);
+            for(const g of p.groups) {
+                line.pre.push({sc:g.sc,ss:g.ss,A:g.pre.A,B:g.pre.B});
+            }
+            d.push(line);
+        } else console.log('ERROR WITH DATA',item.pid);
+    }
+
+    console.log(d);
+
+    response = await fetch('/api/upsert', {
+		method: 'POST',
+		body: JSON.stringify({table:"intake_table",data:d}),
+		headers: {'content-type': 'application/json'}
+	});
+	const res= await response.json();
+    console.log(d);
+
+};
 
 
 $effect(() => {
@@ -144,9 +185,10 @@ $effect(() => {
 
 
 <article>
-    <h4>Create Fake 2012 Intake Data</h4>
+    <h4>Create Fake Intake Data</h4>
     <p class="notice">Careful - only run once!</p>
     <button disabled onclick={createIntake}>Create</button>
+    <button  disabled onclick={addPre}>Add Preds</button>
 </article>
 
 <style>
