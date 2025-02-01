@@ -180,7 +180,7 @@ export const getArchiveTable = async (yr:number,nc:number,sc:string,ss:string) :
             p.results[i].r=util.findGradeResidual(sc,p.results[0].gd,p.results[i].gd);
     }
 
-    //console.log(table);
+    console.log(table);
 
 
     return table;

@@ -185,8 +185,8 @@
                 {#each data.table as group,groupIndex}
                 <tr>
                     <th></th>
-                    <th>{data.std.A}</th>
-                    <th>{data.std.B}</th>
+                    <th> {@html chart.getAssessmentTitle(data.std.A,"Intake")}</th>
+                    <th> {@html chart.getAssessmentTitle(data.std.B,"Intake")}</th>
                     {#each group.assessments as col,colIndex}
                         <th>
                             <a data-title={col.isEdit ? 'EDIT' : 'VIEW'} href={'javascript:void(0)'} onclick={()=>openEdit(groupIndex,colIndex)}>{@html col.isEdit ? icon.edit() : icon.view()}</a>

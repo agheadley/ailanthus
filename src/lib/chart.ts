@@ -1,10 +1,20 @@
 import {config} from '$lib/state.svelte';
 
 export const getIntakeBar=(scr:number,std:string):string=>{
+
+    let band='X';
+    const scrs:{scr:number,band:string}[]=[{scr:110,band:"A"},{scr:100,band:"B"},{scr:90,band:"C"},{scr:0,band:"D"}];
+    if(scr!==null && scr>0) {
+        const f=scrs.find(el=>scr>el.scr);
+        band=f? f.band : 'X';
+    }
     let txt=`<svg width="2.5rem" height="1.25rem" viewbox="0 0 50 25" xmlns="http://www.w3.org/2000/svg">`;
     txt+=`<g>`;
     txt+=` <rect x="0" y="12" width="50" height="8" fill='#ddd'></rect>`;
     txt+=`<text x="0" y="10" font-size="10" font-weight="600" fill='#333'>${std==='GCSE'?String(Math.round(10*scr)/10):String(Math.round(scr))}</text>`;
+    if(std!=='GCSE') {
+        txt+=`<text x="40" y="10" font-size="10" font-weight="600" fill='#333'>${band}</text>`;
+    }
     if(std==='GCSE') {
         txt+=` <rect x="0" y="12" width=${50*scr/9} height="8" fill='#1E90FF88'></rect>`;
     } else {
