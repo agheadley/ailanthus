@@ -6,6 +6,7 @@
     import * as util from '$lib/util';
     import * as chart from '$lib/chart';
     import * as icon from '$lib/icon';
+    import * as file from '$lib/file';
    
     interface TableRow {
         nc?:number,
@@ -53,6 +54,56 @@
     };
    
     
+    let download = async(index:number):Promise<void> => {
+        //console.log(data.table.assessments[index]);
+        const select=`select=id,nc,yr,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
+        const filter=`id=eq.${data.table.assessments[index].id}`;
+
+        let response = await fetch('/edge/read', {
+            method: 'POST',
+            body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
+            headers: {'content-type': 'application/json'}
+        });
+        const res= await response.json();
+        console.log(res);
+
+        const csv:string[][]=[['n','dl','nc','yr','pid','sn','pn','g','t','gd','pc','fb','log']];
+        if(res?.[0].result_table?.[0]) {
+            res[0].result_table.forEach((row:any)=>{
+                csv.push([res[0].n,res[0].dl,res[0].nc,res[0].yr,row.pid,row.sn,row.pn,row.g,`[${row.t.toString()}]`,row.gd,row.pc,row.fb,row.log]);
+            });
+        }
+        if(res?.[0].gd?.[0] && !res?.[0].isGrade) {
+            csv.push(['gd','pc']);
+            res[0].gd.forEach((row:any)=>{
+                csv.push([row.gd,row.pc]);
+            });
+        }
+        if(res?.[0].t?.[0] && !res?.[0].isGrade) {
+            csv.push(['p','t','w']);
+            res[0].t.forEach((row:any)=>{
+                csv.push([row.p,row.t,row.w]);
+            });
+        }
+
+
+        file.csvDownload(csv,'ARCHIVE.csv');
+
+
+
+    };
+
+    let downloadAll = ():void =>{
+        const csv:string[][]=[[String(cohorts.archive.subjects[cohorts.archive.sIndex].nc)+'/'+String(cohorts.archive.subjects[cohorts.archive.sIndex].yr),'','',...data.table.assessments.map(el=>`${el.n} ${el.ds}`)]];
+        data.table.pupil.forEach((row:any)=>{
+            let r = [row.pid,row.sn,row.pn];
+            row.results.forEach((col:any)=>{
+                r.push(col.gd);
+            });
+            csv.push(r);
+        });
+        file.csvDownload(csv,'ARCHIVE-OVERALL.csv');
+    };
     
     
     $effect(() => {
@@ -86,11 +137,13 @@
                     {/each}
                 </select>
                 </span>
+                <span class="spacer">
+                    <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={downloadAll}>{@html icon.download(24)}</a>&nbsp;
+              
+                </span>
         </fieldset>
 
-        {#each data.table.assessments as row}
-            <p>{row.id},{row.n},{row.ds}</p>
-        {/each}
+        
 
     <figure>
 
@@ -104,8 +157,11 @@
                     <th> {@html chart.getAssessmentTitle(data.std.B,"Intake")}</th>
                     <th> {@html chart.getAssessmentTitle(data.std.A,"Prediction")}</th>
                     <th> {@html chart.getAssessmentTitle(data.std.B,"Prediction")}</th>
-                    {#each data.table.assessments as col}
-                    <th> {@html chart.getAssessmentTitle(col.n,col.ds)}</th>
+                    {#each data.table.assessments as col,colIndex}
+                    <th>
+                        <a data-title={'DOWNLOAD'} href={'javascript:void(0)'} onclick={()=>download(colIndex)}>{@html icon.download()}</a> 
+                        {@html chart.getAssessmentTitle(col.n,col.ds)}
+                    </th>
                     {/each}
                 </tr>
             </thead>
@@ -115,6 +171,11 @@
                         <td>{row.sn} {row.pn}</td>
                         <td>{@html chart.getIntakeBar(row.overall.A,data.std.A)}</td>
                         <td>{@html chart.getIntakeBar(row.overall.B,data.std.B)}</td>
+                        <td>{row!.pre!.A}</td>
+                        <td>{row!.pre!.B}</td>
+                        {#each row.results as col,colIndex}
+                            <td>{@html chart.getGrade(colIndex===0 ? false : true,col.gd,col.r)}</td>
+                        {/each}
                     </tr>
                 {/each}
 
@@ -125,7 +186,7 @@
         </table>
     </figure>
 
-    <p>{JSON.stringify(data)}</p>
+   
 
 
     <style>

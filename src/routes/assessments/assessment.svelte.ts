@@ -166,6 +166,9 @@ export const getArchiveTable = async (yr:number,nc:number,sc:string,ss:string) :
         p.pre = p.pre || { A: 0, B: 0 };
         p.pre.A = pre.find((el: { pid: number; })=>el.pid===p.pid)?.A || 0;
         p.pre.B = pre.find((el: { pid: number; })=>el.pid===p.pid)?.B || 0;
+        p.pre.A = Math.round(10*p.pre.A)/10;
+        p.pre.B = Math.round(10*p.pre.B)/10;
+        
         
     };
 
