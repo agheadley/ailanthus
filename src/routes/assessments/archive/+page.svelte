@@ -94,9 +94,9 @@
     };
 
     let downloadAll = ():void =>{
-        const csv:string[][]=[[String(cohorts.archive.subjects[cohorts.archive.sIndex].nc)+'/'+String(cohorts.archive.subjects[cohorts.archive.sIndex].yr),'','',...data.table.assessments.map(el=>`${el.n} ${el.ds}`)]];
+        const csv:string[][]=[[String(cohorts.archive.subjects[cohorts.archive.sIndex].nc)+'/'+String(cohorts.archive.subjects[cohorts.archive.sIndex].yr),'','',`${data.std.A}/${data.std.A!=='GCSE' ? 'Band' : 'AvgGCSE'}`,`${data.std.B}/${data.std.B!=='GCSE' ? 'Band' : 'AvgGCSE'}`,`${data.std.A}/Pred`,`${data.std.B}/Pred`,...data.table.assessments.map(el=>`${el.n} ${el.ds}`)]];
         data.table.pupil.forEach((row:any)=>{
-            let r = [row.pid,row.sn,row.pn];
+            let r = [row.pid,row.sn,row.pn,data.std.A!=='GCSE' ? util.getBand(row.overall.A): row.overall.A,data.std.B!=='GCSE' ? util.getBand(row.overall.B):row.overall.B,row.pre.A,row.pre.B];
             row.results.forEach((col:any)=>{
                 r.push(col.gd);
             });
