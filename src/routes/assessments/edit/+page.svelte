@@ -6,6 +6,7 @@ import * as util from '$lib/util';
 import Modal from '$lib/_Modal.svelte';
 import * as chart from '$lib/chart';
 import * as icon from '$lib/icon';
+import * as file from '$lib/file'
 import Manage from './Manage.svelte';
 
 interface Data  {
@@ -14,7 +15,6 @@ interface Data  {
     std:{A:string,B:string}
     view:'group'|'all',
     isIntake:boolean,
-    isDownload:boolean,
     isManage:boolean,
     isLock:boolean,
     rowIndex:number,
@@ -27,7 +27,6 @@ let data : Data = $state({
     std:{A:'',B:''},
     view:'group',
     isIntake:false,
-    isDownload:false,
     isManage:false,
     isLock:false,
     rowIndex:0,
@@ -228,6 +227,39 @@ const openIntake=(rowIndex:number):void=>{
     data.isIntake=true;
 };
 
+let download=():void=>{
+    //console.log(data.assessment);
+    const e=`${cohorts.edit.sl}/${cohorts.edit.nc}/${cohorts.edit.yr}`;
+    let csv:string[][]=[data?.assessment?.isGrade ? [e,'pid','sn','pn','g','gd'] : [e,'pid','sn','pn','g','t','pc','gd','fb']];
+    data.results.forEach((row:any)=>{
+        csv.push(data?.assessment?.isGrade ?
+            [row.pid,row.sn,row.pn,row.g,row.gd] :
+            [row.pid,row.sn,row.pn,row.g,`[${row.t.toString()}]`,row.pc,row.gd,row.fb]
+        );
+    });
+
+    file.csvDownload(csv,'RESULTS.csv');
+
+};
+
+let scatter=():void=>{
+    let gs=[... new Set(data.results.map(el=>el.g))];
+    let csv:string[][]=[['pc','gd',...gs]];
+    const res=data.results.map(el=>({g:el.g,pid:el.pid,n:`${el.sn} ${el.pn}`,pc:el.pc,gd:el.gd}))
+        .sort((a,b)=>b.pc-a.pc);
+    res.forEach((row:any)=>{
+        let r=[row.pc,row.gd];
+        gs.forEach((g:string)=>{
+            r.push(row.g===g ? row.n : '');
+        });
+        csv.push(r);
+    });
+
+    console.log(csv);
+
+    file.csvDownload(csv,'SCATTER.csv');
+};
+
 $effect(() => {
         (async () => {
           
@@ -373,7 +405,11 @@ let handleKeydown=(event:any)=>{
       
     </span>
     <span class="spacer">
-        <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={()=>data.isDownload=true}>{@html icon.download(24)}</a>
+        <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>
+        
+    </span>
+    <span class="spacer">
+        <a data-title="SCATTER" href={'javascript:void(0)'} onclick={scatter}>{@html icon.layers(24)}</a>
         
     </span>
     <span class="spacer">

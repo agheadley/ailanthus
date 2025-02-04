@@ -141,6 +141,10 @@
                     <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={downloadAll}>{@html icon.download(24)}</a>&nbsp;
               
                 </span>
+                <span class="spacer">
+                    <button onclick={()=>goto('/assessments')}>Back</button>
+                  
+                </span>
         </fieldset>
 
         
