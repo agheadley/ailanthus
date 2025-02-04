@@ -67,22 +67,22 @@
         const res= await response.json();
         console.log(res);
 
-        const csv:string[][]=[['n','dl','nc','yr','pid','sn','pn','g','t','gd','pc','fb','log']];
+        const csv:string[][]=[[String(cohorts.archive.subjects[cohorts.archive.sIndex].sl),'n','dl','nc','yr','pid','sn','pn','g','t','gd','pc','fb','log']];
         if(res?.[0].result_table?.[0]) {
             res[0].result_table.forEach((row:any)=>{
-                csv.push([res[0].n,res[0].dl,res[0].nc,res[0].yr,row.pid,row.sn,row.pn,row.g,`[${row.t.toString()}]`,row.gd,row.pc,row.fb,row.log]);
+                csv.push(['',res[0].n,res[0].dl,res[0].nc,res[0].yr,row.pid,row.sn,row.pn,row.g,`[${row.t.toString()}]`,row.gd,row.pc,row.fb,row.log]);
             });
         }
         if(res?.[0].gd?.[0] && !res?.[0].isGrade) {
-            csv.push(['gd','pc']);
+            csv.push(['','gd','pc']);
             res[0].gd.forEach((row:any)=>{
-                csv.push([row.gd,row.pc]);
+                csv.push(['',row.gd,row.pc]);
             });
         }
         if(res?.[0].t?.[0] && !res?.[0].isGrade) {
-            csv.push(['p','t','w']);
+            csv.push(['','p','t','w']);
             res[0].t.forEach((row:any)=>{
-                csv.push([row.p,row.t,row.w]);
+                csv.push(['',row.p,row.t,row.w]);
             });
         }
 
@@ -94,7 +94,7 @@
     };
 
     let downloadAll = ():void =>{
-        const csv:string[][]=[[String(cohorts.archive.subjects[cohorts.archive.sIndex].nc)+'/'+String(cohorts.archive.subjects[cohorts.archive.sIndex].yr),'','',`${data.std.A}/${data.std.A!=='GCSE' ? 'Band' : 'AvgGCSE'}`,`${data.std.B}/${data.std.B!=='GCSE' ? 'Band' : 'AvgGCSE'}`,`${data.std.A}/Pred`,`${data.std.B}/Pred`,...data.table.assessments.map(el=>`${el.n} ${el.ds}`)]];
+        const csv:string[][]=[[String(cohorts.archive.subjects[cohorts.archive.sIndex].sl)+'/'+String(cohorts.archive.subjects[cohorts.archive.sIndex].nc)+'/'+String(cohorts.archive.subjects[cohorts.archive.sIndex].yr),'','',`${data.std.A}/${data.std.A!=='GCSE' ? 'Band' : 'AvgGCSE'}`,`${data.std.B}/${data.std.B!=='GCSE' ? 'Band' : 'AvgGCSE'}`,`${data.std.A}/Pred`,`${data.std.B}/Pred`,...data.table.assessments.map(el=>`${el.n} ${el.ds}`)]];
         data.table.pupil.forEach((row:any)=>{
             let r = [row.pid,row.sn,row.pn,data.std.A!=='GCSE' ? util.getBand(row.overall.A): row.overall.A,data.std.B!=='GCSE' ? util.getBand(row.overall.B):row.overall.B,row.pre.A,row.pre.B];
             row.results.forEach((col:any)=>{

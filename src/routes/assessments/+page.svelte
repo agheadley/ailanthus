@@ -7,6 +7,7 @@
     import * as util from '$lib/util';
     import Modal from '$lib/_Modal.svelte';
     import Create from './Create.svelte';
+	import * as file from '$lib/file';
 
     let data : any = $state({
         table:[],
@@ -17,8 +18,60 @@
 
     });
 
+    interface TableRow {
+        nc?:number,
+        sc?:string,
+        ss?:string,
+        sl?:string,
+        g?:string,
+        assessments:{id:number,yr:number,nc:number,sc:string,ss:string,sl:string,n:string,dt:number,ds:string,isEdit:boolean,gd:string,r:number}[],
+        pupil:{pid:number,sn:string,pn:string,overall:{A:number,B:number}, pre?:{A:number,B:number,sc?:string,ss?:string},results:{gd:string,r:number}[]}[],
+        overall?:{A:number,B:number}
+
+    };
+
+/*
+ `${data.std.A}/${data.std.A!=='GCSE' ? 'Band' : 'AvgGCSE'}`,
+            `${data.std.B}/${data.std.B!=='GCSE' ? 'Band' : 'AvgGCSE'}`,
+           
+*/
+
     let download=():void=>{
-    
+        const s= cohorts.subject.list[cohorts.subject.index];
+
+        let csv:string[][] =[[
+            `${s.sl}/${String(s.nc)}/${String(s.yr)}`,'','',
+            `${data.std.A}/${data.std.A!=='GCSE' ? 'Band' : 'AvgGCSE'}`,
+            `${data.std.B}/${data.std.B!=='GCSE' ? 'Band' : 'AvgGCSE'}`,
+            '',
+            ... data.table[0].assessments.map((el: { n: string; ds: string; })=>`${el.n}/${el.ds}`)
+        
+        ]];
+
+        data.table.forEach((group:any)=>{
+            csv.push([
+                '','','',
+                data.std.A!=='GCSE' ? util.getBand(group.overall.A) : group.overall.A,
+                data.std.B!=='GCSE' ? util.getBand(group.overall.B) : group.overall.B,
+                group.g,
+                ...group.assessments.map((el: { gd: string; })=>el.gd)
+
+            ]);
+            group.pupil.forEach((row:any)=>{
+                csv.push([row.pid,row.sn,row.pn,
+                    data.std.A!=='GCSE' ? util.getBand(row.overall.A) : row.overall.A,
+                    data.std.B!=='GCSE' ? util.getBand(row.overall.B) : row.overall.B,
+                    group.g,
+                    ...row.results.map((el: { gd: string; })=>el.gd)
+                ])
+            });
+
+        });
+
+
+
+        file.csvDownload(csv,'ASSESSMENTS.csv');
+
     }
 
   
