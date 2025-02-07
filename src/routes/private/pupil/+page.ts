@@ -8,7 +8,7 @@ import {usr,config} from '$lib/state.svelte';
 export const load: PageLoad = ({ params }) => {
     
       
-    if(!usr.isPupil || config.isReady===false) redirect(302, '/');
+    if(!usr.isPupil || config.isReady===false) redirect(302, '/private');
     else {
         console.log('/pupil');
         const msg=`usr ${usr.name!=='' ? usr.name : ''} ${usr.isTeacher ? 'TEACHER' : ''} ${usr.isAdmin ? 'ADMIN' : ''} ${usr.isPupil ? 'PUPIL' : ''}`;

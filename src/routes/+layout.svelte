@@ -1,4 +1,6 @@
 <script lang="ts">
+
+
 	import '../app.css';
 	import Alert from '$lib/_Alert.svelte';
 	import {usr} from '$lib/state.svelte';
@@ -7,15 +9,41 @@
 	 import { invalidate } from '$app/navigation'
   	import { onMount } from 'svelte'
 
-	
+	  let isExam:boolean = $state(false);
+
+   
+	  const logout = async () => {
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        console.error(error)
+      } else {
+        goto('/auth');
+        usr.name='';
+        usr.isAdmin=false;
+        usr.isTeacher=false;
+        usr.isPupil=false;
+      }
+      
+    }
+
+const switchMenu=()=>{
+  isExam = isExam===true ? false : true;
+  if(isExam) goto('/private/results');
+  else goto('/private/assessments'); 
+};
+
+const reload=()=>{
+  isExam=false;
+  goto('/assessments'); 
+};
+
+
 
 	  let { data,children } = $props();
 	  let { session, supabase } = $derived(data)
 
 	
-	  const reload=()=>{
 
-	  };
 
 </script>
 
@@ -24,45 +52,38 @@
 	<Alert></Alert>
 	<div class="container">
 	<header>
-		
-			<div><a class="brand" href={'javascript:void(0)'} onclick={reload}>Ailanthus</a></div>
-			<div>
-				<!--
-				<span>
-					{usr.name}  
-					{#if usr.isAdmin}admin{:else if usr.isTeacher}teacher{:else}pupil{/if}
-				</span>
-				&nbsp;&nbsp;<a data-title="LOGOUT" href={'#'}>{@html icon.logout(24)}</a>
-				-->
-			</div>
-		
-		<nav>
-			<!--
-			{#if usr.isTeacher}
-				{#if !isExam}
-					<a href="/assessments">Assessments</a>
-					<a href="/overview">Overview</a>
-					<a href="/reports">Reports</a>
-				{:else}
-					<a href="/results">Results</a>
-					<a href="/totals">Totals</a>
-					<a href="/va">Value Added</a>
-				{/if}
-				
-		
-			{/if}
-			{#if usr.isAdmin}
-					<a href="/admin">Admin</a>
-			{/if}
-			{#if usr.isTeacher}
-				<button onclick={switchMenu}>{#if isExam}Internal{:else}Exams{/if}</button>
-			{/if}
-				
-			{#if usr.isPupil}
-			<a href="/">Pupil</a>
-			{/if}
-			-->
-		  </nav>
+		<p></p>
+		<p><a class="brand" href={'javascript:void(0)'} onclick={reload} >Ailanthus</a></p>
+		<p>
+        
+          {#if usr.name!==''}<span class="spacer">{usr.name}</span><button onclick={logout}>Sign out {@html icon.logout(16)}</button>{/if}
+        </p>
+      
+      <nav>
+        {#if usr.isTeacher}
+          {#if !isExam}
+            <a href="/private/assessments">Assessments</a>
+            <a href="/private/overview">Overview</a>
+            <a href="private/reports">Reports</a>
+          {:else}
+            <a href="private/results">Results</a>
+            <a href="private/totals">Totals</a>
+            <a href="/private/va">Value Added</a>
+          {/if}
+          
+      
+        {/if}
+        {#if usr.isAdmin}
+            <a href="/private/admin">Admin</a>
+        {/if}
+        {#if usr.isTeacher}
+          <button onclick={switchMenu}>{#if isExam}Internal{:else}Exams{/if}</button>
+        {/if}
+          
+        {#if usr.isPupil}
+        <a href="/private/pupil">Pupil</a>
+        {/if}
+        </nav>
 	  </header>
 	
 	  	<main>
