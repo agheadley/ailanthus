@@ -1,24 +1,21 @@
 <script lang="ts">
 	import '../app.css';
 	import Alert from '$lib/_Alert.svelte';
-	import {user} from '$lib/state.svelte';
+	import {usr} from '$lib/state.svelte';
 	import * as icon from '$lib/icon';
 	import {goto} from '$app/navigation';
+	 import { invalidate } from '$app/navigation'
+  	import { onMount } from 'svelte'
 
-	let isExam:boolean = $state(false);
+	
 
-	let { children } = $props();
+	  let { data,children } = $props();
+	  let { session, supabase } = $derived(data)
 
-	let switchMenu=()=>{
-		isExam = isExam===true ? false : true;
-		if(isExam) goto('/results');
-		else goto('/assessments'); 
-	};
+	
+	  const reload=()=>{
 
-	const reload=()=>{
-		isExam=false;
-		goto('/assessments'); 
-	};
+	  };
 
 </script>
 
@@ -30,14 +27,17 @@
 		
 			<div><a class="brand" href={'javascript:void(0)'} onclick={reload}>Ailanthus</a></div>
 			<div>
+				<!--
 				<span>
 					{user.name}  
 					{#if user.isAdmin}admin{:else if user.isTeacher}teacher{:else}pupil{/if}
 				</span>
 				&nbsp;&nbsp;<a data-title="LOGOUT" href={'#'}>{@html icon.logout(24)}</a>
+				-->
 			</div>
 		
 		<nav>
+			<!--
 			{#if user.isTeacher}
 				{#if !isExam}
 					<a href="/assessments">Assessments</a>
@@ -61,6 +61,7 @@
 			{#if user.isPupil}
 			<a href="/">Pupil</a>
 			{/if}
+			-->
 		  </nav>
 	  </header>
 	
@@ -70,7 +71,7 @@
 		</main>
 	
 	  <footer>
-		<p>Svelte5 - Typescript -  Supabase - <a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a> - Anthony Headley {#if user.isAdmin} - <a href="/testbed">Testbed</a>{/if}</p>
+		<p>Svelte5 - Typescript -  Supabase - <a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a> - Anthony Headley {#if usr.isAdmin} - <a href="/testbed">Testbed</a>{/if}</p>
 	  </footer>
 	</div>
 </div>

@@ -7,6 +7,20 @@
 
 ### Dr Anthony Headley with Supabase postgresSQL, typescript and sveltekit
 
+
+# vercel / supabase
+
+- copy SUPABASE_URL, SUPABASE_ANON_KEY to PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY
+
+```
+vercel link
+vercel env pull .env.development.local
+
+
+```
+
+
+
 # To Do
 
 ### Admin
