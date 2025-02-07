@@ -8,19 +8,7 @@
 
 
    
-  const logout = async () => {
-      const { error } = await supabase.auth.signOut()
-      if (error) {
-        console.error(error)
-      } else {
-        goto('/auth');
-        usr.name='';
-        usr.isAdmin=false;
-        usr.isTeacher=false;
-        usr.isPupil=false;
-      }
-      
-    }
+
 
 
   let { data, children } = $props()

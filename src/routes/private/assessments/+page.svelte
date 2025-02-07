@@ -123,7 +123,7 @@
         //console.log(data.table[0].assessments[index]);
         let id =data.table[0].assessments[index].id;
         let isLock=data.table[0].assessments[index].isEdit ? true : false;
-        const response = await fetch('/api/update', {
+        const response = await fetch('/private/api/update', {
             method: 'POST',
             body: JSON.stringify({table:"assessment_table",id:id,update:{isLock:isLock}}),
             headers: {'content-type': 'application/json'}
@@ -149,7 +149,7 @@
             ds:data.table[groupIndex].assessments[colIndex].ds,
             isEdit:data.table[groupIndex].assessments[colIndex].isEdit
         };
-        goto('/assessments/edit');
+        goto('/private/assessments/edit');
         
     };
  
@@ -215,7 +215,7 @@
            <span class="spacer">
                 <a data-title="CREATE" href={'javascript:void(0)'} onclick={create}>{@html icon.plusCircle(24)}</a>&nbsp;
                  <a data-title="DOWNLOAD" href={'javascript:void(0)'} onclick={download}>{@html icon.download(24)}</a>&nbsp;
-                <a data-title="ARCHIVE" href={'/assessments/archive'}>{@html icon.archive(24)}</a>
+                <a data-title="ARCHIVE" href={'/private/assessments/archive'}>{@html icon.archive(24)}</a>
                
             </span>
         </fieldset>

@@ -51,7 +51,7 @@ export const createAssessment=async(yr:number,nc:number,sc:string,ss:string,n:st
       };
       //console.log(assessmentObj);
   
-      let response = await fetch('/private//api/insert', {
+      let response = await fetch('/private/api/insert', {
           method: 'POST',
           body: JSON.stringify({table:"assessment_table",data:[assessmentObj]}),
           headers: {'content-type': 'application/json'}
@@ -79,7 +79,7 @@ export const createAssessment=async(yr:number,nc:number,sc:string,ss:string,n:st
         }
     }
 
-    response = await fetch('/private//api/insert', {
+    response = await fetch('/private/api/insert', {
         method: 'POST',
         body: JSON.stringify({table:"result_table",data:resultArr}),
         headers: {'content-type': 'application/json'}
@@ -123,7 +123,7 @@ export const getArchiveTable = async (yr:number,nc:number,sc:string,ss:string) :
     const select=`select=id,nc,yr,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
     const filter=`nc=eq.${nc}&yr=eq.${yr}&sc=eq.${sc}&ss=eq.${ss}`;
 
-    let response = await fetch('/private//edge/read', {
+    let response = await fetch('/private/edge/read', {
         method: 'POST',
         body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
         headers: {'content-type': 'application/json'}
@@ -142,7 +142,7 @@ export const getArchiveTable = async (yr:number,nc:number,sc:string,ss:string) :
         .sort((a: { sn: string; pn: string; },b: { sn: string; pn: string; })=>a.sn.localeCompare(b.sn)-a.pn.localeCompare(b.pn));
 
     
-    response = await fetch('/private//edge/read', {
+    response = await fetch('/private/edge/read', {
         method: 'POST',
         body: JSON.stringify({table:"intake_table",select:"*",filter:`yr=eq.${cohorts.archive.subjects[cohorts.archive.sIndex].yr}&nc=eq.${cohorts.archive.subjects[cohorts.archive.sIndex].nc}`}),
         headers: {'content-type': 'application/json'}
@@ -208,7 +208,7 @@ export const getTable=async (yr:number,nc:number,sc:string,ss:string) : Promise<
     const select=`select=id,nc,yr,n,dl,dt,sc,ss,sl,log,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
     const filter=`yr=eq.${yr}&nc=eq.${nc}&sc=eq.${sc}&ss=eq.${ss}`;
     const order=`order=dt.asc`;
-    const response = await fetch('/edge/read', {
+    const response = await fetch('/private/edge/read', {
         method: 'POST',
         body: JSON.stringify({table:'assessment_table',select:select,filter:filter,order:order}),
         headers: {'content-type': 'application/json'}
@@ -278,7 +278,7 @@ export const getEditTable=async():Promise<EditTable>=>{
     const select=`select=id,nc,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
     const filter=`id=eq.${cohorts.edit.id}`;
     
-    const response = await fetch('/private//edge/read', {
+    const response = await fetch('/private/edge/read', {
         method: 'POST',
         body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
         headers: {'content-type': 'application/json'}

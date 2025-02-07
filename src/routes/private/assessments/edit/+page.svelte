@@ -76,7 +76,7 @@ let updateAssessment=async():Promise<void>=>{
         data.assessment.gd=data.assessment.gd.sort((a,b)=>b.pre-a.pre);
 
         
-        let response = await fetch('/api/upsert', {
+        let response = await fetch('/private/api/upsert', {
             method: 'POST',
             body: JSON.stringify({table:"assessment_table",data:{id:data.assessment.id,n:data.assessment.n,gd:data.assessment.gd,t:data.assessment.t}}),
             headers: {'content-type': 'application/json'}
@@ -88,7 +88,7 @@ let updateAssessment=async():Promise<void>=>{
             msg=`error updating assessment`;
             alert.type='error';
         }
-        response = await fetch('/api/upsert', {
+        response = await fetch('/private/api/upsert', {
             method: 'POST',
             body: JSON.stringify({table:"result_table",data:dArr}),
             headers: {'content-type': 'application/json'}
@@ -109,7 +109,7 @@ let updateAssessment=async():Promise<void>=>{
 
 let lockAssessment=async():Promise<void>=>{
 
-    const response = await fetch('/api/update', {
+    const response = await fetch('/private/api/update', {
         method: 'POST',
         body: JSON.stringify({table:"assessment_table",id:data.assessment.id,update:{isLock:true}}),
         headers: {'content-type': 'application/json'}
@@ -148,7 +148,7 @@ const blurScore=async(rowIndex:number,colIndex:number):Promise<void>=>{
         const select=`select=id,t`;
         const filter=`id=eq.${data.results[rowIndex].id}`;
         
-        let response = await fetch('/edge/read', {
+        let response = await fetch('/private/edge/read', {
             method: 'POST',
             body: JSON.stringify({table:'result_table',filter:filter,select:select}),
             headers: {'content-type': 'application/json'}

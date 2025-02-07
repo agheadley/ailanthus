@@ -10,7 +10,7 @@ export const load: PageLoad = ({ params }) => {
       
     if(!usr.isTeacher || config.isReady===false) redirect(302, '/');
     else {
-        console.log('/assessment/archive');
+        console.log('/assessmens/archive');
         const msg=`usr ${usr.name!=='' ? usr.name : ''} ${usr.isTeacher ? 'TEACHER' : ''} ${usr.isAdmin ? 'ADMIN' : ''} ${usr.isPupil ? 'PUPIL' : ''}`;
         
         console.log(msg);
