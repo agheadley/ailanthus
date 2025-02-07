@@ -20,7 +20,7 @@ const checkUser=async()=>{
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="robina" />
+	<meta name="description" content="ailanthus" />
 </svelte:head>
 
 <section>

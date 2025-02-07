@@ -29,8 +29,8 @@
 			<div>
 				<!--
 				<span>
-					{user.name}  
-					{#if user.isAdmin}admin{:else if user.isTeacher}teacher{:else}pupil{/if}
+					{usr.name}  
+					{#if usr.isAdmin}admin{:else if usr.isTeacher}teacher{:else}pupil{/if}
 				</span>
 				&nbsp;&nbsp;<a data-title="LOGOUT" href={'#'}>{@html icon.logout(24)}</a>
 				-->
@@ -38,7 +38,7 @@
 		
 		<nav>
 			<!--
-			{#if user.isTeacher}
+			{#if usr.isTeacher}
 				{#if !isExam}
 					<a href="/assessments">Assessments</a>
 					<a href="/overview">Overview</a>
@@ -51,14 +51,14 @@
 				
 		
 			{/if}
-			{#if user.isAdmin}
+			{#if usr.isAdmin}
 					<a href="/admin">Admin</a>
 			{/if}
-			{#if user.isTeacher}
+			{#if usr.isTeacher}
 				<button onclick={switchMenu}>{#if isExam}Internal{:else}Exams{/if}</button>
 			{/if}
 				
-			{#if user.isPupil}
+			{#if usr.isPupil}
 			<a href="/">Pupil</a>
 			{/if}
 			-->

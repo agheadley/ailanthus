@@ -2,7 +2,7 @@
 
 import * as icon from '$lib/icon';
 import * as chart from '$lib/chart';
-import {cohorts,config,user,alert} from '$lib/state.svelte';
+import {cohorts,config,usr,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import * as results from './results.svelte';
 import * as file from '$lib/file';

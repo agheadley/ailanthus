@@ -1,7 +1,7 @@
 <script lang="ts">
 
 import * as icon from '$lib/icon';
-import {cohorts,config,user,alert} from '$lib/state.svelte';
+import {cohorts,config,usr,alert} from '$lib/state.svelte';
 import ExamCohort from '$lib/_ExamCohort.svelte';
 import type {ExamTable} from '$lib/_db';
 import * as totals from './totals.svelte';

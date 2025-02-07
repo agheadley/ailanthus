@@ -1,6 +1,6 @@
 <script lang="ts">
 import { goto } from '$app/navigation';
-import {user,cohorts,config,alert} from '$lib/state.svelte';
+import {usr,cohorts,config,alert} from '$lib/state.svelte';
 import * as assessment from './../assessment.svelte';
 import * as util from '$lib/util';
 import Modal from '$lib/_Modal.svelte';
@@ -64,9 +64,9 @@ let updateAssessment=async():Promise<void>=>{
         
             let d : {id?:number,aid?:number,t:number[],gd:string,pc:number,g:string,fb:string,log:string,sn?:string,pn?:string,pid?:number}
             if(item.id!==null) 
-                d={id:item.id,t:item.t,pc:item.pc,gd:item.gd,log:`${user.name}|${util.getDateTime()}`,g:item.g,fb:item.fb}
+                d={id:item.id,t:item.t,pc:item.pc,gd:item.gd,log:`${usr.name}|${util.getDateTime()}`,g:item.g,fb:item.fb}
             else 
-                d= {sn:item.sn,pn:item.pn,pid:item.pid,aid:data.assessment.id,t:item.t,pc:item.pc,gd:item.gd,log:`${user.name}|${util.getDateTime()}`,g:item.g,fb:item.fb};
+                d= {sn:item.sn,pn:item.pn,pid:item.pid,aid:data.assessment.id,t:item.t,pc:item.pc,gd:item.gd,log:`${usr.name}|${util.getDateTime()}`,g:item.g,fb:item.fb};
         
             dArr.push(d);
     
@@ -200,9 +200,9 @@ const calculate=async(rowIndex:number):Promise<void>=>{
 
     let d : {id?:number,aid?:number,t:number[],gd:string,pc:number,g:string,fb:string,log:string,sn?:string,pn?:string,pid?:number}
     if(data.results[rowIndex].id!==null) 
-        d={id:data.results[rowIndex].id,t:data.results[rowIndex].t,pc:data.results[rowIndex].pc,gd:data.results[rowIndex].gd,log:`${user.name}|${util.getDateTime()}`,g:data.results[rowIndex].g,fb:data.results[rowIndex].fb}
+        d={id:data.results[rowIndex].id,t:data.results[rowIndex].t,pc:data.results[rowIndex].pc,gd:data.results[rowIndex].gd,log:`${usr.name}|${util.getDateTime()}`,g:data.results[rowIndex].g,fb:data.results[rowIndex].fb}
     else 
-        d= {sn:data.results[rowIndex].sn,pn:data.results[rowIndex].pn,pid:data.results[rowIndex].pid,aid:data.assessment.id,t:data.results[rowIndex].t,pc:data.results[rowIndex].pc,gd:data.results[rowIndex].gd,log:`${user.name}|${util.getDateTime()}`,g:data.results[rowIndex].g,fb:data.results[rowIndex].fb};
+        d= {sn:data.results[rowIndex].sn,pn:data.results[rowIndex].pn,pid:data.results[rowIndex].pid,aid:data.assessment.id,t:data.results[rowIndex].t,pc:data.results[rowIndex].pc,gd:data.results[rowIndex].gd,log:`${usr.name}|${util.getDateTime()}`,g:data.results[rowIndex].g,fb:data.results[rowIndex].fb};
    
     let response = await fetch('/api/upsert', {
 		method: 'POST',

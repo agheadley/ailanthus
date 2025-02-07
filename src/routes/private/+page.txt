@@ -2,7 +2,7 @@
 import { goto } from '$app/navigation';
 import * as icon from '$lib/icon';
 import * as util from '$lib/util';
-import {user,config,cohorts} from '$lib/state.svelte';
+import {usr,config,cohorts} from '$lib/state.svelte';
 
 
 const getCore=async()=>{
@@ -45,15 +45,15 @@ const getCore=async()=>{
 	config.teachers= await response.json();
 	//$state.snapshot(config.teachers);
 
-	// identify user
-	let f= config.teachers.find(el=>el.tid===user.name);
-	user.pn = f ? f.pn : '';
-	user.sn = f ? f.sn: '';
-	user.sal = f ? f.sal : '';
+	// identify usr
+	let f= config.teachers.find(el=>el.tid===usr.name);
+	usr.pn = f ? f.pn : '';
+	usr.sn = f ? f.sn: '';
+	usr.sal = f ? f.sal : '';
 
 	// find sets
 	let gps = config.groups.flatMap(el=>el.teacher.map(t=>({tid:t.tid,sal:t.sal,g:el.g,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.ss})));
-	let g = gps.filter(el=>el.tid===user.name);
+	let g = gps.filter(el=>el.tid===usr.name);
 	cohorts.mySets.index=0;
 	cohorts.mySets.list=g[0] ? g.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
 
@@ -97,7 +97,7 @@ $effect(() => {
 
 	(async () => {
 		await getCore();
-		if(config.isReady && user.isTeacher) {
+		if(config.isReady && usr.isTeacher) {
 			goto(`/assessments`);
 		} else {
 			goto(`/pupil`);
@@ -128,7 +128,7 @@ $effect(() => {
 	</blockquote>
 	{:else}
 	<blockquote>
-		Harvesting core data and obtaining user status ...
+		Harvesting core data and obtaining usr status ...
 	</blockquote>
 	{/if}
 	
@@ -136,7 +136,7 @@ $effect(() => {
 </section>
 
 <!--
-<p>{user.name}</p>
+<p>{usr.name}</p>
 <p>{JSON.stringify(cohorts)}</p>
 -->
 

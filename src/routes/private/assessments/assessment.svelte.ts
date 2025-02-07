@@ -1,4 +1,4 @@
-import {config,cohorts,user} from '$lib/state.svelte';
+import {config,cohorts,usr} from '$lib/state.svelte';
 import * as util from '$lib/util';
 import type {IntakeTable} from '$lib/_db';
 
@@ -34,7 +34,7 @@ export const createAssessment=async(yr:number,nc:number,sc:string,ss:string,n:st
     const gradeArr=config.grade.filter(el=>el.sc===sc).sort((a,b)=>b.pc-a.pc);
 
     const assessmentObj= {
-        log:`${user.name}|${util.getDateTime()}`,
+        log:`${usr.name}|${util.getDateTime()}`,
         nc:nc,
         yr:yr,   //util.getExamYear(nc),
         sc:sc,
@@ -64,7 +64,7 @@ export const createAssessment=async(yr:number,nc:number,sc:string,ss:string,n:st
       for(const group of gps) {
         for(const p of group.pupil) {
             const resultObj={
-                log:`${user.name}|${util.getDateTime()}`,
+                log:`${usr.name}|${util.getDateTime()}`,
                 aid:res.data[0].id,
                 g:group.g,
                 t:[0],
@@ -220,12 +220,12 @@ export const getTable=async (yr:number,nc:number,sc:string,ss:string) : Promise<
     // assess edit status isLock:false && tch of nc/subject or admin required.
     const gps = config.groups.filter(el=>el.nc===nc && el.sc===sc && el.ss===ss);
     let tch=gps.flatMap(el=>el.teacher.map(t=>t.tid));
-    if(user.isAdmin) tch.push(user.name);
-    if(!(user.isAdmin || user.isTeacher)) tch=[];
+    if(usr.isAdmin) tch.push(usr.name);
+    if(!(usr.isAdmin || usr.isTeacher)) tch=[];
     //console.log(tch);
    
     for(const g of table) {
-        g.assessments=res.map((el: { id: number; yr: number; nc: number; sc: string; ss: string; sl: string; n: string; dt: number; dl: string; isLock: boolean; })=>({id:el.id,yr:el.yr,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:util.getShortDate(el.dl),isEdit:tch.includes(user.name) && !el.isLock,gd:'',r:0}));
+        g.assessments=res.map((el: { id: number; yr: number; nc: number; sc: string; ss: string; sl: string; n: string; dt: number; dl: string; isLock: boolean; })=>({id:el.id,yr:el.yr,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl,n:el.n,dt:el.dt,ds:util.getShortDate(el.dl),isEdit:tch.includes(usr.name) && !el.isLock,gd:'',r:0}));
         // add pupil grades, intake data
         for(const p of g.pupil) {
             const f=config.pupils.find(el=>el.pid===p.pid);

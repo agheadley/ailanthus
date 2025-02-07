@@ -2,15 +2,15 @@ import type { PageLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
 
-import {user,config} from '$lib/state.svelte';
+import {usr,config} from '$lib/state.svelte';
 
 export const load: PageLoad = ({ params }) => {
     
       
-    if(!user.isAdmin || config.isReady===false) redirect(302, '/');
+    if(!usr.isAdmin || config.isReady===false) redirect(302, '/');
     else {
         console.log('/testbed');
-        let msg=`USER ${user.name!=='' ? user.name : ''} ${user.isTeacher ? 'TEACHER' : ''} ${user.isAdmin ? 'ADMIN' : ''} ${user.isPupil ? 'PUPIL' : ''}`;
+        let msg=`usr ${usr.name!=='' ? usr.name : ''} ${usr.isTeacher ? 'TEACHER' : ''} ${usr.isAdmin ? 'ADMIN' : ''} ${usr.isPupil ? 'PUPIL' : ''}`;
         
         console.log(msg);
         return {};

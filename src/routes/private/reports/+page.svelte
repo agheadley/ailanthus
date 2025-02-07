@@ -1,7 +1,7 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
     import * as icon from '$lib/icon';
-    import {cohorts,config,user,alert} from '$lib/state.svelte';
+    import {cohorts,config,usr,alert} from '$lib/state.svelte';
     
    
     

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { user,config } from '$lib/state.svelte';
+import { usr,config } from '$lib/state.svelte';
 import {alert} from '$lib/state.svelte';
 import * as util from '$lib/util';
 import * as assessment from './assessment.svelte';

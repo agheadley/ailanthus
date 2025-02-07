@@ -1,6 +1,6 @@
 <script lang="ts">
 import {goto} from '$app/navigation';
-import {config,user,cohorts} from '$lib/state.svelte';
+import {config,usr,cohorts} from '$lib/state.svelte';
 import {alert} from '$lib/state.svelte';
 import * as assessment from '../assessments/assessment.svelte';
 import * as util from '$lib/util';
@@ -139,7 +139,7 @@ const addPre=async()=>{
 
 
 $effect(() => {
-    if(config.isReady===false || user.isAdmin===false) goto(`/`);
+    if(config.isReady===false || usr.isAdmin===false) goto(`/`);
             
 });
 

@@ -2,7 +2,7 @@
     import { goto } from '$app/navigation';
     import * as icon from '$lib/icon';
     import * as chart from '$lib/chart';
-    import {cohorts,config,user,alert} from '$lib/state.svelte';
+    import {cohorts,config,usr,alert} from '$lib/state.svelte';
     import * as assessment from './assessment.svelte';
     import * as util from '$lib/util';
     import Modal from '$lib/_Modal.svelte';
@@ -225,7 +225,7 @@
 
             <tbody>
               
-                {#if user.isAdmin && data.table?.[0]}
+                {#if usr.isAdmin && data.table?.[0]}
                     <tr>
                         <th>ADMIN</th>
                         <th></th>

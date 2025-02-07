@@ -1,6 +1,6 @@
 <script lang="ts">
     import {goto} from '$app/navigation';
-    import {config,user,cohorts} from '$lib/state.svelte';
+    import {config,usr,cohorts} from '$lib/state.svelte';
     import {alert} from '$lib/state.svelte';
     import * as assessments from '../assessment.svelte';
     import * as util from '$lib/util';
@@ -107,7 +107,7 @@
     
     
     $effect(() => {
-        if(config.isReady===false || user.isTeacher===false) goto(`/`);
+        if(config.isReady===false || usr.isTeacher===false) goto(`/`);
         updateTable();
                 
     });
