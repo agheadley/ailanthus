@@ -195,8 +195,9 @@ const getCore=async()=>{
 
   </script>
   
-  <h1>Private page for user: {user?.email}</h1>
+  <p class="notice">Building core data. Please wait ...</p>
 
+  
 
   <style>
 

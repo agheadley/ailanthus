@@ -34,7 +34,7 @@ const switchMenu=()=>{
 
 const reload=()=>{
   isExam=false;
-  goto('/assessments'); 
+  goto('/private/assessments'); 
 };
 
 
@@ -47,19 +47,14 @@ const reload=()=>{
 
 </script>
 
-	<div class="app">
+	
 	<!-- simple css adjusted so .container used instead of body - body margin:0 added too to appp.css-->
 	<Alert></Alert>
 	<div class="container">
 	<header>
 		<p></p>
 		<p><a class="brand" href={'javascript:void(0)'} onclick={reload} >Ailanthus</a></p>
-		<p>
-        
-          {#if usr.name!==''}<span class="spacer">{usr.name}</span><button onclick={logout}>Sign out {@html icon.logout(16)}</button>{/if}
-        </p>
-      
-      <nav>
+		  <nav>
         {#if usr.isTeacher}
           {#if !isExam}
             <a href="/private/assessments">Assessments</a>
@@ -83,6 +78,8 @@ const reload=()=>{
         {#if usr.isPupil}
         <a href="/private/pupil">Pupil</a>
         {/if}
+        {#if usr.name!==''}<a href={'javascript:void(0)'} onclick={logout}>{usr.name} {@html icon.logout(16)}</a>{/if}
+        
         </nav>
 	  </header>
 	
@@ -95,7 +92,7 @@ const reload=()=>{
 		<p>Svelte5 - Typescript -  Supabase - <a href="https://simplecss.org/demo" target=”_blank”>SimpleCSS Guide</a> - Anthony Headley {#if usr.isAdmin} - <a href="/testbed">Testbed</a>{/if}</p>
 	  </footer>
 	</div>
-</div>
+
 
 	
 

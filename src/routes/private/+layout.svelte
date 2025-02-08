@@ -1,10 +1,6 @@
 <script lang="ts">
  
    
-	import Alert from '$lib/_Alert.svelte';
-	import {usr} from '$lib/state.svelte';
-	import * as icon from '$lib/icon';
-	import {goto} from '$app/navigation';
 
 
    
