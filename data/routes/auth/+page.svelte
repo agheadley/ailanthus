@@ -1,15 +1,10 @@
 <script lang="ts">
-import '../../app.css';
+
 </script>
 
 
-<div class="container">
-    <header>
-        <p></p>
-		<p><a class="brand" href={'/'}>Ailanthus</a></p>
-		
-    </header>
-    <p class="notice">Please sign in to use Ailanthus</p>
+
+<p class="notice">Please sign in to use Ailanthus</p>
 
 
 
@@ -21,14 +16,3 @@ import '../../app.css';
     <!--<button formaction="?/signup">Sign up</button>-->
 </form>
 
-</div>
-
-<style>
-    
-.brand  {
-	color:#0d47a1;
-	font-size:2rem;
-	font-weight:bold;
-	text-decoration: none;
-} 
-</style>

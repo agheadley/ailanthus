@@ -7,7 +7,7 @@ export const GET = async (event) => {
 		locals: { supabase }
 	} = event;
 	const code = url.searchParams.get('code') as string;
-	const next = url.searchParams.get('next') ?? '/';
+	const next = url.searchParams.get('next') ?? '/private';
 
   console.log('auth/callback next',next);
   

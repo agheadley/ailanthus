@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr'
 import { type Handle, redirect } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'
 
-import { SUPABASE_URL, SUPABASE_ANON_KEY } from '$env/static/private';
+import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 
 const supabase: Handle = async ({ event, resolve }) => {
   /**
@@ -10,7 +10,7 @@ const supabase: Handle = async ({ event, resolve }) => {
    *
    * The Supabase client gets the Auth token from the request cookies.
    */
-  event.locals.supabase = createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  event.locals.supabase = createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
     cookies: {
       getAll: () => event.cookies.getAll(),
       /**
@@ -71,23 +71,25 @@ const authGuard: Handle = async ({ event, resolve }) => {
   //console.log('hooks, authGuard');
   //console.log(event.route.id);
   
-  if (!event.locals.session && event.route.id && event.route.id.indexOf("(protected)") > 0   ) {
+  if (!event.locals.session && event.url.pathname.startsWith('/private')   ) {
     redirect(303, '/auth')
   }
   
 
-  console.log(event.route.id);
-  console.log(event.url.pathname);
 
-  //if (event.locals.session && event.url.pathname === '/auth') redirect(303, '(protected)')
-  
+  //console.log(event.url.pathname);
 
-  //if (event.locals.session && event.url.pathname === '/') redirect(303, '/(protected)')
-  
+  if (event.locals.session && event.url.pathname === '/auth') {
+    redirect(303, '/private')
+  }
+
+  if (event.locals.session && event.url.pathname === '/') {
+    redirect(303, '/private')
+  }
 
   if(!event.locals.session && event.url.pathname === '/') redirect(303, '/auth');
 
   return resolve(event)
 }
 
-export const handle: Handle = sequence(supabase,authGuard)
+export const handle: Handle = sequence(supabase, authGuard)
