@@ -66,6 +66,7 @@
 	</main>
 	<footer>
 		<p>
+			Anthony Headley / 2025
 		</p>
 	</footer>
 </div>
