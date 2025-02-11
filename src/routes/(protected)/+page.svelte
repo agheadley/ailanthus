@@ -104,18 +104,31 @@ const getConfig=async()=>{
 	cohorts.mySets.list=g[0] ? g.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
 
 	//find exams
+	/*
 	response = await fetch('/api/examCohort', {
 		method: 'POST',
 		body: JSON.stringify({}),
 		headers: {'content-type': 'application/json'}
 	});
+	*/
+	response = await fetch('/edge/read', {
+		method: 'POST',
+		body: JSON.stringify({table:"exam_cohorts_view",select:"*"}),
+		headers: {'content-type': 'application/json'}
+	});
 	cohorts.exam.list= await response.json();
 
 
-
+	/*
 	response = await fetch('/api/assessmentCohort', {
 		method: 'POST',
 		body: JSON.stringify({}),
+		headers: {'content-type': 'application/json'}
+	});
+	*/
+	response = await fetch('/edge/read', {
+		method: 'POST',
+		body: JSON.stringify({table:"assessments_cohorts_view",select:"*"}),
 		headers: {'content-type': 'application/json'}
 	});
 	res= await response.json();

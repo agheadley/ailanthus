@@ -20,6 +20,20 @@ vercel env pull .env.development.local
 ```
 
 
+# supabase
+
+- distinct , via sql editor
+```
+CREATE VIEW assessments_cohorts_view AS
+SELECT DISTINCT yr,nc, sc,sl,ss FROM assessment_table
+ORDER BY yr DESC,nc DESC,sl ASC
+```
+- follow security advice
+
+```
+DROP VIEW IF EXISTS assessments_cohorts_view
+```
+
 
 # To Do
 
