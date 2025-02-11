@@ -1,21 +1,52 @@
 <script lang="ts">
 import {config,cohorts,usr} from '$lib/state.svelte';
 import * as util from '$lib/util';
-	import { isRedirect } from '@sveltejs/kit';
+import {goto} from '$app/navigation';
 
 let { data } = $props();
 let { user } = $derived(data);
 
 const getUser=async()=>{
+
 	console.log('looking for usr...');
 	//console.log(user);
 
+	if(!Number.isNaN(Number(usr.name))) {
+		let response = await fetch('/edge/read', {
+			method: 'POST',
+			body: JSON.stringify({table:"pupil_table",select:"*",filter:`pid=eq.${Number(usr.name)}`}),
+			headers: {'content-type': 'application/json'}
+		});
+		let res=await response.json();
+		console.log(res);
+		if(res?.[0]) {
+			usr.isAdmin=false;
+			usr.isTeacher=false;
+			usr.isPupil=true;
+		}
+	}
+
 	let response = await fetch('/edge/read', {
+		method: 'POST',
+		body: JSON.stringify({table:"teacher_table",select:"*",filter:`tid=eq.${usr.name}`}),
+		headers: {'content-type': 'application/json'}
+	});
+	let res=await response.json();
+	if(res?.[0]) {
+		usr.isAdmin=false;
+		usr.isTeacher=true;
+		usr.isPupil=false;
+
+	}
+	
+	
+
+	response = await fetch('/edge/read', {
 		method: 'POST',
 		body: JSON.stringify({table:"admin_table",select:"*",filter:`email=eq.${user.email}`}),
 		headers: {'content-type': 'application/json'}
 	});
-	let res=await response.json();
+	res=await response.json();
 	if(res?.[0]) {
 		usr.isAdmin=true;
 		usr.isTeacher=true;
@@ -65,8 +96,10 @@ const getConfig=async()=>{
 	usr.sal = f ? f.sal : '';
 
 	// find sets
+
 	let gps = config.groups.flatMap(el=>el.teacher.map(t=>({tid:t.tid,sal:t.sal,g:el.g,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.ss})));
 	let g = gps.filter(el=>el.tid===usr.name);
+	console.log(g);
 	cohorts.mySets.index=0;
 	cohorts.mySets.list=g[0] ? g.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
 
@@ -95,27 +128,7 @@ const getConfig=async()=>{
 	
 
 
-    usr.isAdmin=false;
-    usr.isTeacher=false;
-    usr.isPupil=false;
-    usr.sal='';
-    usr.sn='';
-    usr.pn='';
-    usr.name='';
-
-    console.log('Identifying usr...');
-
-    if(user?.email) {
-      
-      usr.name=user.email.indexOf('@') > -1 ? String(user.email.split('@')[0].toUpperCase()) : '';
-
-      // testing
-      usr.name='DB';
-
-
-
-
-    }
+  
 
 
 
@@ -138,9 +151,19 @@ $effect(()=>{
 	if(user?.email) {
         
         usr.name=user.email.indexOf('@') > -1 ? String(user.email.split('@')[0].toUpperCase()) : '';
+		
+		//testing
+		usr.name='DB';
 
 		getConfig().then(()=>{
-			getUser();
+			getUser().then(()=>{
+				if(config.isReady && usr.isTeacher) {
+					goto(`/assessments`);
+				} else {
+					goto(`/pupil`);
+				}
+			});
+
 		});
 	} 
 });
@@ -153,11 +176,17 @@ $effect(()=>{
 </svelte:head>
 
 <section>
-
+	{#if !usr.name && !config.isReady}
 	<p class="notice">Building application data. Please wait ...</p>
+	{:else if !usr.name && config.isReady}
+	<p class="notice">User not found in the database ...</p>
+	{:else}
+	<p class="notice">Starting application...</p>
+	{/if}
+
 </section>
 
-<p>{user?.email}</p>
+
 
 <p></p>
 <style>

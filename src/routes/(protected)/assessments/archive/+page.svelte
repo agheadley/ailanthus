@@ -59,7 +59,7 @@
         const select=`select=id,nc,yr,n,dl,dt,sc,ss,sl,log,gd,t,isLock,isGrade,isCore,result_table(id,log,aid,g,t,gd,pc,fb,pid,sn,pn)`;
         const filter=`id=eq.${data.table.assessments[index].id}`;
 
-        let response = await fetch('/private/edge/read', {
+        let response = await fetch('/edge/read', {
             method: 'POST',
             body: JSON.stringify({table:'assessment_table',select:select,filter:filter}),
             headers: {'content-type': 'application/json'}

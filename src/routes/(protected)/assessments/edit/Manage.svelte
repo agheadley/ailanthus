@@ -60,8 +60,9 @@ $effect(()=>{
 </script>
 
 
-    <div class="row top">
-        <div class="col">
+
+        
+
             <table class="small">
                 <tbody>
                     <tr><th></th><th>Section</th><th>Total</th><th>Weighting</th></tr>
@@ -78,8 +79,8 @@ $effect(()=>{
                 </tbody>
             </table>
             <p>{#if cohorts.edit.isEdit}<a href={'javascript:void(0)'} data-title="ADD NEW SECTION" onclick={addSection}>{@html icon.plusCircle(24)}</a>{/if}</p>
-        </div>
-        <div class="col">
+     
+        
             <table class="small">
                 <tbody>
                     <tr><th>Grade</th><th>Percentage</th></tr>
@@ -91,8 +92,7 @@ $effect(()=>{
                     {/each}
                 </tbody>
             </table>
-        </div>
-    </div>
+        
 
 
 <style>

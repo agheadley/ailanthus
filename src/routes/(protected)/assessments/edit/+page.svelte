@@ -76,7 +76,7 @@ let updateAssessment=async():Promise<void>=>{
         data.assessment.gd=data.assessment.gd.sort((a,b)=>b.pre-a.pre);
 
         
-        let response = await fetch('/private/api/upsert', {
+        let response = await fetch('/api/upsert', {
             method: 'POST',
             body: JSON.stringify({table:"assessment_table",data:{id:data.assessment.id,n:data.assessment.n,gd:data.assessment.gd,t:data.assessment.t}}),
             headers: {'content-type': 'application/json'}
@@ -88,7 +88,7 @@ let updateAssessment=async():Promise<void>=>{
             msg=`error updating assessment`;
             alert.type='error';
         }
-        response = await fetch('/private/api/upsert', {
+        response = await fetch('/api/upsert', {
             method: 'POST',
             body: JSON.stringify({table:"result_table",data:dArr}),
             headers: {'content-type': 'application/json'}
@@ -109,7 +109,7 @@ let updateAssessment=async():Promise<void>=>{
 
 let lockAssessment=async():Promise<void>=>{
 
-    const response = await fetch('/private/api/update', {
+    const response = await fetch('/api/update', {
         method: 'POST',
         body: JSON.stringify({table:"assessment_table",id:data.assessment.id,update:{isLock:true}}),
         headers: {'content-type': 'application/json'}
@@ -148,7 +148,7 @@ const blurScore=async(rowIndex:number,colIndex:number):Promise<void>=>{
         const select=`select=id,t`;
         const filter=`id=eq.${data.results[rowIndex].id}`;
         
-        let response = await fetch('/private/edge/read', {
+        let response = await fetch('/edge/read', {
             method: 'POST',
             body: JSON.stringify({table:'result_table',filter:filter,select:select}),
             headers: {'content-type': 'application/json'}
@@ -327,27 +327,27 @@ let handleKeydown=(event:any)=>{
 {#if data.isManage}
 <Modal bind:open={data.isManage} title={'Update Totals,Boundaries & Name'}>
     {#snippet children()}
-    <div class="row top">
-        <div class="col">
+
+    <p>
             <label for="name">Assessment Name</label>
             <input id="name" type=text bind:value={data.manage.n} oninput={validateName}/>
-        </div>
-        <div class="col">
-        </div>
-        <div class="col">
+    </p>
+       
+      
             <button disabled={!cohorts.edit.isEdit || !data.manage.isValid} onclick={updateAssessment}>Save & Recalculate</button>
-        </div>
-    </div>
+      
 
-    {#if data.manage.isValid}
-        <p class="notice">'Save & Recalculate' to update.</p>
-    {:else}
+
+  
+    {#if !data.manage.isValid}
         <div class="notice error">Boundary % must reduce for successive grades.</div>
     
     {/if}
        
     
     <Manage bind:data={data}></Manage>
+    <button disabled={!cohorts.edit.isEdit || !data.manage.isValid} onclick={updateAssessment}>Save & Recalculate</button>
+      
     
     {/snippet}
 </Modal>

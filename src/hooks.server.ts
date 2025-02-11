@@ -71,12 +71,14 @@ const authGuard: Handle = async ({ event, resolve }) => {
   //console.log('hooks, authGuard');
   //console.log(event.route.id);
   
+  //console.log(session);
+
   if (!event.locals.session && event.route.id && event.route.id.indexOf("(protected)") > 0   ) {
     redirect(303, '/auth')
   }
   
 
-  console.log(event.route.id);
+  //sconsole.log(event.route.id);
   console.log(event.url.pathname);
 
   //if (event.locals.session && event.url.pathname === '/auth') redirect(303, '(protected)')
