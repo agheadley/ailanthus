@@ -138,6 +138,8 @@ const addPre=async()=>{
 };
 
 
+
+
 $effect(() => {
     if(config.isReady===false || usr.isAdmin===false) goto(`/`);
             
@@ -155,7 +157,7 @@ $effect(() => {
 
 
 <article>
-    <notice>Create Core Assessment for Yeargroup</notice>
+    <p class="notice">Create Core Assessment for Yeargroup</p>
     <p>
         <select bind:value={status.ncIndex}>
             {#each cohorts.nc.list as row,index}
@@ -182,6 +184,7 @@ $effect(() => {
         
     </p>
 </article>
+
 
 
 <article>
