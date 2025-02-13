@@ -4,7 +4,7 @@ import {config,usr,cohorts} from '$lib/state.svelte';
 import {alert} from '$lib/state.svelte';
 import * as assessment from '../assessments/assessment.svelte';
 import * as util from '$lib/util';
-import * as test from '../../../../data/intake_test';
+
 import Reports from './Reports.svelte';
 import Assessments from './Assessments.svelte';
 import Intake from './Intake.svelte';
