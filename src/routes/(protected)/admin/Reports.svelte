@@ -5,11 +5,11 @@ import * as icon from '$lib/icon'
 
 
 interface Cycle {
-    id:number,
-    created_at:string,
-    yr:number,
+    id?:number,
+    created_at?:string,
+    yr:number
     period:{term:string,session:string,ay:string},
-    content:{fm:number,detail:{type:string,isCreate:boolean}[]}[],
+    content:{nc:number,detail:{type:string,isCreate:boolean}[]}[],
     limit:{A:{min:number,max:number},P:{min:number,max:number},E:{min:number,max:number}},
     isActive:boolean,
     isPublish:boolean
@@ -25,6 +25,7 @@ interface Status  {
     session:{list:string[],index:number},
     types:string[],
     isContent:boolean,
+    isAdd:boolean,
     cycleIndex:number
 }
 
@@ -37,7 +38,16 @@ let status :Status= $state({
     term:{list:['Winter','Spring','Summer'],index:0},
     session:{list:['1st','2nd'],index:0},
     types:['hod','teacher','enrichment','tutor','hm','sa','slt'],
+    effort:{
+        sections:[
+          {name:'Lessons',types:['Readiness','Engagement']},
+          {name:'Outside',types:['Prep']}
+        ],
+        default:3,
+        values:[{txt:'4',value:4},{txt:'3',value:3},{txt:'2',value:2},{txt:'1',value:1},{txt:'N/A',value:null}]
+    }, 
     isContent:false,
+    isAdd:false,
     cycleIndex:0
 
 });
@@ -50,7 +60,41 @@ term:['Winter','Spring','Summer'],
 */
 
 const addCycle=async()=>{
+    status.yr=new Date().getFullYear();
+    const m=new Date().getMonth()+1;
+    status.ay = m>config.year.rollover.month ? `${String(status.yr)}/${String(status.yr+1)}` : `${String(status.yr-1)}/${String(status.yr)}`;
+   
+    
+    let content = config.year.yr.map(el=>({nc:el.nc,detail:status.types.map(e=>({type:e,isCreate:false}))}));
+    const c= {
+        yr:status.yr,
+        period:{term:status.term.list[status.term.index],session:status.session.list[status.session.index],ay:status.ay},
+        content:content,
+        limit:{A:{min:status.limit.A.min,max:status.limit.A.max},P:{min:status.limit.P.min,max:status.limit.P.max},E:{min:status.limit.E.min,max:status.limit.E.max}},
+        isActive:false,
+        isPublish:false
+    };
 
+    let response = await fetch('/api/upsert', {
+            method: 'POST',
+            body: JSON.stringify({table:"cycle_table",data:c}),
+            headers: {'content-type': 'application/json'}
+    });
+    let res= await response.json();
+
+    await readCycle();
+
+    status.cycleIndex= status.cycle.length && status.cycle.length>0 ? status.cycle.length-1 : 0;
+
+
+
+    console.log(status.cycle);
+   
+   
+   
+    status.isAdd=true;
+    status.isContent=true;
+  
 };
 
 const editContent=(index:number)=>{
@@ -98,12 +142,81 @@ $effect(() => {
     
 <Modal  bind:open={status.isContent} title={'Cycle Content'}>
     {#snippet children()}
-        <p>xyz</p>
+        <p>
+            <b>{status.yr}</b>
+            {#if status.isAdd}
+            <select bind:value={status.term.index}>
+                {#each status.term.list as row,index}
+                <option value={index}>{row}</option>
+                {/each}
+            </select>
+            <select bind:value={status.session.index}>
+                {#each status.session.list as row,index}
+                <option value={index}>{row}</option>
+                {/each}
+            </select>
+            {:else}
+                <b>{status.term.list[status.term.index]} {status.session.list[status.session.index]}</b>
+            {/if}
+        </p>
+
+        <table class="small">
+            <thead>
+                <tr>
+                    <th>Report Type</th>
+                    <th>Min Chars</th>
+                    <th>Max Chars</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A</td>
+                    <td><input type=number step="1" onchange={()=>status.cycle[status.cycleIndex].limit.A.min  = status.cycle[status.cycleIndex].limit.A.min > 0 ? status.cycle[status.cycleIndex].limit.A.min  : 0} bind:value={status.cycle[status.cycleIndex].limit.A.min }/>
+                    <td><input type=number step="1" onchange={()=>status.cycle[status.cycleIndex].limit.A.max  = status.cycle[status.cycleIndex].limit.A.max > 0 ? status.cycle[status.cycleIndex].limit.A.max : 0} bind:value={status.cycle[status.cycleIndex].limit.A.max }/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>E</td>
+                    <td><input type=number step="1" onchange={()=>status.cycle[status.cycleIndex].limit.E.min  = status.cycle[status.cycleIndex].limit.E.min > 0 ? status.cycle[status.cycleIndex].limit.E.min  : 0} bind:value={status.cycle[status.cycleIndex].limit.E.min }/>
+                    <td><input type=number step="1" onchange={()=>status.cycle[status.cycleIndex].limit.E.max  = status.cycle[status.cycleIndex].limit.E.max > 0 ? status.cycle[status.cycleIndex].limit.E.max  : 0} bind:value={status.cycle[status.cycleIndex].limit.E.max }/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>P</td>
+                    <td><input type=number step="1" onchange={()=>status.cycle[status.cycleIndex].limit.P.min  = status.cycle[status.cycleIndex].limit.P.min > 0 ? status.cycle[status.cycleIndex].limit.P.min  : 0} bind:value={status.cycle[status.cycleIndex].limit.P.min }/>
+                    <td><input type=number step="1" onchange={()=>status.cycle[status.cycleIndex].limit.P.max  = status.cycle[status.cycleIndex].limit.P.max > 0 ? status.cycle[status.cycleIndex].limit.P.max : 0} bind:value={status.cycle[status.cycleIndex].limit.P.max }/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>nc</th>
+                    {#each status.types as col,colIndex}
+                        <th>{col}</th>
+                    {/each}
+                </tr>               
+            </thead>
+            <tbody>
+                {#each status.cycle[status.cycleIndex].content as row,rowIndex}
+                <tr>
+                    <td>{row.nc}</td>
+                    {#each row.detail as col,colIndex}
+                    <td><input type=checkbox bind:checked={col.isCreate}></td>
+                    {/each}
+                </tr>
+            {/each}
+            </tbody>
+        </table>
+
+        <p></p>
     {/snippet}
 </Modal>
    
 {#if status.view.list[status.view.index]==='Cycle'}
-    <figure>
+   
         <table class="small">
             <thead>
                 <tr>
@@ -125,7 +238,6 @@ $effect(() => {
                     </th>
                     <td>{row.id}</td>
                     <td>{row.yr}</td>
-                    <td>{row.yr}</td>
                     <td>{row.period.term}</td>
                     <td>{row.period.session}</td>
                     <td>{row.isActive}</td>
@@ -136,7 +248,7 @@ $effect(() => {
         </tbody>
         </table>
         <p><a href={'javascript:void(0)'} data-title="ADD CYCLE" onclick={addCycle}>{@html icon.plusCircle(24)}</a></p>
-    </figure>
+
     
     
 {/if} <!-- / Edit -->

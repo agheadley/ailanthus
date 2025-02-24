@@ -16,8 +16,10 @@ export const config = $state({
       term:['Winter','Spring','Summer'],
       session:['1st','2nd'],
       effort:{
-        lesson:['Readiness','engagement'],
-        homework:['Prep'],
+        sections:[
+          {name:'Lessons',types:['Readiness','Engagement']},
+          {name:'Outside',types:['Prep']}
+        ],
         default:3,
         values:[{txt:'4',value:4},{txt:'3',value:3},{txt:'2',value:2},{txt:'1',value:1},{txt:'N/A',value:null}]
       },
