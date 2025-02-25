@@ -105,11 +105,39 @@ const editContent=(index:number)=>{
 const readCycle=async()=>{
     let response = await fetch('/edge/read', {
             method: 'POST',
-            body: JSON.stringify({table:'cycle_table',select:'*'}),
+            body: JSON.stringify({table:'cycle_table',select:'*',order:'order=id.asc'}),
             headers: {'content-type': 'application/json'}
     });   
     status.cycle= await response.json();
    
+};
+
+const setActive=async(index:number)=>{
+
+};
+
+const setPublish=async(index:number)=>{
+
+};
+
+const save=async()=>{
+    let response = await fetch('/api/upsert', {
+            method: 'POST',
+            body: JSON.stringify({table:"cycle_table",data:status.cycle[status.cycleIndex]}),
+            headers: {'content-type': 'application/json'}
+    });
+    let res= await response.json();
+    console.log(res);
+    if(res?.[0]) {
+        status.isContent=false;
+        alert.msg='Cycle saved';
+    } else {
+        alert.type='error';
+        alert.msg='Error saving cycle'
+    }
+
+    await readCycle();
+
 };
 
 const setup = async()=>{
@@ -211,7 +239,7 @@ $effect(() => {
             </tbody>
         </table>
 
-        <p></p>
+        <p><button onclick={save}>Save</button></p>
     {/snippet}
 </Modal>
    
@@ -240,8 +268,8 @@ $effect(() => {
                     <td>{row.yr}</td>
                     <td>{row.period.term}</td>
                     <td>{row.period.session}</td>
-                    <td>{row.isActive}</td>
-                    <td>{row.isPublish}</td>
+                    <td><input type=checkbox bind:checked={row.isActive} onchange={()=>setActive(rowIndex)}></td>
+                    <td><input type=checkbox bind:checked={row.isPublish} onchange={()=>setPublish(rowIndex)}></td>
 
                 </tr>
             {/each}
