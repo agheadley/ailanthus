@@ -31,8 +31,8 @@ import '../../app.css';
   </p>
   <p>
     <button formaction="?/signin">Sign In</button>
-    <button formaction="?/reset">Reset Password</button>
-    <button formaction="?/link">Send Link (Use email only)</button>
+    <button formaction="?/reset">Forgotten Password?</button>
+    <button formaction="?/link">Email Link (No password)</button>
   </p>
   
 </form>
