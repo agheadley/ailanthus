@@ -5,6 +5,58 @@ import type { Actions } from './$types'
 import {CALLBACK_URL} from '$env/static/private';
 
 export const actions: Actions = {
+  reset: async ({ request, locals: { supabase } }) => {
+    const formData = await request.formData()
+    const email = formData.get('email') as string
+  
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'http://localhost:5173/auth/reset',
+    })
+    
+    if (error) {
+      console.error(error)
+      redirect(303, '/auth/error')
+    } else {
+      redirect(303, '/auth/link')
+    }
+  },
+  link: async ({ request, locals: { supabase } }) => {
+    const formData = await request.formData()
+    const email = formData.get('email') as string
+  
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email: email,
+      options: {
+        // set this to false if you do not want the user to be automatically signed up
+        shouldCreateUser: false,
+        emailRedirectTo: CALLBACK_URL,
+      },
+    })
+
+    if (error) {
+      console.error(error)
+      redirect(303, '/auth/error')
+    } else {
+      redirect(303, '/auth/link')
+    }
+  },
+  signin: async ({ request, locals: { supabase } }) => {
+    const formData = await request.formData()
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
+    
+    if (error) {
+      console.error(error)
+      redirect(303, '/auth/error')
+    } else {
+      redirect(303, '/')
+    }
+  },
   signup: async ({ request, locals: { supabase } }) => {
     const formData = await request.formData()
     const email = formData.get('email') as string
