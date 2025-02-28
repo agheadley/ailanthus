@@ -13,7 +13,7 @@ import '../../app.css';
 
 
 
-<form method="POST" action="?/login">
+<form method="POST" action="?/login&redirect=/about">
   
   <p>
     <button >
@@ -30,7 +30,7 @@ import '../../app.css';
     <input type="password" name="password" placeholder="password"/>
   </p>
   <p>
-    <button formaction="?/signin">Sign In</button>
+    <button formaction={`?/signin&path=${encodeURIComponent('/about')}`}>Sign In</button>
     <button formaction="?/reset">Forgotten Password?</button>
     <button formaction="?/link">Email Link (No password)</button>
   </p>
@@ -49,3 +49,4 @@ import '../../app.css';
 } 
 </style>
 
+<!-- &path=${encodeURIComponent('/about')} -->

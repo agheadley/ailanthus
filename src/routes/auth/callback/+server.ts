@@ -9,18 +9,21 @@ export const GET = async (event) => {
     const route = url.searchParams.get('route') as string ?? '';
     const next = url.searchParams.get('next') ?? '/';
     const token_hash = url.searchParams.get('token_hash') as string;
-    const type = url.searchParams.get('route') as EmailOtpType | null
+    const type = url.searchParams.get('route') as EmailOtpType | null;
+    const path=url.searchParams.get('path') as string;
 
     console.log('CALLBACK....');
     //console.log(event);
     console.log('auth/callback code', code);
     console.log('auth/callback next', next);
+    console.log('auth/callback redirect',path);
     console.log('auth/callback route', route);
 
     if (code) {
         const { error } = await supabase.auth.exchangeCodeForSession(code);
         if (!error) {
-            throw redirect(303, `/${next.slice(1)}`);
+            //throw redirect(303, `/${next.slice(1)}`);
+            throw redirect(303,path);
         }
     }
 

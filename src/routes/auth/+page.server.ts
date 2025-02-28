@@ -41,6 +41,10 @@ export const actions: Actions = {
     }
   },
   signin: async ({ request, locals: { supabase } }) => {
+
+    const urlParams = new URLSearchParams(request.url);
+    const path = urlParams.get('path') as string;
+    console.log('path',path);
     const formData = await request.formData()
     const email = formData.get('email') as string
     const password = formData.get('password') as string
@@ -54,7 +58,8 @@ export const actions: Actions = {
       console.error(error)
       redirect(303, '/auth/error')
     } else {
-      redirect(303, '/')
+      redirect(303, `${path!==null ? path : '/'}`)
+      //redirect(303, '/')
     }
   },
   signup: async ({ request, locals: { supabase } }) => {
@@ -68,13 +73,15 @@ export const actions: Actions = {
       redirect(303, '/auth/error')
     } else {
       redirect(303, '/')
+      
     }
   },
   login: async ({ request, locals: { supabase } }) => {
+    //let redirect=request.url.searchParams.get('redirect')
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'azure',
       options: {
-        redirectTo: CALLBACK_URL
+        redirectTo: `${CALLBACK_URL}?path=${encodeURIComponent('/about')}`
       },
     })
     
