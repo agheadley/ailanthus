@@ -24,7 +24,7 @@ export const config = $state({
         values:[{txt:'4',value:4},{txt:'3',value:3},{txt:'2',value:2},{txt:'1',value:1},{txt:'N/A',value:null}]
       },
         limit:{A:{min:180,max:600},P:{min:300,max:800},E:{min:300,max:800}},
-        types:['hod','teacher','enrichment','tutor','hm','sa','slt']
+        types:['hod','teacher','effort','enrichment','tutor','hm','sa','slt']
       
     },
     year:{

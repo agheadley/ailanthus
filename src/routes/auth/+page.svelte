@@ -30,7 +30,8 @@ import '../../app.css';
     <input type="password" name="password" placeholder="password"/>
   </p>
   <p>
-    <button formaction={`?/signin&path=${encodeURIComponent('/about')}`}>Sign In</button>
+    <button formaction={`?/signin`}>Sign In</button>
+    <!--<button formaction={`?/signin&path=${encodeURIComponent('/about')}`}>Sign In</button>-->
     <button formaction="?/reset">Forgotten Password?</button>
     <button formaction="?/link">Email Link (No password)</button>
   </p>

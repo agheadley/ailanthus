@@ -37,7 +37,7 @@ let status :Status= $state({
     limit:{A:{min:180,max:600},P:{min:300,max:800},E:{min:300,max:800}},
     term:{list:['Winter','Spring','Summer'],index:0},
     session:{list:['1st','2nd'],index:0},
-    types:['hod','teacher','enrichment','tutor','hm','sa','slt'],
+    types:['hod','teacher','effort','enrichment','tutor','hm','sa','slt'],
     effort:{
         sections:[
           {name:'Lessons',types:['Readiness','Engagement']},
@@ -113,11 +113,42 @@ const readCycle=async()=>{
 };
 
 const setActive=async(index:number)=>{
-
+    let x=status.cycle[index].isActive;
+    for(let item of status.cycle) item.isActive=false;
+    status.cycle[index].isActive=x;
+    let response = await fetch('/api/upsert', {
+            method: 'POST',
+            body: JSON.stringify({table:"cycle_table",data:status.cycle[status.cycleIndex]}),
+            headers: {'content-type': 'application/json'}
+    });
+    let res= await response.json();
+    console.log(res);
+    if(res?.[0]) {
+        status.isContent=false;
+        alert.msg='Cycle updated';
+    } else {
+        alert.type='error';
+        alert.msg='Error saving cycle'
+    }
 };
 
 const setPublish=async(index:number)=>{
-
+  
+  
+    let response = await fetch('/api/upsert', {
+            method: 'POST',
+            body: JSON.stringify({table:"cycle_table",data:status.cycle[status.cycleIndex]}),
+            headers: {'content-type': 'application/json'}
+    });
+    let res= await response.json();
+    console.log(res);
+    if(res?.[0]) {
+        status.isContent=false;
+        alert.msg='Cycle updated';
+    } else {
+        alert.type='error';
+        alert.msg='Error saving cycle'
+    }
 };
 
 const save=async()=>{
