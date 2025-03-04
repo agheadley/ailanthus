@@ -12,6 +12,7 @@ export const actions: Actions = {
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: 'http://localhost:5173/auth/reset',
     })
+    console.log(data);
     
     if (error) {
       console.error(error)
@@ -32,6 +33,7 @@ export const actions: Actions = {
         emailRedirectTo: CALLBACK_URL,
       },
     })
+    console.log(data);
 
     if (error) {
       console.error(error)
@@ -53,6 +55,7 @@ export const actions: Actions = {
       email: email,
       password: password,
     })
+    console.log(data);
     
     if (error) {
       console.error(error)
@@ -81,7 +84,8 @@ export const actions: Actions = {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'azure',
       options: {
-        redirectTo: `${CALLBACK_URL}?path=${encodeURIComponent('/about')}`
+        //redirectTo: `${CALLBACK_URL}?path=${encodeURIComponent('/about')}`
+        redirectTo: `${CALLBACK_URL}`
       },
     })
     
