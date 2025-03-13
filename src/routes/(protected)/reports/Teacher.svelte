@@ -5,7 +5,7 @@ let { status = $bindable() } = $props();
 import { onMount } from 'svelte';
 
 
-const updateTeacher=()=>{
+const updateTeacher=async()=>{
     
     let gps = config.groups.flatMap(el=>el.teacher.map(t=>({tid:t.tid,sal:t.sal,g:el.g,nc:el.nc,sc:el.sc,ss:el.ss,sl:el.sl})));
 	let g = gps.filter(el=>el.tid===status.teachers.list[status.teachers.index].tid);
@@ -13,7 +13,7 @@ const updateTeacher=()=>{
 	status.mySets.index=0;
 	status.mySets.list=g[0] ? g.map(el=>({nc:el.nc,g:el.g,sc:el.sc,sl:el.sl,ss:el.ss})).sort((a,b)=>b.nc-a.nc || a.sl.localeCompare(b.sl) || a.sl.localeCompare(b.sc)) : [];
 
-    
+    await updateReports();
 };
 
 const updateReports=async()=>{
@@ -23,8 +23,8 @@ const updateReports=async()=>{
 
 const setup=async()=>{
     console.log(status.teachers);
-    updateTeacher();
-    await updateReports();
+    await updateTeacher();
+    
     
 
 };
