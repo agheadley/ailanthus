@@ -5,10 +5,10 @@ import { redirect } from '@sveltejs/kit';
 import {usr,config} from '$lib/state.svelte';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const load: PageLoad = ({ params }) => {
+export const load = ({ params }) => {
     
       
-    if(!usr.isTeacher || config.isReady===false) redirect(302, '/private');
+    if(!usr.isTeacher || config.isReady===false) redirect(302, '/');
     else {
         console.log('/overview');
         const msg=`usr ${usr.name!=='' ? usr.name : ''} ${usr.isTeacher ? 'TEACHER' : ''} ${usr.isAdmin ? 'ADMIN' : ''} ${usr.isPupil ? 'PUPIL' : ''}`;
