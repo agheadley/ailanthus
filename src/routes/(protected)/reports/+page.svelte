@@ -9,8 +9,8 @@
         view:{index:0,list:['Teacher','HoD','Enrichment','Tutor','HM','View/Print']},
         isOpen:false,
         cycle:{},
-        teachers:[{id:0,mid:'',pn:'',sn:'',sal:'',tid:''}],
-        tIndex:0
+        teachers:{list:[{id:0,mid:'',pn:'',sn:'',sal:'',tid:''}],index:0},
+        mySets:{list:[{nc:0,g:'',sc:'',sl:'',ss:''}],index:0}
 
     });
     
@@ -30,8 +30,12 @@
         if(res?.[0]) {
             status.cycle=res[0];
             status.isOpen=true;
-            status.teachers=config.teachers.sort((a,b)=>a.sn.localeCompare(b.sn) || a.pn.localeCompare(b.pn) );
+            status.teachers.list=config.teachers.sort((a,b)=>a.sn.localeCompare(b.sn) || a.pn.localeCompare(b.pn) );
+            const f=status.teachers.list.findIndex(el=>el.tid===usr.name);
+            status.teachers.index=f?f : 0;
         }
+
+        
         //console.log(res);
 	});
         
@@ -51,11 +55,10 @@
 </span>
 </p>
 
-{#if status.view.list[status.view.index]==='Teacher'}<Teacher status={status}></Teacher>{/if}
+{#if status.view.list[status.view.index]==='Teacher'}<Teacher bind:status={status}></Teacher>{/if}
 
     <style>
     
     
     
     </style>
-    
